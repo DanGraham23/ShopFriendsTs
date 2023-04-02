@@ -1,0 +1,98 @@
+import shoe1 from "../assets/images/shoe1.jpg";
+import shoe2 from "../assets/images/shoe2.jpg";
+import shoe3 from "../assets/images/shoe3.jpg";
+
+interface Item  {
+    itemId: number,
+    img: string,
+    name: string,
+    time: string,
+    description: string,
+    price: number,
+    tag: string,
+    sellerId: number,
+}
+
+export const ItemData: Item[] = [
+    {
+        itemId: 1,
+        img: shoe1,
+        name: 'Shoe 1',
+        time: '12:00',
+        description: 'This is the first pair of shoes',
+        price: 5,
+        tag: 'shoe',
+        sellerId: 12345678,
+    },
+    {
+        itemId: 2,
+        img: shoe2,
+        name: 'Shoe 2',
+        time: '12:00',
+        description: 'This is the second pair of shoes',
+        price: 24,
+        tag: 'shoe',
+        sellerId: 12345678,
+    },
+    {
+        itemId: 3,
+        img: shoe3,
+        name: 'Shoe 3',
+        time: '12:00',
+        description: 'This is the third pair of shoes',
+        price: 13,
+        tag: 'shoe',
+        sellerId: 12345678,
+    },
+    {
+        itemId: 4,
+        img: shoe1,
+        name: 'Shoe 1',
+        time: '12:00',
+        description: 'This is the first pair of shoes',
+        price: 5,
+        tag: 'shoe',
+        sellerId: 12345678,
+    },
+    {
+        itemId: 5,
+        img: shoe2,
+        name: 'Shoe 2',
+        time: '12:00',
+        description: 'This is the second pair of shoes',
+        price: 24,
+        tag: 'shoe',
+        sellerId: 12345678,
+    },
+    {
+        itemId: 6,
+        img: shoe3,
+        name: 'Shoe 3',
+        time: '12:00',
+        description: 'This is the third pair of shoes',
+        price: 13,
+        tag: 'shoe',
+        sellerId: 12345678,
+    },
+    {
+        itemId: 7,
+        img: shoe2,
+        name: 'Shoe 2',
+        time: '12:00',
+        description: 'This is the second pair of shoes',
+        price: 24,
+        tag: 'shoe',
+        sellerId: 12345678,
+    },
+    {
+        itemId: 8,
+        img: shoe3,
+        name: 'Shoe 3',
+        time: '12:00',
+        description: 'This is the third pair of shoes',
+        price: 13,
+        tag: 'shoe',
+        sellerId: 12345678,
+    },
+    
+];
