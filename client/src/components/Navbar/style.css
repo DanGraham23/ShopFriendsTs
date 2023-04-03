@@ -1,0 +1,42 @@
+.nav-container{
+    display: flex;
+    background-color: #384094;
+    align-items: center;
+}
+
+.logo{
+    width: 200px;
+    height: 125px;
+    cursor: pointer;
+}
+
+.nav-items{
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin-left: auto;
+    margin-right: 100px;
+    color: #e5d9f0;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-item{
+    cursor: pointer;
+}
+
+.checkout-btn{
+    height: 40px;
+    color: #384094;
+    background-color: #e5d9f0;
+    border: 2px solid #e5d9f0;
+    outline: none;
+  }
+  
+.checkout-btn:hover{
+    color: #e5d9f0;
+    background-color: #384094;
+    border: 2px solid #e5d9f0;
+    cursor: pointer;
+}

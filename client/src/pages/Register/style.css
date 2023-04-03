@@ -1,0 +1,55 @@
+
+.register-form{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 500px;
+    background-color: #384094;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.register-input{
+    height: 100%;
+    width: 85%;
+    outline: none;
+}
+
+.register-btn{
+    width: 50%;
+    height: 50px;
+    background-color: #e5d9f0;
+    color: #384094;
+    outline: none;
+    border: none;
+}
+
+.register-btn:hover{
+    background-color: #384094;
+    color: #e5d9f0;
+    border: 1px solid #e5d9f0;
+    cursor: pointer;
+}
+
+.form-footer{
+    color: #e5d9f0;
+}
+
+.input-row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 40px;
+    gap: 5px;
+}
+
+.form-icon{
+    color: #e5d9f0;
+    height: 100%;
+    width: 15%;
+}

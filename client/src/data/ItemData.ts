@@ -1,17 +1,7 @@
 import shoe1 from "../assets/images/shoe1.jpg";
 import shoe2 from "../assets/images/shoe2.jpg";
 import shoe3 from "../assets/images/shoe3.jpg";
-
-interface Item  {
-    itemId: number,
-    img: string,
-    name: string,
-    time: string,
-    description: string,
-    price: number,
-    tag: string,
-    sellerId: number,
-}
+import {Item} from '../common/types';
 
 export const ItemData: Item[] = [
     {

@@ -1,0 +1,28 @@
+.filters-nav{
+    background-color: #62609c;
+    color: #e5d9f0;
+    height: 50px;
+}
+
+.filters{
+    display: flex;
+    list-style: none;
+    height: 100%;
+    padding-left: 0;
+    margin-top: 0;
+}
+
+.filter{
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    
+}
+
+.filter:hover{
+    cursor: pointer;
+    background-color: #e5d9f0;
+    color: #62609c;
+}

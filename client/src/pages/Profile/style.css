@@ -1,0 +1,44 @@
+#profile-img-upload{
+    display: none;
+}
+
+.profile-main{
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    padding-bottom: 50px;
+}
+
+.profile-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-pic{
+    width: 300px;
+    height: 300px;
+    background-color: rgb(179, 179, 179);
+    border-radius: 100%;
+}
+
+.profile-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+}
+
+.profile-picture-upload{
+    font-size: 40px;
+}
+
+.items-display{
+    display: flex;
+    flex: 1 1 500px;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+}
