@@ -23,10 +23,9 @@ const CreateListingModal: React.FC<Props> = (props) =>{
     }
     
     function handleChange(e : any){
-        
         if (e.target.name === 'itemImg'){
             createListingInfo.itemImg = e.target.files[0];
-            setImageUrl(URL.createObjectURL(createListingInfo.itemImg));
+            setImageUrl(URL.createObjectURL(e.target.files[0]));
         }else{
             setCreateListingInfo({...createListingInfo, [e.target.name]: e.target.value});
         }
@@ -46,7 +45,7 @@ const CreateListingModal: React.FC<Props> = (props) =>{
             <label htmlFor="item-img-upload" className="item-image-upload-container">
                 {
                     imageUrl !== "" ? 
-                    <img type="file" src={imageUrl} alt="item" className="item-image-upload"/> :
+                    <img src={imageUrl} alt="item" className="item-image-upload"/> :
                     <div className="item-image-upload"> Upload Image Here</div>
                 }
             </label>

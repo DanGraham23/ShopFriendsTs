@@ -11,11 +11,14 @@ const Cart: React.FC = () =>{
                 ItemData.map((data) => {
                     return (
                         <ItemSmall 
-                    img={data.img}
-                    name={data.name}
-                    price={data.price}
-                    time={data.time}
-                    description={data.description}
+                        itemId={data.itemId}    
+                        img={data.img}
+                        name={data.name}
+                        price={data.price}
+                        time={data.time}
+                        description={data.description}
+                        tag={data.tag}
+                        sellerId={data.sellerId}
                     />
                     )
                 })
