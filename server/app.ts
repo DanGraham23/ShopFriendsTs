@@ -1,7 +1,7 @@
 import express from "express";
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const {Pool} = require("pg");
+const pg = require("pg");
 
 const app = express();
 require("dotenv").config();
@@ -9,21 +9,21 @@ app.use(cors({origin:'http://localhost:5173', credentials:true}));
 app.use(cookieParser());
 app.use(express.json());
 
-const pool = new Pool({
-    user: "postgres",
-    host: "localhost",
-    database: "ShopFriendsTs",
-    password: "1234",
-    port: 5432,
-});
+// const pool = new Pool({
+//     user: "postgres",
+//     host: "localhost",
+//     database: "ShopFriendsTs",
+//     password: "1234",
+//     port: 5432,
+// });
 
-pool.query('SELECT NOW()', (err: any, res: any) => {
-    if (err) {
-      console.error('Error connecting to the database', err);
-    } else {
-      console.log('Connected to the database at', res.rows[0].now);
-    }
-  });
+// pool.query('SELECT NOW()', (err: any, res: any) => {
+//     if (err) {
+//       console.error('Error connecting to the database', err);
+//     } else {
+//       console.log('Connected to the database at', res.rows[0].now);
+//     }
+//   });
   
 //   app.get('/', (req: any, res: any) => {
 //     pool.query('SELECT * FROM your_table', (err: any, result: any) => {
@@ -36,6 +36,6 @@ pool.query('SELECT NOW()', (err: any, res: any) => {
 //     });
 //   });
 
-app.listen(process.env.PORT, () : void => {
-    console.log(`server connected on port:${process.env.PORT}`);
+app.listen(process.env.SERVER_PORT, () : void => {
+    console.log(`server connected on port:${process.env.SERVER_PORT}`);
 });
