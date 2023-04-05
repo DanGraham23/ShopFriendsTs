@@ -1,10 +1,11 @@
-interface Item{
-    id:number,
+export interface Item{
+    id?:number,
+    user_id: number,
+    name: string,
     description:string,
     price: number,
-    itemImage: string,
+    item_image: string,
     tag: 'hat' | 'shirt' | 'pants' | 'shoes' |'other' ,
-    createdAt:Date,
-    updatedAt:Date,
+    createdAt?:Date,
+    updatedAt?:Date,
 }
-export {Item};

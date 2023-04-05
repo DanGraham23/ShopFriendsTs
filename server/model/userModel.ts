@@ -1,4 +1,3 @@
-const knex = require('../db/knex');
 
 export interface User {
     id?:number,
