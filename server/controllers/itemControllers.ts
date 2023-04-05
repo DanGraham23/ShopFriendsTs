@@ -6,10 +6,10 @@ module.exports.getitems = async (req:Request, res:Response, next:NextFunction) =
     try{
         const {user_id, tag} = req.body;
         if (tag != ""){
-            const items = await knex('items').whereRaw('user_id != ?', user_id);
+            const items: Item[] = await knex('items').whereRaw('user_id != ? AND tag = ?', [user_id, tag]);
             return res.json({status: true, items});
         }else{
-            const items = await knex('items').whereRaw('user_id = ?', user_id);
+            const items: Item[] = await knex('items').whereRaw('user_id = ?', user_id);
             return res.json({status: true, items});
         }
     }catch(ex){
@@ -29,7 +29,6 @@ module.exports.additem = async (req:Request, res:Response, next:NextFunction) =>
             tag
         }
         await knex('items').insert(newItem).catch((err:any)=>{
-            console.log(err);
             return res.json({status:false});
         });
         return res.json({status:true})
