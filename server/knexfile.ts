@@ -1,5 +1,3 @@
-import { stringify } from "querystring";
-
 require('ts-node/register');
 require('dotenv').config();
 

@@ -6,6 +6,6 @@ export interface User {
     password:string,
     email:string,
     profile_picture:string,
-    createdAt?: Date,
-    updatedAt?: Date,
+    created_at?: Date,
+    updated_at?: Date,
 } 

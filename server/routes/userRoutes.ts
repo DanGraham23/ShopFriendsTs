@@ -1,10 +1,10 @@
 const router = require("express").Router();
-const {register, login} = require('../controllers/userControllers');
+const {register, login, updatepfp} = require('../controllers/userControllers');
 export {};
 
 router.post("/register", register);
 router.post("/login", login);
 
-router.patch("/updatepfp");
+router.post("/updatepfp", updatepfp);
 
 module.exports = router;
