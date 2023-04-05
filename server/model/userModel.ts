@@ -1,11 +1,11 @@
-interface User {
-    id:number,
+const knex = require('../db/knex');
+
+export interface User {
+    id?:number,
     username:string,
     password:string,
     email:string,
-    profilePicture:string,
-    createdAt: Date,
-    updatedAt: Date,
-}
-
-export {User};
+    profile_picture:string,
+    createdAt?: Date,
+    updatedAt?: Date,
+} 

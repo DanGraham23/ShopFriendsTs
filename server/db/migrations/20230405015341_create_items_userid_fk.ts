@@ -5,7 +5,7 @@ export async function up(knex: Knex): Promise<void> {
     return knex.schema.table('items', function(table) {
         table.integer('user_id').references('id').inTable('users');
     });
-};
+}
 
 
 export async function down(knex: Knex): Promise<void> {
@@ -13,5 +13,5 @@ export async function down(knex: Knex): Promise<void> {
         table.dropForeign('user_id');
         table.dropColumn('user_id');
     });
-};
+}
 
