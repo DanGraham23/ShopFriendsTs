@@ -13,12 +13,15 @@ module.exports.register = async (req: Request, res: Response, next:NextFunction)
             email: email,
             profile_picture: "default.png"
         }
-        const [newUser] = await knex('users').insert(user).returning('*').catch((err:any)=>{
-            console.log(err);
+        const userFound = await knex('users').where({ username}).orWhere({ email});
+        if (userFound.length > 0){
+            return res.json({status:false});
+        }
+        const newUser: User = await knex('users').insert(user).returning('*').catch((err:any)=>{
             return res.json({status:false});
         });
-        const {id} = newUser;
-        return res.json({status:true, id});
+        const returnedUser = (({ id, username }) => ({ id, username }))(newUser[0]);
+        return res.json({status:true, returnedUser});
     }catch(ex){
         next(ex);
     }
@@ -27,16 +30,17 @@ module.exports.register = async (req: Request, res: Response, next:NextFunction)
 module.exports.login = async (req: Request, res: Response, next:NextFunction) => {
     try{
         const {username, password} = req.body;
-        const userFound: User = await knex('users').select('*').where({username}).first();
-        if (!userFound){
+        const userFound = await knex('users').where({username});
+        if (userFound.length == 0){
             return res.json({status:false});
         }
-        const validPassword = await bcrypt.compare(password, userFound.password);
+        const user = userFound[0];
+        const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword){
             return res.json({status:false});
         }
-        const {id} = userFound;
-        return res.json({status:true, id});
+        const returnedUser = (({ id, username }) => ({ id, username }))(user);
+        return res.json({status:true, returnedUser});
     }catch(ex){
         next(ex);
     }
@@ -45,8 +49,8 @@ module.exports.login = async (req: Request, res: Response, next:NextFunction) =>
 module.exports.updatepfp = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const {id, profile_picture} = req.body;
-        const user = await knex('users').where({id: id}).first();
-        if (!user){
+        const userFound = await knex('users').where({id});
+        if (userFound.length == 0){
             return res.json({status:false});
         }
         knex('users').where({id: id}).update({
