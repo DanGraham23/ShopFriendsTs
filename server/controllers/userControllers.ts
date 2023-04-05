@@ -13,11 +13,11 @@ module.exports.register = async (req: Request, res: Response, next:NextFunction)
             email: email,
             profile_picture: "default.png"
         }
-        const userFound = await knex('users').where({ username}).orWhere({ email});
+        const userFound: User[] = await knex('users').where({ username}).orWhere({ email});
         if (userFound.length > 0){
             return res.json({status:false});
         }
-        const newUser: User = await knex('users').insert(user).returning('*').catch((err:any)=>{
+        const newUser: User[] = await knex('users').insert(user).returning('*').catch((err:any)=>{
             return res.json({status:false});
         });
         const returnedUser = (({ id, username }) => ({ id, username }))(newUser[0]);
@@ -30,7 +30,7 @@ module.exports.register = async (req: Request, res: Response, next:NextFunction)
 module.exports.login = async (req: Request, res: Response, next:NextFunction) => {
     try{
         const {username, password} = req.body;
-        const userFound = await knex('users').where({username});
+        const userFound: User[] = await knex('users').where({username});
         if (userFound.length == 0){
             return res.json({status:false});
         }
@@ -49,7 +49,7 @@ module.exports.login = async (req: Request, res: Response, next:NextFunction) =>
 module.exports.updatepfp = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const {id, profile_picture} = req.body;
-        const userFound = await knex('users').where({id});
+        const userFound: User[] = await knex('users').where({id});
         if (userFound.length == 0){
             return res.json({status:false});
         }
