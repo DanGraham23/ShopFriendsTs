@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { Item } from "../model/itemModel";
 const knex = require('../db/knex');
 
-module.exports.getitems = async (req:Request, res:Response, next:NextFunction) => {
+module.exports.getItems = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const {user_id, tag} = req.body;
         if (tag != ""){
@@ -17,7 +17,7 @@ module.exports.getitems = async (req:Request, res:Response, next:NextFunction) =
     }
 };
 
-module.exports.additem = async (req:Request, res:Response, next:NextFunction) => {
+module.exports.addItem = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const {user_id, name, description, price, item_image, tag} = req.body;
         const newItem:Item = {
