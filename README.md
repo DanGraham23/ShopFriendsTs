@@ -6,6 +6,15 @@ Peer-to-Peer Marketplace (*In progress*)
 
 Using ShopFriends, users can create accounts to start listing their items up for sale. Items are tagged according to five different categories (hats, shoes, pants, shirts, accessories aka other). Other users can then sort by these tags to find items to add to their cart. Users can then proceed to checkout with the items in their cart. Additionally, users can review other users.
 
+Frontend : http://localhost:5173/
+npm run dev
+
+Backend : http://localhost:3001/
+npm run start + 
+knex migrate:latest or npx knex migrate:latest (must have a postgresql database setup and connected)
+
+Database : PostgreSQL, setup in knexfile.ts and .env
+
 Features:
 - Login/Register form
 - MyProfile page to update profile image and see user's own listings and rating
