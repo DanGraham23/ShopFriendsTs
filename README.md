@@ -17,5 +17,6 @@ Features:
 - Pagination when browsing item categories
 
 Database tables (Might make changes to these still):
+![ShopFriendsTs (1)](https://user-images.githubusercontent.com/59900510/230456682-391916a0-e249-46ba-8ee2-c16498addb8c.jpeg)
 
-![ShopFriendsTs](https://user-images.githubusercontent.com/59900510/230451998-cf79bb8e-0ba2-4dca-a000-472cd9067def.jpeg)
+
