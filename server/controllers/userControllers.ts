@@ -101,16 +101,9 @@ module.exports.addReview = async (req: Request, res: Response, next:NextFunction
 module.exports.getReviews = async (req: Request, res: Response, next:NextFunction) =>{
     try{
         const {receiver_user_id} = req.body;
-        const reviewsFound: Review[] = await knex('review').select('*').whereRaw('receiver_user_id = ?', receiver_user_id);
-        if (reviewsFound.length > 0){
-            let score = 0;
-            reviewsFound.forEach((review) => score += review.rating);
-            score /= reviewsFound.length;
-            return res.json({status:true, rating:score});
-        }else{
-            //Default rating of 3, which is fairly neutral
-            return res.json({status:true, rating:3})
-        }
+        const avgObj = await knex('review').avg('rating as rating').whereRaw('receiver_user_id = ?', receiver_user_id);
+        const avg = Number(avgObj[0]['rating']).toFixed(2);
+        return res.json({status:true, rating: avg});
     }catch(ex){
         next(ex);
     }
