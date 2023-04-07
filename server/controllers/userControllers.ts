@@ -1,10 +1,9 @@
 const knex = require('../db/knex');
 const bcrypt=  require("bcrypt");
-import { send } from "process";
 import { Review } from "../model/reviewModel";
 import { User } from "../model/userModel";
 import { NextFunction, Request, Response } from "express";
-const cloudinary = require('cloudinary').v2;
+
 
 module.exports.register = async (req: Request, res: Response, next:NextFunction) => {
     try{
