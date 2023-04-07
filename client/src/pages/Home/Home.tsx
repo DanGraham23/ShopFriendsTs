@@ -7,11 +7,30 @@ import img5 from '../../assets/images/home-img5.jpg'
 import img6 from '../../assets/images/home-img6.jpg'
 import img7 from '../../assets/images/home-img7.jpg'
 import img8 from '../../assets/images/home-img8.jpg'
+import Filters from "../../components/Filters/Filters";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { selectAuth } from "../../features/authSlice";
+import {useAppSelector } from "../../hooks";
+
 
 const Home : React.FC = () =>{
+
+    const navigate = useNavigate();
+    const {isLoggedIn} = useAppSelector(selectAuth);
+
+    useEffect(() => {
+        console.log("home ran");
+        if (isLoggedIn){
+            navigate('/');
+        }else{
+            navigate('/login');
+        }
+    }, [isLoggedIn]);
+
     return (
-            
         <div className="home-container">
+            <Filters />
             <h1 className="text-slide-in-right">Welcome to ShopFriends</h1>
             <h2 className="text-slide-in-left">We are a Peer-to-Peer market</h2>
             <div className="image-collage">

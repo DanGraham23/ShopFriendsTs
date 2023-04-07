@@ -1,11 +1,19 @@
 import "./style.css";
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {BsFillPersonFill, BsFillLockFill} from 'react-icons/bs';
 import {AiOutlineMail} from 'react-icons/ai'
-import {ToastContainer, ToastOptions, toast} from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { toastProps } from "../../common/toasts";
+import { useNavigate } from "react-router-dom";
+import {register, selectAuth} from "../../features/authSlice";
+import {useAppDispatch, useAppSelector} from '../../hooks';
 
 const Register: React.FC = () => {
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const {isLoggedIn} = useAppSelector(selectAuth);
+
     const [userFormInfo, setUserFormInfo] = useState({
         username: "",
         email: "",
@@ -13,21 +21,22 @@ const Register: React.FC = () => {
         confirmPassword: "",
     })
 
-    const toastProps : ToastOptions<{}> = {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
+    useEffect(() => {
+        console.log("register ran");
+        if (isLoggedIn){
+            navigate('/');
         }
+    }, [isLoggedIn]);
 
     function handleSubmit(e: React.FormEvent){
         e.preventDefault();
         if (validateInput()){
-            console.log('successful register attempt');
+            const values = {
+                username: userFormInfo.username,
+                email: userFormInfo.email,
+                password: userFormInfo.password,
+            }
+            dispatch(register(values));
         }
     }
     

@@ -1,7 +1,11 @@
 import "./style.css";
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
+import { useNavigate } from "react-router-dom";
+import { selectAuth } from "../../features/authSlice";
+import {useAppSelector } from "../../hooks";
 
 const Checkout : React.FC =() =>{
+
     const [checkoutFormInfo, setCheckoutFormInfo] = useState({
         fName : "",
         lName : "",
@@ -10,6 +14,17 @@ const Checkout : React.FC =() =>{
         phone: "",
     })
 
+    const navigate = useNavigate();
+    const {isLoggedIn} = useAppSelector(selectAuth);
+
+    useEffect(() => {
+        console.log("checkout ran");
+        if (isLoggedIn){
+            navigate('/checkout');
+        }else{
+            navigate('/login');
+        }
+    }, [isLoggedIn]);
 
     function handleSubmit(e: React.FormEvent){
         e.preventDefault();

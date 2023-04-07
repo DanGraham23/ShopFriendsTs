@@ -1,30 +1,41 @@
 import "./style.css";
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {BsFillPersonFill, BsFillLockFill} from 'react-icons/bs';
-import {ToastContainer, ToastOptions, toast} from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { toastProps } from "../../common/toasts";
+import { loginRoute } from "../../utils/APIRoutes";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { login, selectAuth } from "../../features/authSlice";
 
 const Login : React.FC = () =>{
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const {isLoggedIn} = useAppSelector(selectAuth);
+
     const [userFormInfo, setUserFormInfo] = useState({
         username: "",
         password: "",
     })
 
-    const toastProps: ToastOptions<{}> = {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
+    //On load or submit, check if a user is logged in
+    useEffect(() => {
+        console.log("login ran");
+        if (isLoggedIn){
+            navigate('/');
         }
+    }, [isLoggedIn]);
 
-    function handleSubmit(e: React.FormEvent){
+    async function handleSubmit(e: React.FormEvent){
         e.preventDefault();
         if (validateInput()){
-            console.log('successful login attempt');
+            const values = {
+                username: userFormInfo.username,
+                password: userFormInfo.password,
+            }
+            dispatch(login(values));
         }
     }
     

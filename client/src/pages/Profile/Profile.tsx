@@ -2,11 +2,24 @@ import "./style.css";
 import Item from '../../components/Item-Normal/ItemNormal';
 import {AiFillCamera} from 'react-icons/ai';
 import {ItemData} from '../../data/ItemData'
-import {useState} from 'react';
-
+import {useState,useEffect} from 'react';
+import { useNavigate } from "react-router-dom";
+import { selectAuth } from "../../features/authSlice";
+import {useAppSelector } from "../../hooks";
 
 const Profile : React.FC = () => {
     const [profileImg, setProfileImg] = useState("");
+    const navigate = useNavigate();
+    const {isLoggedIn} = useAppSelector(selectAuth);
+
+    useEffect(() => {
+        console.log("profile ran");
+        if (isLoggedIn){
+            navigate('/profile');
+        }else{
+            navigate('/login');
+        }
+    }, [isLoggedIn]);
 
     function handleChange(e : any){
         setProfileImg(URL.createObjectURL(e.target.files[0]));
