@@ -10,7 +10,7 @@ const Navbar:React.FC = () =>{
     const [showCart, setShowCart] = useState(false);
     const [showCreateListingModal, setShowCreateListingModal] = useState(false);
     const isLoggedIn = useSelector((store:any) => store.auth.isLoggedIn);
-
+    
     return (
         <div>
         <div className="nav-container">

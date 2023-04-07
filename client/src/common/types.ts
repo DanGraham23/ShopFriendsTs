@@ -1,11 +1,9 @@
 export interface Item  {
-    itemId: number,
-    img: string,
+    item_image: string,
     name: string,
-    time: string,
     description: string,
     price: number,
     tag: string,
-    sellerId: number,
+    user_id: number,
 }
 

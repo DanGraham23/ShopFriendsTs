@@ -46,15 +46,13 @@ const Profile : React.FC = () => {
                 {
                     ItemData.map((data) => {
                         return (
-                            <Item 
-                        itemId={data.itemId}    
-                        img={data.img}
+                            <Item    
+                        item_image={data.item_image}
                         name={data.name}
                         price={data.price}
-                        time={data.time}
                         description={data.description}
                         tag={data.tag}
-                        sellerId={data.sellerId}
+                        user_id={data.user_id}
                         />
                         )
                     })

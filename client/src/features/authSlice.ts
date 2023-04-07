@@ -46,8 +46,8 @@ export const register = (user:{username:string, password:string, email:string}) 
     {
         withCredentials:true
     }).then((response:any) => {
-        if (response.error){
-            dispatch(setError(response.error));
+        if (response.data.status === false){
+            dispatch(setError("invalid register attempt"));
         }else{
             if (typeof window !== "undefined") {
                 localStorage.setItem("shopfriend-user", JSON.stringify(response.data.returnedUser));
@@ -68,8 +68,8 @@ export const login = (user:{username:string, password:string}) => async (dispatc
     {
         withCredentials:true
     }).then((response:any) => {
-        if (response.error){
-            dispatch(setError(response.error));
+        if (response.data.status === false){
+            dispatch(setError("invalid login attempt"));
         }else{
             if (typeof window !== "undefined") {
                 localStorage.setItem("shopfriend-user", JSON.stringify(response.data.returnedUser));
