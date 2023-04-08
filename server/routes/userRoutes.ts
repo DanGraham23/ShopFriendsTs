@@ -1,13 +1,13 @@
-const router = require("express").Router();
+const userRouter = require("express").Router();
 const {register, login, updatePfp, addReview, getReviews} = require('../controllers/userControllers');
 export {};
 
-router.post("/register", register);
-router.post("/login", login);
+userRouter.post("/register", register);
+userRouter.post("/login", login);
 
-router.post("/updatepfp", updatePfp);
+userRouter.post("/updatepfp", updatePfp);
 
-router.put("/addreview", addReview);
-router.get("/getreviews", getReviews);
+userRouter.put("/addreview", addReview);
+userRouter.get("/getreviews", getReviews);
 
-module.exports = router;
+module.exports = userRouter;

@@ -5,6 +5,7 @@ const pg = require("pg");
 
 const userRoutes = require("./routes/userRoutes");
 const itemRoutes = require("./routes/itemRoutes");
+const cartRoutes = require("./routes/cartRoutes");
 
 const app = express();
 require("dotenv").config();
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/item", itemRoutes);
+app.use("/api/cart", cartRoutes);
 
 app.listen(process.env.SERVER_PORT, () : void => {
     console.log(`server connected on port:${process.env.SERVER_PORT}`);

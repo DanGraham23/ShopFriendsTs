@@ -1,9 +1,9 @@
-const router = require("express").Router();
+const itemRouter = require("express").Router();
 const {getItems,addItem, removeItem} = require('../controllers/itemControllers');
 export {};
 
-router.get("/getitems", getItems);
-router.put("/additem", addItem);
-router.delete("/removeItem", removeItem);
+itemRouter.get("/getitems", getItems);
+itemRouter.put("/additem", addItem);
+itemRouter.delete("/removeItem", removeItem);
 
-module.exports = router;
+module.exports = itemRouter;

@@ -1,15 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import { Item } from "../model/itemModel";
-const knex = require('../db/knex');
+const knex1 = require('../db/knex');
 
 module.exports.getItems = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const {user_id, tag} = req.body;
         if (tag != ""){
-            const items: Item[] = await knex('items').whereRaw('user_id != ? AND tag = ?', [user_id, tag]);
+            const items: Item[] = await knex1('items').whereRaw('user_id != ? AND tag = ?', [user_id, tag]);
             return res.status(200).json({items});
         }else{
-            const items: Item[] = await knex('items').whereRaw('user_id = ?', user_id);
+            const items: Item[] = await knex1('items').whereRaw('user_id = ?', user_id);
             return res.status(200).json({items});
         }
     }catch(ex){
@@ -28,7 +28,7 @@ module.exports.addItem = async (req:Request, res:Response, next:NextFunction) =>
             item_image,
             tag
         }
-        await knex('items').insert(newItem).catch((err:any)=>{
+        await knex1('items').insert(newItem).catch((err:any)=>{
             return res.status(404).json({msg:"Cannot create this item!"});
         });
         return res.status(200).json({msg:"Item successfully created!"});
@@ -40,11 +40,11 @@ module.exports.addItem = async (req:Request, res:Response, next:NextFunction) =>
 module.exports.removeItem = async (req:Request, res:Response, next :NextFunction) => {
     try{
         const {id} = req.body;
-        const itemFound = await knex('items').where({id});
+        const itemFound = await knex1('items').where({id});
         if (itemFound.length === 0){
             return res.status(404).json({msg:"No item found"});
         }
-        await knex('items').where({id}).del();
+        await knex1('items').where({id}).del();
         return res.status(200).json({msg:"Item successfully deleted!"});
     }catch(ex){
         next(ex);
