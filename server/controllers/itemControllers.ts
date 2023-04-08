@@ -7,10 +7,10 @@ module.exports.getItems = async (req:Request, res:Response, next:NextFunction) =
         const {user_id, tag} = req.body;
         if (tag != ""){
             const items: Item[] = await knex('items').whereRaw('user_id != ? AND tag = ?', [user_id, tag]);
-            return res.json({status: true, items});
+            return res.status(200).json({items});
         }else{
             const items: Item[] = await knex('items').whereRaw('user_id = ?', user_id);
-            return res.json({status: true, items});
+            return res.status(200).json({items});
         }
     }catch(ex){
         next(ex);
@@ -29,9 +29,23 @@ module.exports.addItem = async (req:Request, res:Response, next:NextFunction) =>
             tag
         }
         await knex('items').insert(newItem).catch((err:any)=>{
-            return res.json({status:false});
+            return res.status(404).json({msg:"Cannot create this item!"});
         });
-        return res.json({status:true})
+        return res.status(200).json({msg:"Item successfully created!"});
+    }catch(ex){
+        next(ex);
+    }
+};
+
+module.exports.removeItem = async (req:Request, res:Response, next :NextFunction) => {
+    try{
+        const {id} = req.body;
+        const itemFound = await knex('items').where({id});
+        if (itemFound.length === 0){
+            return res.status(404).json({msg:"No item found"});
+        }
+        await knex('items').where({id}).del();
+        return res.status(200).json({msg:"Item successfully deleted!"});
     }catch(ex){
         next(ex);
     }
