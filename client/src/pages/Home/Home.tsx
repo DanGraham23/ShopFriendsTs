@@ -9,15 +9,16 @@ import img7 from '../../assets/images/home-img7.jpg'
 import img8 from '../../assets/images/home-img8.jpg'
 import Filters from "../../components/Filters/Filters";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { selectAuth } from "../../features/authSlice";
 import {useAppSelector } from "../../hooks";
+import Items from "../../components/Items/Items";
 
 
 const Home : React.FC = () =>{
-
     const navigate = useNavigate();
     const {isLoggedIn} = useAppSelector(selectAuth);
+    const [curFilter, setCurFilter] = useState("");
 
     useEffect(() => {
         console.log("home ran");
@@ -28,9 +29,11 @@ const Home : React.FC = () =>{
         }
     }, [isLoggedIn]);
 
+
     return (
         <div className="home-container">
-            <Filters />
+            <Filters curFilter={curFilter} setCurFilter={setCurFilter}/>
+            {curFilter === "" ? <div>
             <h1 className="text-slide-in-right">Welcome to ShopFriends</h1>
             <h2 className="text-slide-in-left">We are a Peer-to-Peer market</h2>
             <div className="image-collage">
@@ -43,7 +46,9 @@ const Home : React.FC = () =>{
                 <img src={img7} alt="home-img7" className="grid-item"/>
                 <img src={img8} alt="home-img8" className="grid-item"/>
             </div>
+        </div> : <Items curFilter={curFilter}/>}
         </div>
+
     )
 }
 

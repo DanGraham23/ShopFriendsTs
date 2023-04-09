@@ -5,11 +5,12 @@ import Cart from "../Cart/Cart";
 import {useEffect, useState} from 'react';
 import CreateListingModal from '../CreateListingModal/CreateListingModal'
 import { useSelector } from "react-redux";
+import { selectAuth } from "../../features/authSlice";
 
 const Navbar:React.FC = () =>{
     const [showCart, setShowCart] = useState(false);
     const [showCreateListingModal, setShowCreateListingModal] = useState(false);
-    const isLoggedIn = useSelector((store:any) => store.auth.isLoggedIn);
+    const {isLoggedIn, username} = useSelector(selectAuth);
     
     return (
         <div>
@@ -22,7 +23,7 @@ const Navbar:React.FC = () =>{
                 }
                 {
                     isLoggedIn ?
-                    <a href="/profile"><li className="nav-item">MyAccount</li></a>:
+                    <a href={`profile/${username}`}><li className="nav-item">MyAccount</li></a>:
                     <a href="/login"><li className="nav-item">Login</li></a>
                     
                 }

@@ -1,25 +1,45 @@
 import "./style.css";
-import Item from '../../components/Item-Normal/ItemNormal';
 import {AiFillCamera} from 'react-icons/ai';
 import {ItemData} from '../../data/ItemData'
 import {useState,useEffect} from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { selectAuth } from "../../features/authSlice";
 import {useAppSelector } from "../../hooks";
-
+import { Item } from '../../common/types';
+import axios from "axios";
+import { getItems } from "../../utils/APIRoutes";
+import ItemNormal from "../../components/Item-Normal/ItemNormal";
+ 
 const Profile : React.FC = () => {
     const [profileImg, setProfileImg] = useState("");
     const navigate = useNavigate();
-    const {isLoggedIn} = useAppSelector(selectAuth);
+    const {isLoggedIn, username, id} = useAppSelector(selectAuth);
+    const {user} = useParams();
+
+    const [items,setItems] = useState<Item[]>([]);
+    const [usersData, setUsersData] = useState({});
+
+    // useEffect(() => {
+    //     console.log("profile ran");
+    //     if (isLoggedIn){
+    //         navigate('/profile:username');
+    //     }else{
+    //         navigate('/login');
+    //     }
+    // }, [isLoggedIn]);
+
+    async function fetchData(){
+        const res = await axios.post(getItems,
+            {
+                user_id: id,
+                tag: ""
+            });
+       setItems(res.data.items);
+    }
 
     useEffect(() => {
-        console.log("profile ran");
-        if (isLoggedIn){
-            navigate('/profile');
-        }else{
-            navigate('/login');
-        }
-    }, [isLoggedIn]);
+        fetchData();
+    }, []);
 
     function handleChange(e : any){
         setProfileImg(URL.createObjectURL(e.target.files[0]));
@@ -36,29 +56,33 @@ const Profile : React.FC = () => {
             </div>
             
             <div className="profile-header">
-                <h1>Danny</h1>
+                <h1>{user}</h1>
+                {isLoggedIn && user === username && <div>
                 <label htmlFor="profile-img-upload">
                     <AiFillCamera className="profile-picture-upload"/>
                 </label>
                 <input id="profile-img-upload" type="file" onChange={handleChange}/>
+                </div>
+                }
             </div>
             <div className="items-display">
-                {
-                    ItemData.map((data) => {
+            {
+                    items.map((item) => {
                         return (
-                            <Item    
-                        item_image={data.item_image}
-                        name={data.name}
-                        price={data.price}
-                        description={data.description}
-                        tag={data.tag}
-                        user_id={data.user_id}
+                            <ItemNormal  
+                            key={item.id}  
+                            id={item.id}
+                            item_image={item.item_image}
+                            name={item.name}
+                            price={item.price}
+                            description={item.description}
+                            tag={item.tag}
+                            user_id={item.user_id}
                         />
                         )
                     })
-                }
-            </div>
-
+                }        
+        </div>
         </div>
     )
 }
