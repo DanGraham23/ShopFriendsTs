@@ -6,6 +6,8 @@ export interface Item{
     price: number,
     item_image: string,
     tag: 'hat' | 'shirt' | 'pants' | 'shoes' |'other' ,
+    username?: string,
+    profile_picture?: string,
     created_at?:Date,
     updated_at?:Date,
 }

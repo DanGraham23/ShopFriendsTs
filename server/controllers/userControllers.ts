@@ -79,6 +79,31 @@ module.exports.updatePfp = async (req:Request, res:Response, next:NextFunction) 
     }
 };
 
+module.exports.getUser = async (req: Request, res: Response, next:NextFunction) => {
+    try{
+        const username = req.params.username;
+        const userFound: User[] = await knex2('users').where({username});
+        if (userFound.length == 0){
+            return res.status(404).json({msg:'No user exists with that username'});
+        }
+        const tempUser = userFound[0];
+        const receiver_user_id = tempUser.id;
+        const userObj = await knex2('users').select('users.profile_picture', 'users.username','users.id', knex2.raw('AVG(review.rating) as avg_rating')).leftJoin('review', 'users.id', 'review.receiver_user_id').where('review.receiver_user_id', receiver_user_id).groupBy('users.id');
+        if (userObj.length === 0){
+            const tempUserObj = await knex2('users').select('id', 'username', 'profile_picture').where({username});
+            const user = tempUserObj[0];
+            user.avg_rating = 0.00;
+            return res.status(200).json({user});
+        }else{
+            const user = userObj[0];
+            return res.status(200).json({user});
+        }
+        
+    }catch(ex){
+        next(ex);
+    }
+}
+
 module.exports.addReview = async (req: Request, res: Response, next:NextFunction) => {
     try{
         const {receiver_user_id, sender_user_id, rating} = req.body;
@@ -104,17 +129,6 @@ module.exports.addReview = async (req: Request, res: Response, next:NextFunction
             });
             return res.status(200).json({msg:'Review added!'});
         }
-    }catch(ex){
-        next(ex);
-    }
-};
-
-module.exports.getReviews = async (req: Request, res: Response, next:NextFunction) =>{
-    try{
-        const {receiver_user_id} = req.body;
-        const avgObj = await knex2('review').avg('rating as rating').whereRaw('receiver_user_id = ?', receiver_user_id);
-        const avg = Number(avgObj[0]['rating']).toFixed(2);
-        return res.status(200).json({status:true, rating: avg});
     }catch(ex){
         next(ex);
     }
