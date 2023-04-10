@@ -1,9 +1,9 @@
 .item-container{
     width: 350px;
     height: 450px;
-    background-color: #384094;
-    color: #e5d9f0;
-    border: 3px solid #384094;
+    background-color: var(--primary-white);
+    color: var(--primary-black);
+    border: 1px solid var(--primary-black);
 }
 
 .user-item-pfp{
@@ -23,7 +23,7 @@
     align-items: center;
     margin-top: 20px;
     margin-left: 10px;
-    font-size: 24px;
+    font-size: 20px;
     height: 10%;
 }
 
@@ -51,6 +51,6 @@
 }
 
 .add-to-cart:hover{
-    color: green;
+    color: var(--secondary-green);
     cursor: pointer;
 }

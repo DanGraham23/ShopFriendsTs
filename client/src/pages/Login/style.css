@@ -6,7 +6,7 @@
     flex-direction: column;
     height: 500px;
     width: 500px;
-    background-color: #384094;
+    background-color: var(--primary-black);
     align-items: center;
     justify-content: center;
     gap: 20px;
@@ -21,21 +21,21 @@
 .login-btn{
     width: 50%;
     height: 50px;
-    background-color: #e5d9f0;
-    color: #384094;
+    background-color: var(--primary-white);
+    color: var(--primary-black);
     outline: none;
     border: none;
 }
 
 .login-btn:hover{
-    background-color: #384094;
-    color: #e5d9f0;
-    border: 1px solid #e5d9f0;
+    background-color: var(--primary-black);
+    color: var(--primary-white);
+    border: 2px solid var(--primary-white);
     cursor: pointer;
 }
 
 .form-footer{
-    color: #e5d9f0;
+    color: var(--primary-white);;
 }
 
 .input-row{
@@ -48,7 +48,7 @@
 }
 
 .form-icon{
-    color: #e5d9f0;
+    color: var(--primary-white);;
     height: 100%;
     width: 15%;
 }

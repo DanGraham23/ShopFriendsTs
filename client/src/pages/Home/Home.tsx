@@ -34,8 +34,10 @@ const Home : React.FC = () =>{
         <div className="home-container">
             <Filters curFilter={curFilter} setCurFilter={setCurFilter}/>
             {curFilter === "" ? <div>
-            <h1 className="text-slide-in-right">Welcome to ShopFriends</h1>
-            <h2 className="text-slide-in-left">We are a Peer-to-Peer market</h2>
+            <div className="home-header">
+                <h2>ShopFriends</h2>
+                <h2 className="reflect">PEER-TO-PEER MARKET</h2>
+            </div>
             <div className="image-collage">
                 <img src={img1} alt="home-img1" className="grid-item"/>
                 <img src={img2} alt="home-img2" className="grid-item"/>

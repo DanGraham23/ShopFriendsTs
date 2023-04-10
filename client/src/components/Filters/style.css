@@ -1,6 +1,9 @@
 .filters-nav{
-    background-color: #62609c;
-    color: #e5d9f0;
+    background-color: var(--primary-white);
+    color: var(--primary-black);
+    border-left: 2px solid var(--primary-black);
+    border-right: 2px solid var(--primary-black);
+    border-bottom: 2px solid var(--primary-black);
     height: 50px;
 }
 
@@ -21,8 +24,13 @@
     
 }
 
+.filter-selected{
+    background-color: var(--primary-black);
+    color: var(--primary-white);
+}
+
 .filter:hover{
     cursor: pointer;
-    background-color: #e5d9f0;
-    color: #62609c;
+    background-color: var(--primary-black);
+    color: var(--primary-white);
 }

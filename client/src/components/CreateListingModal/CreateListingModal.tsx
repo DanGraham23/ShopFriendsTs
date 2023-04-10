@@ -18,7 +18,8 @@ interface Props {
 const CreateListingModal: React.FC<Props> = (props) =>{
     const {isLoggedIn, id} = useAppSelector(selectAuth);
     const dispatch = useAppDispatch();
-    
+    const tags = ['other', 'shirt', 'pants', 'shoes', 'hat'];
+
     const [createListingInfo, setCreateListingInfo] = useState({
         itemName: "",
         itemPrice : "",
@@ -111,12 +112,19 @@ const CreateListingModal: React.FC<Props> = (props) =>{
                 value={createListingInfo.itemPrice}
                 onChange={handleChange}
                 className="item-input"/>
-                <input type="text" 
-                placeholder="Tag"
+                <select 
+                onChange={handleChange} 
                 name="itemTag"
-                value={createListingInfo.itemTag}
-                onChange={handleChange}
-                className="item-input"/>
+                className="item-tag-selector"
+                value={createListingInfo.itemTag}>
+                    {tags.map((tag, index) => {
+                        return (
+                            <option key={index} value={tag}>
+                            {tag}
+                            </option>
+                        )
+                    })}
+                </select>
             </div>
             <input type="text" 
             placeholder="Item Description"

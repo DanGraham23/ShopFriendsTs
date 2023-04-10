@@ -1,5 +1,5 @@
 import "./style.css";
-import {AiFillCamera} from 'react-icons/ai';
+import {AiFillCamera, AiOutlineStar, AiFillStar} from 'react-icons/ai';
 import {useState,useEffect} from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { selectAuth } from "../../features/authSlice";
@@ -37,11 +37,12 @@ const Profile : React.FC = () => {
 
     function handleUserRatingDisplay(rating: number) {
         const stars = [1,2,3,4,5];
-        const currentStars = stars.slice(0, rating);
         return (
-            currentStars.map((currentStar, idx) => {
+            stars.map((star, idx) => {
                 return (
-                    <div key={idx} className="rating"></div>
+                    star <= rating ? 
+                    <AiFillStar className="rating-yellow"/> :
+                    <AiOutlineStar className="rating-gray"/>
                 )
             })
         )
@@ -60,18 +61,21 @@ const Profile : React.FC = () => {
             
             <div className="profile-header">
                 <h1>{user}</h1>
-                {isLoggedIn && usersData && usersData.username === username && <div>
-                <label htmlFor="profile-img-upload">
-                    <AiFillCamera className="profile-picture-upload"/>
-                </label>
-                <input id="profile-img-upload" type="file" onChange={handleChange}/>
+                {isLoggedIn && usersData && usersData.username === username && 
+                <div>
+                    <label htmlFor="profile-img-upload">
+                        <AiFillCamera className="profile-picture-upload"/>
+                    </label>
+                    <input id="profile-img-upload" type="file" onChange={handleChange}/>
                 </div>
                 }
-                {
-                    isLoggedIn && usersData && 
-                    <div>
-                        {handleUserRatingDisplay(Math.round(usersData.avg_rating))}
-                    </div>          
+            </div>
+            <div>
+            {
+                isLoggedIn && usersData && 
+                <div className="profile-rating">
+                    {handleUserRatingDisplay(Math.round(usersData.avg_rating))}
+                </div>          
                 }
             </div>
         </div>

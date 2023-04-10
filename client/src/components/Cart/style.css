@@ -2,13 +2,13 @@
     position: absolute;
     height: 600px;
     width: 300px;
-    right: 100px;
-    top: 90px;
-    background-color: #8480b2;
-    border: 3px solid #384094;
+    right: 200px;
+    top: 60px;
+    background-color: var(--primary-light-gray);
+    border: 3px solid var(--primary-dark-gray);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 5px;
     overflow: hidden;
     overflow-y: scroll;
 }
@@ -19,13 +19,13 @@
 }
 
 .scroll-style::-webkit-scrollbar-track {
-    background: #e5d9f0;
+    background: var(--primary-light-gray);
   }
 
 .scroll-style::-webkit-scrollbar-thumb {
-    background: #62609c;
+    background: var(--primary-dark-gray);
   }
 
 .scroll-style::-webkit-scrollbar-thumb:hover {
-    background: #373361;
+    background: var(--primary-dark-gray);
   }

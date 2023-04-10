@@ -1,12 +1,11 @@
 import "./style.css";
-import logo from '../../assets/images/shop-friends-logo.jpg'
 import {BsCart} from 'react-icons/bs';
 import Cart from "../Cart/Cart";
 import {useState} from 'react';
 import CreateListingModal from '../CreateListingModal/CreateListingModal'
 import { useSelector } from "react-redux";
 import { selectAuth } from "../../features/authSlice";
-
+import {AiOutlineClose} from 'react-icons/ai';
 
 const Navbar:React.FC = () =>{
     const [showCart, setShowCart] = useState(false);
@@ -17,7 +16,7 @@ const Navbar:React.FC = () =>{
     return (
         <div>
         <div className="nav-container">
-            <a href="/"><img src={logo} alt="shop-friends-logo" className="logo"/></a>
+            <a href="/" className="logo reflect">ShopFriends</a>
             <ul className="nav-items">
                 {
                     isLoggedIn && <li className="nav-item" 
@@ -29,7 +28,11 @@ const Navbar:React.FC = () =>{
                     <a href="/login"><li className="nav-item">Login</li></a>
                     
                 }
-                <li className="nav-item" onClick={() => setShowCart(!showCart)} >Cart <BsCart /></li>
+                <li className="nav-item" onClick={() => setShowCart(!showCart)} >
+                    {!showCart ? <BsCart />
+                    : <AiOutlineClose />}
+                    </li>
+                
                 {isLoggedIn && <a href="/checkout"><button className="checkout-btn">Check Out</button></a>}
                 
             </ul>

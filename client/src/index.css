@@ -7,7 +7,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #FFFFFF;
+  background-color: var(--primary-white);
 }
 
 code {
@@ -22,6 +22,14 @@ code {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  --primary-white : #FFFFFF;
+  --primary-black : #000000;
+  --primary-light-gray : #dbdbdb;
+  --primary-dark-gray : #666666;
+  
+  --secondary-green: #3bcf00;
+  --secondary-red: #ff0000;
+  --secondary-yellow: #fbff00;
 }
 
 
@@ -36,4 +44,9 @@ h2{
 
 h3{
   margin: 0px;
+}
+
+
+.reflect{
+  -webkit-box-reflect: below -15px linear-gradient(transparent, rgba(0,0,0,.2));
 }

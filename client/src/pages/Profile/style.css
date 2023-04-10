@@ -19,7 +19,7 @@
 .profile-pic{
     width: 300px;
     height: 300px;
-    background-color: rgb(179, 179, 179);
+    background-color: var(--primary-dark-gray);
     border-radius: 100%;
 }
 
@@ -34,9 +34,18 @@
     font-size: 40px;
 }
 
-.rating{
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    background-color: yellow;
+.profile-rating{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating-gray{
+    color: var(--primary-dark-gray);
+    font-size: 50px;
+}
+
+.rating-yellow{
+    color: var(--secondary-yellow);
+    font-size: 50px;
 }
