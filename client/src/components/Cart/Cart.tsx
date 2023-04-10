@@ -6,6 +6,7 @@ import cartSlice, { selectCart } from "../../features/cartSlice";
 
 const Cart: React.FC = () =>{
     const {items} = useAppSelector(selectCart);
+
     return (
         <div className="cart-container scroll-style">
             {

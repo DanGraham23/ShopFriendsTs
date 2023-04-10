@@ -5,18 +5,23 @@ const knex3 = require('../db/knex');
 
 module.exports.addItemToCart = async (req:Request, res:Response, next:NextFunction) => {
     try{
-        const {cart_id, item_id} = req.body;
-        const cart_item : CartItem = {
-            cart_id,
-            item_id
+        const {user_id, item_id} = req.params;
+        const userCartObj = await knex3('cart').where('cart.user_id', user_id);
+        if (userCartObj.length === 0){
+            return res.status(404).json({msg:"Cannot add item, try again or refresh!"});
         }
+
+        const cart_id = userCartObj[0].id;
         const cartItemFound = await knex3('cart_item').whereRaw('cart_id = ? AND item_id = ?', [cart_id, item_id]).catch((err)=> {
             return res.status(404).json({msg:"Unable to find item"});
         });
         if (cartItemFound.length > 0){
             return res.status(403).json({msg:"Item already in cart"});
         }
-        await knex3('cart_item').insert(cart_item).catch((err)=> {
+        await knex3('cart_item').insert({
+            cart_id,
+            item_id
+        }).catch((err)=> {
             return res.status(404).json({msg:"Unable to add item to cart"});
         });
         return res.status(200).json({msg:"Item added to cart!"});
@@ -27,7 +32,14 @@ module.exports.addItemToCart = async (req:Request, res:Response, next:NextFuncti
 
 module.exports.removeItemFromCart = async (req:Request, res:Response, next:NextFunction) => {
     try{
-        const {cart_id, item_id} = req.body;
+        const {user_id, item_id} = req.params;
+        const userCartObj = await knex3('cart').where('cart.user_id', user_id);
+        if (userCartObj.length === 0){
+            return res.status(404).json({msg:"Cannot remove item, try again or refresh!"});
+        }
+
+        const cart_id = userCartObj[0].id;
+        
         const itemFound = await knex3('cart_item').whereRaw('cart_id = ? AND item_id = ?', [cart_id, item_id]);
         if (itemFound.length === 0){
             return res.status(404).json({msg:"Cannot remove item, try again or refresh!"});

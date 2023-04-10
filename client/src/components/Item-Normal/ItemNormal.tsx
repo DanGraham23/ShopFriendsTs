@@ -3,8 +3,14 @@ import {AiFillPlusSquare} from 'react-icons/ai'
 import {Item} from '../../common/types';
 import tempItemImg from '../../assets/images/shoe3.jpg';
 import tempUserPfp from '../../assets/images/default.jpg';
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { selectAuth } from "../../features/authSlice";
+import { addToCart } from "../../features/cartSlice";
 
 const ItemNormal : React.FC<Item> = (props) =>{
+    const dispatch = useAppDispatch();
+    const {id} = useAppSelector(selectAuth);
+
     return (
 
         <div className="item-container"> 
@@ -20,7 +26,8 @@ const ItemNormal : React.FC<Item> = (props) =>{
                 <h4>{props.tag}</h4>
             </div>
             <p className="item-description">{props.description}</p>
-            <AiFillPlusSquare className="add-to-cart"/>
+            <AiFillPlusSquare className="add-to-cart"
+            onClick={() => dispatch(addToCart(props, id))}/>
         </div>
 
     )

@@ -3,10 +3,15 @@ import {IoIosRemoveCircle} from 'react-icons/io'
 import {Item} from '../../common/types';
 import tempItemImg from '../../assets/images/shoe3.jpg';
 import tempUserPfp from '../../assets/images/default.jpg';
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { removeFromCart } from "../../features/cartSlice";
+import { selectAuth } from "../../features/authSlice";
 
 const ItemSmall : React.FC<Item> = (props) =>{
-    return (
+    const dispatch = useAppDispatch();
+    const {id} = useAppSelector(selectAuth);
 
+    return (
         <div className="item-small-container"> 
             {/* <img src={props.item_image} alt="item-small" className="item-small-image"/> */}
             <img src={tempItemImg} alt="item-small" className="item-small-image"/>
@@ -20,7 +25,8 @@ const ItemSmall : React.FC<Item> = (props) =>{
                 <h3>{props.tag}</h3>
             </div>
             <p className="item-small-description">{props.description}</p>
-            <IoIosRemoveCircle className="remove-from-cart"/>
+            <IoIosRemoveCircle className="remove-from-cart" 
+            onClick={() => dispatch(removeFromCart({item_id:props.id, user_id: id}))}/>
         </div>
 
     )
