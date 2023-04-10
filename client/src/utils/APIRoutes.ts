@@ -1,5 +1,12 @@
 export const host = "http://localhost:3001";
+
 export const registerRoute = `${host}/api/auth/register`;
 export const loginRoute = `${host}/api/auth/login`;
-export const addItem = `${host}/api/item/additem`;
-export const getItems = `${host}/api/item/getitems`;
+export const getUserRoute = `${host}/api/auth/getuser`;
+
+export const addItemRoute = `${host}/api/item/additem`;
+export const getItemsRoute = `${host}/api/item/getitems`;
+
+export const getCartItemsRoute = `${host}/api/cart/getcartitems`;
+export const addCartItemRoute = `${host}/api/cart/addcartitem`;
+export const removeCartItemRoute = `${host}/api/cart/removecartitem`;

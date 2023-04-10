@@ -7,16 +7,24 @@ import Register from './pages/Register/Register';
 import Profile from './pages/Profile/Profile';
 import Checkout from './pages/Checkout/Checkout'
 import {useEffect } from 'react';
-import {isAuth} from './features/authSlice';
-import { useAppDispatch } from './hooks';
+import {isAuth, selectAuth} from './features/authSlice';
+import { useAppDispatch, useAppSelector } from './hooks';
+import { fetchCartItems } from './features/cartSlice';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
-
+  const {id, isLoggedIn} = useAppSelector(selectAuth);
+  
   useEffect(() => {
     dispatch(isAuth());
     console.log("ran app");
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isLoggedIn){
+      dispatch(fetchCartItems(id));
+    }    
+  }, [isLoggedIn]);
 
   return (
     <div className="App">

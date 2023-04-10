@@ -1,24 +1,27 @@
 import "./style.css";
 import ItemSmall from "../Item-Small/ItemSmall"
-import {ItemData} from '../../data/ItemData';
+import { useAppSelector } from "../../hooks";
+import cartSlice, { selectCart } from "../../features/cartSlice";
 
 
 const Cart: React.FC = () =>{
-    
+    const {items} = useAppSelector(selectCart);
     return (
         <div className="cart-container scroll-style">
             {
-                ItemData.map((data) => {
+                items.map((item) => {
                     return (
                         <ItemSmall 
-                        itemId={data.itemId}    
-                        img={data.img}
-                        name={data.name}
-                        price={data.price}
-                        time={data.time}
-                        description={data.description}
-                        tag={data.tag}
-                        sellerId={data.sellerId}
+                        key={item.id}
+                        id={item.id}    
+                        item_image={item.item_image}
+                        name={item.name}
+                        price={item.price}
+                        description={item.description}
+                        tag={item.tag}
+                        user_id={item.user_id}
+                        profile_picture={item.profile_picture}
+                        username={item.username}
                     />
                     )
                 })

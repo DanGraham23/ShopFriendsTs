@@ -3,7 +3,7 @@ import {useState} from 'react';
 import {AiOutlineClose} from 'react-icons/ai';
 import axios from 'axios';
 import { selectAuth } from "../../features/authSlice";
-import { addItem } from '../../utils/APIRoutes';
+import { addItemRoute } from '../../utils/APIRoutes';
 import {useAppSelector, useAppDispatch } from "../../hooks";
 import { clearError, setError } from '../../features/errorSlice';
 import { Item } from '../../common/types';
@@ -42,7 +42,7 @@ const CreateListingModal: React.FC<Props> = (props) =>{
                 item_image: "default items.png",
                 tag: itemTag
             }
-            await axios.put(addItem,
+            await axios.put(addItemRoute,
                 item,
             {
                 withCredentials:true

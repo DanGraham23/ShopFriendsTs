@@ -2,16 +2,18 @@ import "./style.css";
 import logo from '../../assets/images/shop-friends-logo.jpg'
 import {BsCart} from 'react-icons/bs';
 import Cart from "../Cart/Cart";
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import CreateListingModal from '../CreateListingModal/CreateListingModal'
 import { useSelector } from "react-redux";
 import { selectAuth } from "../../features/authSlice";
+
 
 const Navbar:React.FC = () =>{
     const [showCart, setShowCart] = useState(false);
     const [showCreateListingModal, setShowCreateListingModal] = useState(false);
     const {isLoggedIn, username} = useSelector(selectAuth);
-    
+
+
     return (
         <div>
         <div className="nav-container">

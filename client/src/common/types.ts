@@ -6,5 +6,7 @@ export interface Item  {
     price: number,
     tag: string,
     user_id: number,
+    profile_picture: string,
+    username: string,
 }
 
