@@ -106,7 +106,9 @@ module.exports.getUser = async (req: Request, res: Response, next:NextFunction) 
 
 module.exports.addReview = async (req: Request, res: Response, next:NextFunction) => {
     try{
-        const {receiver_user_id, sender_user_id, rating} = req.body;
+        const receiver_user_id : number = Number(req.params.receiver_user_id);
+        const sender_user_id : number = Number(req.params.sender_user_id);
+        const rating : number =  Number(req.params.rating);
         if (receiver_user_id === sender_user_id){
             return res.status(403).json({msg:'Cannot update own rating'});
         }

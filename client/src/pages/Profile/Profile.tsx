@@ -5,12 +5,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { selectAuth } from "../../features/authSlice";
 import {useAppSelector } from "../../hooks";
 import axios from "axios";
-import {getUserRoute } from "../../utils/APIRoutes";
+import {addReviewRoute, getUserRoute } from "../../utils/APIRoutes";
  
 const Profile : React.FC = () => {
     const [profileImg, setProfileImg] = useState("");
     const navigate = useNavigate();
-    const {isLoggedIn, username} = useAppSelector(selectAuth);
+    const {isLoggedIn, id, username} = useAppSelector(selectAuth);
     const {user} = useParams();
 
     const [usersData, setUsersData] = useState(null);
@@ -35,14 +35,24 @@ const Profile : React.FC = () => {
         setProfileImg(URL.createObjectURL(e.target.files[0]));
     }
 
+    async function handleClick(star: number){
+        if (usersData){
+            await axios.put(`${addReviewRoute}/${id}/${usersData.id}/${star}`).then((response:any)=> {
+                console.log("review added");
+            }).catch((err)=> {
+                console.log(err);
+            })
+        }
+    }
+
     function handleUserRatingDisplay(rating: number) {
         const stars = [1,2,3,4,5];
         return (
             stars.map((star, idx) => {
                 return (
                     star <= rating ? 
-                    <AiFillStar className="rating-yellow"/> :
-                    <AiOutlineStar className="rating-gray"/>
+                    <AiFillStar key={idx} className="rating-yellow" onClick={() => handleClick(star)}/> :
+                    <AiOutlineStar key={idx} className="rating-gray" onClick={() => handleClick(star)}/>
                 )
             })
         )

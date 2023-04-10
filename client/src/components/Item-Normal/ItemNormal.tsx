@@ -17,8 +17,10 @@ const ItemNormal : React.FC<Item> = (props) =>{
             {/* <img src={props.item_image} alt="item" className="item-image"/> */}
             <img src={tempItemImg} alt="item" className="item-image"/>
             <div className="item-poster-info">
+                <a href={`/profile/${props.username}`} className="user-link">
                 <img src={tempUserPfp} alt="user" className="user-item-pfp"/>
                 <h4>{props.username}</h4>
+                </a>
                 <h4>${props.price}</h4>
             </div>
             <div className="item-subheading">
