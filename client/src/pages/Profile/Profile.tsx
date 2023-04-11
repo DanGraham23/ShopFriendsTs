@@ -5,8 +5,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { selectAuth } from "../../features/authSlice";
 import {useAppSelector } from "../../hooks";
 import axios from "axios";
-import {addReviewRoute, getUserRoute } from "../../utils/APIRoutes";
- 
+import {addReviewRoute, getUserRoute, updatePfpRoute } from "../../utils/APIRoutes";
+import defaultImg from '../../assets/images/default.jpg';
+
 const Profile : React.FC = () => {
     const [profileImg, setProfileImg] = useState("");
     const navigate = useNavigate();
@@ -30,9 +31,32 @@ const Profile : React.FC = () => {
         
     }, [isLoggedIn]);
 
+    const loadImage = async () => {
+        try {
+          const { default: image } = await import(/* @vite-ignore */ `../../assets/images/${usersData.profile_picture}`);
+          setProfileImg(image);
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
-    function handleChange(e : any){
-        setProfileImg(URL.createObjectURL(e.target.files[0]));
+    useEffect(() => {
+        if (usersData){
+            loadImage();
+        }
+    }, [usersData])
+
+    async function handleChange(e : any){
+        const file = e.target.files[0];
+        setProfileImg(URL.createObjectURL(file));
+        if (isLoggedIn){
+            await axios.post(updatePfpRoute, {
+                id,
+                profile_picture:file.name
+            },{
+                withCredentials:true,
+            });
+        }
     }
 
     async function handleClick(star: number){
@@ -63,9 +87,9 @@ const Profile : React.FC = () => {
         <div className="profile-main">
             <div className="profile-container">
             {
-                profileImg !== "" ? 
+                profileImg ? 
                 <img src={profileImg} alt="profile" className="profile-pic" />
-                : <div className="profile-pic"></div>   
+                : <img src={defaultImg} alt="profile" className="profile-pic" /> 
             }
             </div>
             
@@ -76,7 +100,7 @@ const Profile : React.FC = () => {
                     <label htmlFor="profile-img-upload">
                         <AiFillCamera className="profile-picture-upload"/>
                     </label>
-                    <input id="profile-img-upload" type="file" onChange={handleChange}/>
+                    <input id="profile-img-upload" type="file" onChange={handleChange} accept=".jpg"/>
                 </div>
                 }
             </div>

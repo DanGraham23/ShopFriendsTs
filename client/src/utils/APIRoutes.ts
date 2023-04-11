@@ -4,6 +4,7 @@ export const registerRoute = `${host}/api/auth/register`;
 export const loginRoute = `${host}/api/auth/login`;
 export const getUserRoute = `${host}/api/auth/getuser`;
 export const addReviewRoute = `${host}/api/auth/addreview`;
+export const updatePfpRoute = `${host}/api/auth/updatepfp`;
 
 export const addItemRoute = `${host}/api/item/additem`;
 export const getItemsRoute = `${host}/api/item/getitems`;

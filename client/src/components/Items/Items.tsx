@@ -17,7 +17,7 @@ const Items : React.FC<Props> = (props) => {
     const [items,setItems] = useState<Item[]>([]);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 12;
+    const itemsPerPage = 8;
     const totalPages = Math.ceil(items.length / itemsPerPage);
 
     async function fetchItems(){
@@ -67,7 +67,7 @@ const Items : React.FC<Props> = (props) => {
 
 
     return (
-        <div>
+        <div className='items-container'>
             <div className="items-display">
                 {renderCurrentPageItems()}
             </div>
