@@ -5,19 +5,18 @@ import {useState} from 'react';
 import CreateListingModal from '../CreateListingModal/CreateListingModal'
 import { selectAuth } from "../../features/authSlice";
 import {AiOutlineClose} from 'react-icons/ai';
-import { useAppSelector, useAppDispatch } from "../../hooks";
+import { useAppSelector } from "../../hooks";
 
 const Navbar:React.FC = () =>{
     const [showCart, setShowCart] = useState(false);
     const [showCreateListingModal, setShowCreateListingModal] = useState(false);
     const {isLoggedIn, username} = useAppSelector(selectAuth);
-    const dispatch = useAppDispatch();
 
 
     return (
         <div>
         <div className="nav-container">
-            <a href="/" className="logo reflect">ShopFriends</a>
+            <a href="/" className="logo">ShopFriends</a>
             <ul className="nav-items">
                 {
                     isLoggedIn && <li className="nav-item" 
