@@ -59,7 +59,7 @@ module.exports.login = async (req: Request, res: Response, next:NextFunction) =>
     }
 };
 
-module.exports.updatePfp = async (req:Request, res:Response, next:NextFunction) => {
+module.exports.updatePfp =  async (req:any, res:Response, next:NextFunction) => {
     try{
         const {id, profile_picture} = req.body;
         const userFound: User[] = await knex2('users').where({id});
