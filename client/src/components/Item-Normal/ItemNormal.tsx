@@ -1,8 +1,6 @@
 import "./style.css";
 import {AiFillPlusSquare} from 'react-icons/ai' 
 import {Item} from '../../common/types';
-import tempItemImg from '../../assets/images/shoe3.jpg';
-import tempUserPfp from '../../assets/images/default.jpg';
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { selectAuth } from "../../features/authSlice";
 import { addToCart } from "../../features/cartSlice";
@@ -14,11 +12,10 @@ const ItemNormal : React.FC<Item> = (props) =>{
     return (
 
         <div className="item-container"> 
-            {/* <img src={props.item_image} alt="item" className="item-image"/> */}
-            <img src={tempItemImg} alt="item" className="item-image"/>
+            <img src={`/items-images/${props.item_image}`} alt="item" className="item-image"/>
             <div className="item-poster-info">
                 <a href={`/profile/${props.username}`} className="user-link">
-                <img src={tempUserPfp} alt="user" className="user-item-pfp"/>
+                <img src={`/pfps/${props.profile_picture}`} alt="user" className="user-item-pfp"/>
                 <h4>{props.username}</h4>
                 </a>
                 <h4>${props.price}</h4>

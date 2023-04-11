@@ -40,7 +40,7 @@ const CreateListingModal: React.FC<Props> = (props) =>{
                 description: itemDescription,
                 name : itemName,
                 price: Number(Number(itemPrice).toFixed(2)),
-                item_image: "default items.png",
+                item_image: itemImg,
                 tag: itemTag
             }
             await axios.put(addItemRoute,
@@ -68,8 +68,8 @@ const CreateListingModal: React.FC<Props> = (props) =>{
     
     function handleChange(e : any){
         if (e.target.name === 'itemImg'){
-            createListingInfo.itemImg = e.target.files[0];
             setImageUrl(URL.createObjectURL(e.target.files[0]));
+            setCreateListingInfo({...createListingInfo, [e.target.name]: e.target.files[0].name});
         }else{
             setCreateListingInfo({...createListingInfo, [e.target.name]: e.target.value});
         }

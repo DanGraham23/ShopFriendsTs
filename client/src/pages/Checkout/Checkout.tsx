@@ -3,8 +3,10 @@ import {useState,useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
 import { selectAuth } from "../../features/authSlice";
 import {useAppSelector } from "../../hooks";
+import { selectCart } from "../../features/cartSlice";
 
 const Checkout : React.FC =() =>{
+    const {items} = useAppSelector(selectCart);
 
     const [checkoutFormInfo, setCheckoutFormInfo] = useState({
         fName : "",
@@ -18,13 +20,21 @@ const Checkout : React.FC =() =>{
     const {isLoggedIn} = useAppSelector(selectAuth);
 
     useEffect(() => {
-        console.log("checkout ran");
         if (isLoggedIn){
             navigate('/checkout');
         }else{
             navigate('/login');
         }
     }, [isLoggedIn]);
+
+
+    function calculateTotalPrice(): number{
+        let total = 0;
+        if (items.length > 0){
+            items.map((item, idx) => total += item.price);
+        }
+        return total
+    }
 
     function handleSubmit(e: React.FormEvent){
         e.preventDefault();
@@ -71,7 +81,8 @@ const Checkout : React.FC =() =>{
             value={checkoutFormInfo.phone}
             onChange={handleChange}
             className="checkout-input"/>
-            <p>Total: $XX.XX</p>
+            <p>Total: ${calculateTotalPrice()}</p>
+            <p>Items In Cart: {items.length}</p>
             <button type="submit" className="checkout-form-btn">Purchase Items</button>
         </form>
     )

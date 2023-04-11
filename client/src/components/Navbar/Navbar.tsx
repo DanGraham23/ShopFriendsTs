@@ -3,14 +3,15 @@ import {BsCart} from 'react-icons/bs';
 import Cart from "../Cart/Cart";
 import {useState} from 'react';
 import CreateListingModal from '../CreateListingModal/CreateListingModal'
-import { useSelector } from "react-redux";
 import { selectAuth } from "../../features/authSlice";
 import {AiOutlineClose} from 'react-icons/ai';
+import { useAppSelector, useAppDispatch } from "../../hooks";
 
 const Navbar:React.FC = () =>{
     const [showCart, setShowCart] = useState(false);
     const [showCreateListingModal, setShowCreateListingModal] = useState(false);
-    const {isLoggedIn, username} = useSelector(selectAuth);
+    const {isLoggedIn, username} = useAppSelector(selectAuth);
+    const dispatch = useAppDispatch();
 
 
     return (

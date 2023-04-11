@@ -2,8 +2,8 @@ import "./style.css";
 import {AiFillCamera, AiOutlineStar, AiFillStar} from 'react-icons/ai';
 import {useState,useEffect} from 'react';
 import { useNavigate, useParams } from "react-router-dom";
-import { selectAuth } from "../../features/authSlice";
-import {useAppSelector } from "../../hooks";
+import { selectAuth, setUserLogout } from "../../features/authSlice";
+import {useAppSelector, useAppDispatch } from "../../hooks";
 import axios from "axios";
 import {addReviewRoute, getUserRoute, updatePfpRoute } from "../../utils/APIRoutes";
 import defaultImg from '../../assets/images/default.jpg';
@@ -11,9 +11,9 @@ import defaultImg from '../../assets/images/default.jpg';
 const Profile : React.FC = () => {
     const [profileImg, setProfileImg] = useState("");
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const {isLoggedIn, id, username} = useAppSelector(selectAuth);
     const {user} = useParams();
-
     const [usersData, setUsersData] = useState(null);
 
     async function fetchUser(){
@@ -33,7 +33,7 @@ const Profile : React.FC = () => {
 
     const loadImage = async () => {
         try {
-          const { default: image } = await import(/* @vite-ignore */ `../../assets/images/${usersData.profile_picture}`);
+          const { default: image } = await import(/* @vite-ignore */ `/pfps/${usersData.profile_picture}`);
           setProfileImg(image);
         } catch (error) {
           console.error(error);
@@ -45,6 +45,13 @@ const Profile : React.FC = () => {
             loadImage();
         }
     }, [usersData])
+
+
+    function logout(){
+        dispatch(setUserLogout({id:-1, username:""}));
+        localStorage.clear();
+        navigate("/login");
+    }
 
     async function handleChange(e : any){
         const file = e.target.files[0];
@@ -104,14 +111,19 @@ const Profile : React.FC = () => {
                 </div>
                 }
             </div>
-            <div>
             {
                 isLoggedIn && usersData && 
                 <div className="profile-rating">
                     {handleUserRatingDisplay(Math.round(usersData.avg_rating))}
                 </div>          
-                }
-            </div>
+            }
+            {
+                isLoggedIn && usersData && usersData.username === username && 
+                <div className="logout-btn-container">
+                   <button onClick={logout} className="logout-btn">Logout</button>
+                </div>
+                
+            }
         </div>
     )
 }

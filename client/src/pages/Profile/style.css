@@ -34,6 +34,31 @@
     font-size: 40px;
 }
 
+.logout-btn-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.logout-btn{
+    width: 100px;
+    height: 40px;
+    background-color: var(--primary-black);
+    color: var(--primary-white);
+    border: none;
+    font-size: 16px;
+}
+
+.logout-btn:hover{
+    width: 100px;
+    height: 40px;
+    background-color: var(--primary-white);
+    color: var(--primary-black);
+    border: 2px solid var(--primary-black);
+    cursor: pointer;
+}
+
 .profile-rating{
     display: flex;
     align-items: center;
