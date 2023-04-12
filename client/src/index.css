@@ -46,7 +46,66 @@ h3{
   margin: 0px;
 }
 
-
 .reflect{
   -webkit-box-reflect: below -15px linear-gradient(transparent, rgba(0,0,0,.2));
+}
+
+.form-footer{
+
+}
+
+.input-row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 40px;
+    gap: 5px;   
+}
+
+.form-icon{
+
+    height: 100%;
+    width: 15%;
+}
+
+.form-input{
+  height: 100%;
+  width: 85%;
+  outline: none;
+  border: 2px solid black;
+  text-indent: 20px;
+  border-radius: 16px;
+}
+
+.form-btn{
+    width: 50%;
+    height: 50px;
+    background-color: var(--primary-black);
+    color: var(--primary-white);
+    outline: none;
+    border: none;
+}
+
+.form-btn:hover{
+  background-color: var(--primary-white);
+  color: var(--primary-black);
+  border: 2px solid var(--primary-black);
+  cursor: pointer;
+}
+
+.scroll-style::-webkit-scrollbar{
+  width: 10px;
+}
+
+.scroll-style::-webkit-scrollbar-track {
+  background: var(--primary-dark-gray);
+}
+
+.scroll-style::-webkit-scrollbar-thumb {
+  background: var(--primary-black);
+}
+
+.scroll-style::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark-black);
 }

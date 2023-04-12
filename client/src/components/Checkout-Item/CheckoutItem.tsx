@@ -5,28 +5,28 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { removeFromCart } from "../../features/cartSlice";
 import { selectAuth } from "../../features/authSlice";
 
-const ItemSmall : React.FC<Item> = (props) =>{
+const CheckoutItem : React.FC<Item> = (props) =>{
     const dispatch = useAppDispatch();
     const {id} = useAppSelector(selectAuth);
 
     return (
-        <div className="item-small-container"> 
-            <img src={`/items-images/${props.item_image}`} alt="item-small" className="item-small-image"/>
-            <div className="item-small-poster-info">
+        <div className="checkout-item-container"> 
+            <img src={`/items-images/${props.item_image}`} alt="item-small" className="checkout-item-image"/>
+            <div className="checkout-item-poster-info">
                 <img src={`/pfps/${props.profile_picture}`} alt="user" className="user-item-pfp"/>
                 <h4>{props.username}</h4>
                 <h4>${props.price}</h4>
             </div>
-            <div className="item-small-subheading">
+            <div className="checkout-item-subheading">
                 <h3>{props.name}</h3>
-                <h3>{props.tag}</h3>
             </div>
-            <p className="item-small-description">{props.description}</p>
-            {props.id && <IoIosRemoveCircle className="remove-from-cart" 
-            onClick={() => dispatch(removeFromCart(props.id, id))}/>}
+            <p className="checkout-item-description">{props.description}</p>
+            {props.id && <button
+            className="remove-from-cart-checkout" 
+            onClick={() => dispatch(removeFromCart(props.id, id))}>Remove</button>}
         </div>
 
     )
 }
 
-export default ItemSmall;
+export default CheckoutItem;

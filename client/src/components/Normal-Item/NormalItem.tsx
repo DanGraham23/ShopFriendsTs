@@ -7,7 +7,7 @@ import { addToCart, selectCart } from "../../features/cartSlice";
 import { toastProps } from "../../common/toasts";
 import { ToastContainer, toast } from "react-toastify";
 
-const ItemNormal : React.FC<Item> = (props) =>{
+const NormalItem : React.FC<Item> = (props) =>{
     const dispatch = useAppDispatch();
     const {isLoggedIn, id} = useAppSelector(selectAuth);
     const {items} = useAppSelector(selectCart);
@@ -27,20 +27,20 @@ const ItemNormal : React.FC<Item> = (props) =>{
 
     return (
 
-        <div className="item-container"> 
-            <img src={`/items-images/${props.item_image}`} alt="item" className="item-image"/>
-            <div className="item-poster-info">
+        <div className="normal-item-container"> 
+            <img src={`/items-images/${props.item_image}`} alt="normal-item" className="normal-item-image"/>
+            <div className="normal-item-poster-info">
                 <a href={`/profile/${props.username}`} className="user-link">
                 <img src={`/pfps/${props.profile_picture}`} alt="user" className="user-item-pfp"/>
                 <h4>{props.username}</h4>
                 </a>
                 <h4>${props.price}</h4>
             </div>
-            <div className="item-subheading">
+            <div className="normal-item-subheading">
                 <h4>{props.name}</h4>
                 <h4>{props.tag}</h4>
             </div>
-            <p className="item-description">{props.description}</p>
+            <p className="normal-item-description">{props.description}</p>
             {  isLoggedIn && id !== props.user_id &&
                 <AiFillPlusSquare className="add-to-cart"
                 onClick={handleClick}/>
@@ -51,4 +51,4 @@ const ItemNormal : React.FC<Item> = (props) =>{
     )
 }
 
-export default ItemNormal;
+export default NormalItem;

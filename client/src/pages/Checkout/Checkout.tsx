@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { selectAuth } from "../../features/authSlice";
 import {useAppSelector } from "../../hooks";
 import { selectCart } from "../../features/cartSlice";
+import CheckoutItem from "../../components/Checkout-Item/CheckoutItem";
 
 const Checkout : React.FC =() =>{
     const {items} = useAppSelector(selectCart);
@@ -34,7 +35,7 @@ const Checkout : React.FC =() =>{
         if (items.length > 0){
             items.map((item, idx) => total += item.price);
         }
-        return total
+        return Math.round( total * 1e2 ) / 1e2;
     }
 
     function handleSubmit(e: React.FormEvent){
@@ -46,7 +47,8 @@ const Checkout : React.FC =() =>{
     }
 
     return (
-        <form onSubmit={handleSubmit} className="checkout-form">
+        <div className="checkout-container">
+            <form onSubmit={handleSubmit} className="checkout-form">
             <label className="checkout-label">First Name</label>
             <input type="text" 
             placeholder="First name"
@@ -83,9 +85,26 @@ const Checkout : React.FC =() =>{
             onChange={handleChange}
             className="checkout-input"/>
             <p>Total: ${calculateTotalPrice()}</p>
-            <p>Items In Cart: {items.length}</p>
             <button type="submit" className="checkout-form-btn">Purchase Items</button>
         </form>
+        <div className="checkout-items-container scroll-style">
+        {
+            items && 
+            items.map((item) => <CheckoutItem 
+                key={item.id}
+                id={item.id}    
+                item_image={item.item_image}
+                name={item.name}
+                price={item.price}
+                description={item.description}
+                tag={item.tag}
+                user_id={item.user_id}
+                profile_picture={item.profile_picture}
+                username={item.username}
+            />)
+        }
+        </div>
+        </div>
     )
 }
 

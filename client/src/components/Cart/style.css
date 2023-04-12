@@ -5,27 +5,10 @@
     right: 200px;
     top: 60px;
     background-color: var(--primary-light-gray);
-    border: 3px solid var(--primary-dark-gray);
+    border: 1px solid var(--primary-black);
     display: flex;
     flex-direction: column;
     gap: 5px;
     overflow: hidden;
     overflow-y: scroll;
 }
-
-
-.scroll-style::-webkit-scrollbar{
-    width: 15px;
-}
-
-.scroll-style::-webkit-scrollbar-track {
-    background: var(--primary-light-gray);
-  }
-
-.scroll-style::-webkit-scrollbar-thumb {
-    background: var(--primary-dark-gray);
-  }
-
-.scroll-style::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-dark-gray);
-  }

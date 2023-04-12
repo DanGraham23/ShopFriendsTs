@@ -1,16 +1,16 @@
-.item-small-container{
+.cart-item-container{
     width: 100%;
     height: 350px;
     background-color: var(--primary-white);
     color: var(--primary-black);
 }
 
-.item-small-image{
+.cart-item-image{
     width: 100%;
     height: 40%;
 }
 
-.item-small-poster-info{
+.cart-item-poster-info{
     margin-top: 5px;
     display: flex;
     gap: 20px;
@@ -19,7 +19,7 @@
     margin-left: 10px;
 }
 
-.item-small-subheading{
+.cart-item-subheading{
     margin-top: 5px;
     display: flex;
     align-items: center;
@@ -28,14 +28,14 @@
     margin-left: 10px;
 }
 
-.item-small-description{
+.cart-item-description{
     font-size: 14px;
     margin-left: 10px;
 }
 
 .remove-from-cart{
     font-size: 26px;
-    margin-left: 250px;
+    float: right;
 }
 
 .remove-from-cart:hover{

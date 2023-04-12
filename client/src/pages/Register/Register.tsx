@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import {register, selectAuth} from "../../features/authSlice";
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import { validateRegisterInput } from "../../common/formValidation";
+import registerImg from '../../assets/images/register-img.jpg';
 
 const Register: React.FC = () => {
     const navigate = useNavigate();
@@ -49,7 +50,8 @@ const Register: React.FC = () => {
     
 
     return (
-        <div className="register--container">
+        <div className="register-container">
+            <img src={registerImg} alt="woman holding her sunglasses on her face in cool outfit" className="register-img"/>
             <form onSubmit={handleSubmit} className="register-form">
                 <div className="input-row">
                     <BsFillPersonFill className="form-icon"/>
@@ -58,7 +60,7 @@ const Register: React.FC = () => {
                     name="username"
                     value={userFormInfo.username}
                     onChange={handleChange}
-                    className="register-input"/>
+                    className="form-input"/>
                 </div>
                 <div className="input-row">
                     <AiOutlineMail className="form-icon"/>
@@ -67,7 +69,7 @@ const Register: React.FC = () => {
                     name="email"
                     value={userFormInfo.email}
                     onChange={handleChange}
-                    className="register-input"/>
+                    className="form-input"/>
                 </div>
                 <div className="input-row">
                     <BsFillLockFill className="form-icon"/>
@@ -76,7 +78,7 @@ const Register: React.FC = () => {
                     name="password"
                     value={userFormInfo.password}
                     onChange={handleChange}
-                    className="register-input"/>
+                    className="form-input"/>
                 </div>
                 <div className="input-row">
                     <BsFillLockFill className="form-icon"/>
@@ -85,9 +87,9 @@ const Register: React.FC = () => {
                     name="confirmPassword"
                     value={userFormInfo.confirmPassword}
                     onChange={handleChange}
-                    className="register-input"/>
+                    className="form-input"/>
                 </div>
-                <button type="submit" className="register-btn">Register</button>
+                <button type="submit" className="form-btn">Register</button>
                 <a href="/login" className="form-footer">Already a member? Click here to login!</a>
             </form>
             <ToastContainer />

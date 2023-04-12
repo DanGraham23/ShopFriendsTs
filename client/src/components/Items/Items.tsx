@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import './style.css';
-import { useAppSelector } from '../../hooks';
-import { selectAuth } from '../../features/authSlice';
 import axios from 'axios';
 import { getItemsRoute } from '../../utils/APIRoutes';
 import { Item } from '../../common/types';
-import ItemNormal from '../Item-Normal/ItemNormal';
+import NormalItem from '../Normal-Item/NormalItem';
 
 interface Props {
     curFilter: string,
@@ -44,7 +42,7 @@ const Items : React.FC<Props> = (props) => {
 
         return currentItems.map((item) => {
             return (
-                <ItemNormal  
+                <NormalItem  
                 key={item.id}  
                 id={item.id}
                 item_image={item.item_image}

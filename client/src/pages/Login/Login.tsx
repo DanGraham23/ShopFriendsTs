@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { login, selectAuth } from "../../features/authSlice";
 import { toastProps } from "../../common/toasts";
 import { validateLoginInput } from "../../common/formValidation";
+import loginImg from '../../assets/images/login-img.jpg';
 
 const Login : React.FC = () =>{
     const navigate = useNavigate();
@@ -43,7 +44,8 @@ const Login : React.FC = () =>{
     }
     
     return (
-        <div className="register--container">
+        <div className="login-container"> 
+            <img src={loginImg} alt="woman holding her sunglasses on her face in cool outfit" className="login-img"/>
             <form onSubmit={handleSubmit} className="login-form">
                 <div className="input-row">
                     <BsFillPersonFill className="form-icon"/>
@@ -52,7 +54,7 @@ const Login : React.FC = () =>{
                     name="username"
                     value={userFormInfo.username}
                     onChange={handleChange}
-                    className="login-input"/>
+                    className="form-input"/>
                 </div>
                 <div className="input-row">
                     <BsFillLockFill className="form-icon"/>
@@ -61,9 +63,9 @@ const Login : React.FC = () =>{
                     name="password"
                     value={userFormInfo.password}
                     onChange={handleChange}
-                    className="login-input"/>
+                    className="form-input"/>
                 </div>
-                <button type="submit" className="login-btn">Login</button>
+                <button type="submit" className="form-btn">Login</button>
                 <a href="/register" className="form-footer">New member? Click here to register!</a>
             </form>
             <ToastContainer />

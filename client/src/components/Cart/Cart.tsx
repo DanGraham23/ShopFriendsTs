@@ -1,5 +1,5 @@
 import "./style.css";
-import ItemSmall from "../Item-Small/ItemSmall"
+import CartItem from "../Cart-Item/CartItem"
 import { useAppSelector } from "../../hooks";
 import { selectCart } from "../../features/cartSlice";
 
@@ -12,7 +12,7 @@ const Cart: React.FC = () =>{
             {
                 items.map((item) => {
                     return (
-                        <ItemSmall 
+                        <CartItem 
                         key={item.id}
                         id={item.id}    
                         item_image={item.item_image}
