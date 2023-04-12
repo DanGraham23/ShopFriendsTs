@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { CartItem } from "../model/cartItemModel";
 const knex3 = require('../db/knex');
 
 /**
@@ -19,7 +18,7 @@ module.exports.addItemToCart = async (req:Request, res:Response, next:NextFuncti
             return res.status(404).json({msg:"Cannot find a cart for the specified user!"});
         }
 
-        //Check if the current item is already in the cart
+        //Check if the item is already in the cart
         const cart_id = userCartObj[0].id;
         const cartItemFound = await knex3('cart_item').whereRaw('cart_id = ? AND item_id = ?', [cart_id, item_id]).catch((err)=> {
             return res.status(404).json({msg:"Unable to find item"});
@@ -93,6 +92,7 @@ module.exports.getCartItems = async (req:Request, res:Response, next:NextFunctio
         }
 
         //Get a list of the items with the corresponding user_id (from id param) and cart_id (from cart found in DB)
+        //with the username and user profile picture for displaying on frontend
         const cart = cartObj[0];
         const items = await knex3.select('items.*','users.profile_picture', 'users.username').from('cart_item').where('cart_item.cart_id', cart.id)
         .join('items', 'items.id', 'cart_item.item_id')

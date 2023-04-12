@@ -20,7 +20,7 @@ module.exports.register = async (req: Request, res: Response, next:NextFunction)
             username: username,
             password: hashedPassword,
             email: email,
-            profile_picture: "default.png"
+            profile_picture: "default.jpg"
         }
 
         //Check if the user already exists with the username or email
@@ -61,7 +61,7 @@ module.exports.login = async (req: Request, res: Response, next:NextFunction) =>
     try{
         const {username, password} = req.body;
 
-        //Check if the user already exists with the username or email
+        //Check if the user exists
         const userFound: User[] = await knex2('users').where({username});
         if (userFound.length == 0){
             return res.status(404).json({msg:'No user exists with those credentials'});
@@ -126,14 +126,13 @@ module.exports.getUser = async (req: Request, res: Response, next:NextFunction) 
         const username = req.params.username;
 
         //Check if the user exists with the given username
-        const userFound: User[] = await knex2('users').where({username});
-        if (userFound.length == 0){
+        const userFoundObj: User[] = await knex2('users').where({username});
+        if (userFoundObj.length == 0){
             return res.status(404).json({msg:'No user exists with that username'});
         }
 
         //Get their pfp, username, id, and average rating
-        const tempUser = userFound[0];
-        const receiver_user_id = tempUser.id;
+        const receiver_user_id = userFoundObj[0].id;
         const userObj = await knex2('users').select('users.profile_picture', 'users.username','users.id', knex2.raw('AVG(review.rating) as avg_rating')).leftJoin('review', 'users.id', 'review.receiver_user_id').where('review.receiver_user_id', receiver_user_id).groupBy('users.id');
 
         //If the user does NOT have a rating, return their rating as 0.00

@@ -66,7 +66,7 @@ module.exports.addItem = async (req:Request, res:Response, next:NextFunction) =>
  */
 module.exports.removeItem = async (req:Request, res:Response, next :NextFunction) => {
     try{
-        const {id} = req.body;
+        const {id} = req.params;
 
         //Check if the id is a valid item_id, and remove it
         const itemFound = await knex1('items').where({id});

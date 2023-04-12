@@ -4,6 +4,6 @@ export {};
 
 itemRouter.get("/getitems/:user_id/:tag", getItems);
 itemRouter.put("/additem", addItem);
-itemRouter.delete("/removeItem", removeItem);
+itemRouter.delete("/removeitem/:id", removeItem);
 
 module.exports = itemRouter;
