@@ -4,8 +4,7 @@ import {AiOutlineClose} from 'react-icons/ai';
 import axios from 'axios';
 import { selectAuth } from "../../features/authSlice";
 import { addItemRoute } from '../../utils/APIRoutes';
-import {useAppSelector, useAppDispatch } from "../../hooks";
-import { clearError, setError } from '../../features/errorSlice';
+import {useAppSelector} from "../../hooks";
 import { Item } from '../../common/types';
 import {ToastContainer, toast} from 'react-toastify';
 import { toastProps } from "../../common/toasts";
@@ -17,7 +16,6 @@ interface Props {
 
 const CreateListingModal: React.FC<Props> = (props) =>{
     const {isLoggedIn, id} = useAppSelector(selectAuth);
-    const dispatch = useAppDispatch();
     const tags = ['other', 'shirt', 'pants', 'shoes', 'hat'];
     const [imageUrl, setImageUrl] = useState("");
 
@@ -50,18 +48,9 @@ const CreateListingModal: React.FC<Props> = (props) =>{
                 item,
             {
                 withCredentials:true
-            }).then((response:any) => {
-                if (response.data.status === false){
-                    dispatch(setError("bad attempt to create listing"));
-                    toast.warn("Failed to create item, please enter form carefully!", toastProps);
-                }else{
-                    if (typeof window !== "undefined") {
-                        dispatch(clearError());
-                      }
-                      toast.success("Item Created!", toastProps);
-                }
+            }).then((res:any) => {
+                toast.success("Item Created!", toastProps);
             }).catch((err) => {
-                dispatch(setError(err));
                 toast.warn("Failed to create item, please enter form carefully!", toastProps);
             });
         }else{

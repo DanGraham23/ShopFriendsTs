@@ -45,18 +45,16 @@ export const register = (user:{username:string, password:string, email:string}) 
         user,
     {
         withCredentials:true
-    }).then((response:any) => {
-        if (response.data.status === false){
-            dispatch(setError("invalid register attempt"));
-        }else{
-            if (typeof window !== "undefined") {
-                localStorage.setItem("shopfriend-user", JSON.stringify(response.data.returnedUser));
-                dispatch(setUser(response.data.returnedUser));
-                dispatch(clearError());
-              }
-        }
+    }).then((res)=>{
+        if (typeof window !== "undefined") {
+            localStorage.setItem("shopfriend-user", JSON.stringify(res.data.returnedUser));
+            dispatch(setUser(res.data.returnedUser));
+            dispatch(clearError());
+          }
     }).catch((err) => {
-        dispatch(setError(err));
+        if (err.response.status){
+            dispatch(setError(err.response.status + " " + err.response.data.msg));
+        }
     });
     dispatch(setLoading(false));
 }
@@ -67,18 +65,16 @@ export const login = (user:{username:string, password:string}) => async (dispatc
         user,
     {
         withCredentials:true
-    }).then((response:any) => {
-        if (response.data.status === false){
-            dispatch(setError("invalid login attempt"));
-        }else{
-            if (typeof window !== "undefined") {
-                localStorage.setItem("shopfriend-user", JSON.stringify(response.data.returnedUser));
-                dispatch(setUser(response.data.returnedUser));
-                dispatch(clearError());
-              }
+    }).then((res)=>{
+        if (typeof window !== "undefined") {
+            localStorage.setItem("shopfriend-user", JSON.stringify(res.data.returnedUser));
+            dispatch(setUser(res.data.returnedUser));
+            dispatch(clearError());
         }
     }).catch((err) => {
-        dispatch(setError(err));
+        if (err.response.status){
+            dispatch(setError(err.response.status + " " + err.response.data.msg));
+        }
     });
     dispatch(setLoading(false));
 }

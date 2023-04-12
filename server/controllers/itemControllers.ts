@@ -12,11 +12,7 @@ const knex1 = require('../db/knex');
 module.exports.getItems = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const {user_id, tag} = req.params;
-
-        //If tag is "", then the request is for a specific user's items
-        //Otherwise, 
-        //Find the items that are NOT owned by the user making the request with the matching tag property
-        if (tag != ""){
+        if (tag !== "profile"){
             const items: Item[] = await knex1.select('items.*', 'users.username', 'users.profile_picture').from('items').leftJoin('users', 'items.user_id', 'users.id').whereNot('items.user_id', user_id).andWhere('items.tag', tag);
             return res.status(200).json({items});
         }else{

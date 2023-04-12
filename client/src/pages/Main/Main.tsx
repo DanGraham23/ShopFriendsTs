@@ -10,7 +10,7 @@ import img8 from '../../assets/images/home-img8.jpg'
 import Filters from "../../components/Filters/Filters";
 import {useState} from "react";
 
-import Items from "../../components/Items/Items";
+import MainItems from "../../components/Main-Items/MainItems";
 
 
 const Main : React.FC = () =>{
@@ -34,7 +34,7 @@ const Main : React.FC = () =>{
                 <img src={img7} alt="main-img7" className="grid-item"/>
                 <img src={img8} alt="main-img8" className="grid-item"/>
             </div>
-        </div> : <Items curFilter={curFilter}/>}
+        </div> : <MainItems curFilter={curFilter}/>}
         </div>
 
     )

@@ -11,7 +11,7 @@ interface Props {
     curFilter: string,
 }
 
-const Items : React.FC<Props> = (props) => {
+const MainItems : React.FC<Props> = (props) => {
     const {id} = useAppSelector(selectAuth);
     const [items,setItems] = useState<Item[]>([]);
 
@@ -66,13 +66,13 @@ const Items : React.FC<Props> = (props) => {
             <div className="items-display">
                 {renderCurrentPageItems()}
             </div>
-            <div className='pagination-btns'>
+            {props.curFilter !== "" &&<div className='pagination-btns'>
                 <button onClick={handleBackwardClick} disabled={currentPage===1} className='pagination-btn'>Prev</button>
                 <button onClick={handleForwardClick} disabled={currentPage===totalPages} className='pagination-btn'>Next</button>
-            </div>
+            </div>}
         </div>
         
     )
 }
 
-export default Items;
+export default MainItems;

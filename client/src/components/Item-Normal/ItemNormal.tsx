@@ -25,7 +25,7 @@ const ItemNormal : React.FC<Item> = (props) =>{
                 <h4>{props.tag}</h4>
             </div>
             <p className="item-description">{props.description}</p>
-            {isLoggedIn && <AiFillPlusSquare className="add-to-cart"
+            {isLoggedIn && id !== props.user_id && <AiFillPlusSquare className="add-to-cart"
             onClick={() => dispatch(addToCart(props, id))}/>}
         </div>
 

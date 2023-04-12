@@ -2,14 +2,12 @@ import "./style.css";
 import {BsCart} from 'react-icons/bs';
 import Cart from "../Cart/Cart";
 import {useState} from 'react';
-import CreateListingModal from '../CreateListingModal/CreateListingModal'
 import { selectAuth } from "../../features/authSlice";
 import {AiOutlineClose} from 'react-icons/ai';
 import { useAppSelector } from "../../hooks";
 
 const Navbar:React.FC = () =>{
     const [showCart, setShowCart] = useState(false);
-    const [showCreateListingModal, setShowCreateListingModal] = useState(false);
     const {isLoggedIn, username} = useAppSelector(selectAuth);
 
 
@@ -18,10 +16,7 @@ const Navbar:React.FC = () =>{
         <div className="nav-container">
             <a href="/" className="logo">ShopFriends</a>
             <ul className="nav-items">
-                {
-                    isLoggedIn && <li className="nav-item" 
-                    onClick={() => setShowCreateListingModal(!showCreateListingModal)}>Create Listing</li>
-                }
+                
                 {
                     isLoggedIn ?
                     <a href={`profile/${username}`}><li className="nav-item">MyAccount</li></a>:
@@ -37,7 +32,7 @@ const Navbar:React.FC = () =>{
                 
             </ul>
         </div>
-        {showCreateListingModal && <CreateListingModal showCreateListingModal={showCreateListingModal} setShowCreateListingModal={setShowCreateListingModal}/>}
+        
         {showCart && <Cart/>}
         </div>
         
