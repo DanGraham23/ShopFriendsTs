@@ -10,7 +10,7 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toastProps } from "../../common/toasts";
 import CreateListingModal from "../../components/CreateListingModal/CreateListingModal";
-import ProfileItems from "../../components/Profile-Items/ProfileItems";
+import Items from "../../components/Items/Items";
 
 const Profile : React.FC = () => {
     const [profileImg, setProfileImg] = useState("");
@@ -20,7 +20,7 @@ const Profile : React.FC = () => {
     const {user} = useParams();
     const [usersData, setUsersData] = useState<any>(null);
     const [showCreateListingModal, setShowCreateListingModal] = useState(false);
-
+    
     async function fetchUser(){
         if (user){
             const res = await axios.get(`${getUserRoute}/${user}`);
@@ -144,7 +144,7 @@ const Profile : React.FC = () => {
             }
             {
                 usersData && 
-                    <ProfileItems user={usersData}/>
+                <Items curFilter={"profile"} curId={usersData.id}/>
             }
             <ToastContainer />
         </div>

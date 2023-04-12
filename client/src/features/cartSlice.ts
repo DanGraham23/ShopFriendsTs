@@ -78,7 +78,6 @@ export const fetchCartItems = (user_id: number) => async (dispatch:any) => {
     dispatch(setLoading(false));
 }
 
-
 export const {setLoading, setCartItems, setCartOwner, setRemoveCartItem, setAddCartItem} = cartSlice.actions;
 export default cartSlice.reducer;
 export const selectCart = (state:RootState) => state.cart;

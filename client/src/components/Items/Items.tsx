@@ -9,10 +9,10 @@ import ItemNormal from '../Item-Normal/ItemNormal';
 
 interface Props {
     curFilter: string,
+    curId: number,
 }
 
-const MainItems : React.FC<Props> = (props) => {
-    const {id} = useAppSelector(selectAuth);
+const Items : React.FC<Props> = (props) => {
     const [items,setItems] = useState<Item[]>([]);
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +20,7 @@ const MainItems : React.FC<Props> = (props) => {
     const totalPages = Math.ceil(items.length / itemsPerPage);
 
     async function fetchItems(){
-        const res = await axios.get(`${getItemsRoute}/${id}/${props.curFilter}`);
+        const res = await axios.get(`${getItemsRoute}/${props.curId}/${props.curFilter}`);
         setItems(res.data.items);
     }
 
@@ -75,4 +75,4 @@ const MainItems : React.FC<Props> = (props) => {
     )
 }
 
-export default MainItems;
+export default Items;

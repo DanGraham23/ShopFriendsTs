@@ -10,11 +10,14 @@ import img8 from '../../assets/images/home-img8.jpg'
 import Filters from "../../components/Filters/Filters";
 import {useState} from "react";
 
-import MainItems from "../../components/Main-Items/MainItems";
+import Items from "../../components/Items/Items";
+import { useAppSelector } from "../../hooks";
+import { selectAuth } from "../../features/authSlice";
 
 
 const Main : React.FC = () =>{
     const [curFilter, setCurFilter] = useState("");
+    const {id} = useAppSelector(selectAuth);
 
     return (
         <div className="main-container">
@@ -34,7 +37,7 @@ const Main : React.FC = () =>{
                 <img src={img7} alt="main-img7" className="grid-item"/>
                 <img src={img8} alt="main-img8" className="grid-item"/>
             </div>
-        </div> : <MainItems curFilter={curFilter}/>}
+        </div> : <Items curFilter={curFilter} curId={id}/>}
         </div>
 
     )
