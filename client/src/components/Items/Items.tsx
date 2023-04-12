@@ -5,7 +5,6 @@ import { selectAuth } from '../../features/authSlice';
 import axios from 'axios';
 import { getItemsRoute } from '../../utils/APIRoutes';
 import { Item } from '../../common/types';
-import {AiFillPlusSquare} from 'react-icons/ai' 
 import ItemNormal from '../Item-Normal/ItemNormal';
 
 interface Props {
@@ -21,12 +20,8 @@ const Items : React.FC<Props> = (props) => {
     const totalPages = Math.ceil(items.length / itemsPerPage);
 
     async function fetchItems(){
-        const res = await axios.post(getItemsRoute,
-            {
-                user_id: id,
-                tag: props.curFilter
-            });
-       setItems(res.data.items);
+        const res = await axios.get(`${getItemsRoute}/${id}/${props.curFilter}`);
+        setItems(res.data.items);
     }
 
     useEffect(() => {

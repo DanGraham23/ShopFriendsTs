@@ -19,18 +19,21 @@ const CreateListingModal: React.FC<Props> = (props) =>{
     const {isLoggedIn, id} = useAppSelector(selectAuth);
     const dispatch = useAppDispatch();
     const tags = ['other', 'shirt', 'pants', 'shoes', 'hat'];
+    const [imageUrl, setImageUrl] = useState("");
 
     const [createListingInfo, setCreateListingInfo] = useState({
         itemName: "",
         itemPrice : "",
         itemDescription : "",
         itemImg: "",
-        itemTag: "",
+        itemTag: "other",
     })
-    const [imageUrl, setImageUrl] = useState("");
+    
 
     async function handleSubmit(e : React.FormEvent){
         e.preventDefault();
+
+        //Validate the form input, check if anything is null or invalid price
         const {itemName, itemPrice, itemDescription, itemImg, itemTag} = createListingInfo;
         if (itemName !== "" && itemPrice !== "" && Number(itemPrice) !== 0 && 
         !isNaN(Number(itemPrice)) && itemDescription !== "" && 
@@ -67,6 +70,8 @@ const CreateListingModal: React.FC<Props> = (props) =>{
     }
     
     function handleChange(e : any){
+
+        //Check for image upload in form
         if (e.target.name === 'itemImg'){
             setImageUrl(URL.createObjectURL(e.target.files[0]));
             setCreateListingInfo({...createListingInfo, [e.target.name]: e.target.files[0].name});

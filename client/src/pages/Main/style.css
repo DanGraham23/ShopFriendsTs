@@ -1,4 +1,4 @@
-.home-container{
+.main-container{
     height: 600px;
     width: 100%;
     text-align: center;
@@ -7,7 +7,7 @@
     color: var(--primary-black);
 }
 
-.home-header{
+.main-header{
   position: relative;
   
   display: flex;

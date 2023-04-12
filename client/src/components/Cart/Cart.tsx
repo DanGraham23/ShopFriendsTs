@@ -1,7 +1,7 @@
 import "./style.css";
 import ItemSmall from "../Item-Small/ItemSmall"
 import { useAppSelector } from "../../hooks";
-import cartSlice, { selectCart } from "../../features/cartSlice";
+import { selectCart } from "../../features/cartSlice";
 
 
 const Cart: React.FC = () =>{

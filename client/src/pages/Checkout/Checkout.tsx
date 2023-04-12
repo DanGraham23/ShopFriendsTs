@@ -7,7 +7,9 @@ import { selectCart } from "../../features/cartSlice";
 
 const Checkout : React.FC =() =>{
     const {items} = useAppSelector(selectCart);
-
+    const navigate = useNavigate();
+    const {isLoggedIn} = useAppSelector(selectAuth);
+    
     const [checkoutFormInfo, setCheckoutFormInfo] = useState({
         fName : "",
         lName : "",
@@ -16,8 +18,7 @@ const Checkout : React.FC =() =>{
         phone: "",
     })
 
-    const navigate = useNavigate();
-    const {isLoggedIn} = useAppSelector(selectAuth);
+    
 
     useEffect(() => {
         if (isLoggedIn){

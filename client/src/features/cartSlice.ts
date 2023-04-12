@@ -49,12 +49,12 @@ export const addToCart = (item:Item, user_id:number) => async (dispatch:any) => 
     dispatch(setLoading(false));
 }
 
-export const removeFromCart = (item:{item_id:number, user_id:number}) => async (dispatch:any) => {
+export const removeFromCart = (item_id:number, user_id:number) => async (dispatch:any) => {
     dispatch(setLoading(true));
-    await axios.delete(`${removeCartItemRoute}/${item.user_id}/${item.item_id}`).catch((err)=> {
+    await axios.delete(`${removeCartItemRoute}/${user_id}/${item_id}`).catch((err)=> {
         console.log(err);
     })
-    dispatch(setRemoveCartItem({item_id:item.item_id}));
+    dispatch(setRemoveCartItem({item_id}));
     dispatch(setLoading(false));
 }
 

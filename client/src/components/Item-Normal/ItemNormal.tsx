@@ -7,7 +7,7 @@ import { addToCart } from "../../features/cartSlice";
 
 const ItemNormal : React.FC<Item> = (props) =>{
     const dispatch = useAppDispatch();
-    const {id} = useAppSelector(selectAuth);
+    const {isLoggedIn, id} = useAppSelector(selectAuth);
 
     return (
 
@@ -25,8 +25,8 @@ const ItemNormal : React.FC<Item> = (props) =>{
                 <h4>{props.tag}</h4>
             </div>
             <p className="item-description">{props.description}</p>
-            <AiFillPlusSquare className="add-to-cart"
-            onClick={() => dispatch(addToCart(props, id))}/>
+            {isLoggedIn && <AiFillPlusSquare className="add-to-cart"
+            onClick={() => dispatch(addToCart(props, id))}/>}
         </div>
 
     )

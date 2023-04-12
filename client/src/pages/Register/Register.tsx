@@ -8,6 +8,7 @@ import { toastProps } from "../../common/toasts";
 import { useNavigate } from "react-router-dom";
 import {register, selectAuth} from "../../features/authSlice";
 import {useAppDispatch, useAppSelector} from '../../hooks';
+import { validateRegisterInput } from "../../common/formValidation";
 
 const Register: React.FC = () => {
     const navigate = useNavigate();
@@ -22,7 +23,6 @@ const Register: React.FC = () => {
     })
 
     useEffect(() => {
-        console.log("register ran");
         if (isLoggedIn){
             navigate('/');
         }
@@ -30,13 +30,15 @@ const Register: React.FC = () => {
 
     function handleSubmit(e: React.FormEvent){
         e.preventDefault();
-        if (validateInput()){
+        if (validateRegisterInput(userFormInfo.username,userFormInfo.email,userFormInfo.password,userFormInfo.confirmPassword)){
             const values = {
                 username: userFormInfo.username,
                 email: userFormInfo.email,
                 password: userFormInfo.password,
             }
             dispatch(register(values));
+        }else{
+            toast.warn("Passwords needs to be atleast 8 characters, and must match", toastProps);
         }
     }
     
@@ -44,23 +46,7 @@ const Register: React.FC = () => {
         setUserFormInfo({...userFormInfo, [e.target.name]: e.target.value});
     }
 
-    function validateInput() : boolean{
-        const {username, email, password, confirmPassword} = userFormInfo;
-        if (username.length < 4){
-            toast.warn("Username needs to be atleast 4 characters", toastProps);
-            return false;
-        }else if (email.length < 8){
-            toast.warn("Email needs to be atleast 8 characters", toastProps);
-            return false;
-        }else if (password.length < 8){
-            toast.warn("Password needs to be atleast 8 characters", toastProps);
-            return false;
-        }else if (password !== confirmPassword){
-            toast.warn("Passwords do not match", toastProps);
-            return false;
-        }
-        return true;
-    }
+    
 
     return (
         <div className="register--container">

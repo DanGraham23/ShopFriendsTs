@@ -22,8 +22,8 @@ const ItemSmall : React.FC<Item> = (props) =>{
                 <h3>{props.tag}</h3>
             </div>
             <p className="item-small-description">{props.description}</p>
-            <IoIosRemoveCircle className="remove-from-cart" 
-            onClick={() => dispatch(removeFromCart({item_id:props.id, user_id: id}))}/>
+            {props.id && <IoIosRemoveCircle className="remove-from-cart" 
+            onClick={() => dispatch(removeFromCart(props.id, id))}/>}
         </div>
 
     )

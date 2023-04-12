@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Navbar from './components/Navbar/Navbar';
-import Home from './pages/Home/Home';
+import Main from './pages/Main/Main';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Profile from './pages/Profile/Profile';
@@ -17,7 +17,6 @@ const App: React.FC = () => {
   
   useEffect(() => {
     dispatch(isAuth());
-    console.log("ran app");
   }, [dispatch]);
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const App: React.FC = () => {
           <Route path="/login" element={<Login />}  />
           <Route path="/profile/:user" element={<Profile />}  />
           <Route path="/checkout" element={<Checkout />}  />
-          <Route path="/" element={<Home />}  />
+          <Route path="/" element={<Main />}  />
           <Route path='*' element={<Navigate to='/' replace />}/>
         </Routes>
       </BrowserRouter>
