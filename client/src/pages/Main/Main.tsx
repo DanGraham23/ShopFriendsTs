@@ -23,10 +23,6 @@ const Main : React.FC = () =>{
         <div className="main-container">
             <Filters curFilter={curFilter} setCurFilter={setCurFilter}/>
             {curFilter === "" ? <div>
-            <div className="main-header">
-                <h2>ShopFriends</h2>
-                <h2 className="reflect">PEER-TO-PEER MARKET</h2>
-            </div>
             <div className="image-collage">
                 <img src={img1} alt="main-img1" className="grid-item"/>
                 <img src={img2} alt="main-img2" className="grid-item"/>

@@ -6,18 +6,13 @@
     border-bottom: 2px solid var(--primary-black);
 }
 
-.logo{
-    cursor: pointer;
-    margin-left: 100px;
-    font-weight: 700;
-}
-
 .nav-items{
     list-style: none;
     display: flex;
     gap: 20px;
     margin-left: auto;
     margin-right: 100px;
+    font-weight: 700;
     color: var(--primary-black);
     justify-content: center;
     align-items: center;
@@ -29,10 +24,13 @@
 
 .checkout-btn{
     height: 40px;
+    width: 100px;
     color: var(--primary-black);
     background-color: var(--primary-white);
     border: 2px solid var(--primary-black);
     outline: none;
+    font-weight: 700;
+    font-size: 16px;
   }
 
   .checkout-btn:hover{
