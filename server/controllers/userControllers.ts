@@ -1,9 +1,12 @@
 const knex2 = require('../db/knex');
 const bcrypt=  require("bcrypt");
+const s3 = require('../awsConfig');
+
 import { Review } from "../model/reviewModel";
 import { User } from "../model/userModel";
 import { NextFunction, Request, Response } from "express";
 import {Cart} from '../model/cartModel';
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 
 /**
  * Register a user in the database.
@@ -89,26 +92,38 @@ module.exports.login = async (req: Request, res: Response, next:NextFunction) =>
  */
 module.exports.updatePfp =  async (req:any, res:Response, next:NextFunction) => {
     try{
-        const {id, profile_picture} = req.body;
-
-        //Check if the user exists with the id
-        const userFound: User[] = await knex2('users').where({id});
-        if (userFound.length == 0){
-            return res.status(404).json({msg:'Trying to update invalid user'});
+        const {id} = req.body;
+        const profile_picture = req.file;
+        console.log(process.env.BUCKET_NAME);
+        const params = {
+            Bucket : process.env.BUCKET_NAME,
+            Key: profile_picture.originalName,
+            Body: profile_picture.buffer,
+            ContentType: profile_picture.mimetype,
         }
 
-        //Update the user's profile picture with the new one
-        //Currently, images are stored as name.jpg,
-        //And they are in the public folders on the frontend
-        //Eventually I will host these images instead
-        knex2('users').where({id: id}).update({
-            profile_picture: profile_picture,
-            updated_at: new Date()
-        }).then(() =>{
-            return res.status(201).json({msg:'Profile picture updated!'});
-        }).catch((err:any) => {
-            return res.status(404).json({msg:'Trying to update invalid user'});
-        });
+        const command = new PutObjectCommand(params);
+
+        await s3.send(command);
+        return res.status(201).json({msg:'Profile picture updated!'});
+        //Check if the user exists with the id
+        // const userFound: User[] = await knex2('users').where({id});
+        // if (userFound.length == 0){
+        //     return res.status(404).json({msg:'Trying to update invalid user'});
+        // }
+
+        // //Update the user's profile picture with the new one
+        // //Currently, images are stored as name.jpg,
+        // //And they are in the public folders on the frontend
+        // //Eventually I will host these images instead
+        // knex2('users').where({id: id}).update({
+        //     profile_picture: profile_picture2,
+        //     updated_at: new Date()
+        // }).then(() =>{
+        //     return res.status(201).json({msg:'Profile picture updated!'});
+        // }).catch((err:any) => {
+        //     return res.status(404).json({msg:'Trying to update invalid user'});
+        // });
     }catch(ex){
         next(ex);
     }
