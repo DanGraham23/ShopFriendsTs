@@ -2,7 +2,7 @@ import "./style.css";
 import {useEffect, useState} from 'react';
 import {BsFillPersonFill, BsFillLockFill} from 'react-icons/bs';
 import {AiOutlineMail} from 'react-icons/ai'
-import {ToastContainer, toast} from 'react-toastify';
+import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toastProps } from "../../common/toasts";
 import { useNavigate } from "react-router-dom";
@@ -92,7 +92,6 @@ const Register: React.FC = () => {
                 <button type="submit" className="form-btn">Register</button>
                 <a href="/login" className="form-footer">Already a member? Click here to login!</a>
             </form>
-            <ToastContainer />
         </div>
     )
 }

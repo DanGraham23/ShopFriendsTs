@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { selectAuth } from "../../features/authSlice";
 import {useAppSelector } from "../../hooks";
 import { selectCart } from "../../features/cartSlice";
-import CheckoutItem from "../../components/Checkout-Item/CheckoutItem";
+import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
 
 const Checkout : React.FC =() =>{
     const {items} = useAppSelector(selectCart);

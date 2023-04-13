@@ -1,0 +1,15 @@
+.logout-btn{
+    width: 100px;
+    height: 40px;
+    background-color: var(--primary-black);
+    color: var(--primary-white);
+    border: none;
+    font-size: 16px;
+}
+
+.logout-btn:hover{
+    background-color: var(--primary-white);
+    color: var(--primary-black);
+    border: 2px solid var(--primary-black);
+    cursor: pointer;
+}

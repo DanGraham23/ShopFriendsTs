@@ -6,7 +6,7 @@ import { selectAuth } from "../../features/authSlice";
 import { addItemRoute } from '../../utils/APIRoutes';
 import {useAppSelector} from "../../hooks";
 import { Item } from '../../common/types';
-import {ToastContainer, toast} from 'react-toastify';
+import {toast} from 'react-toastify';
 import { toastProps } from "../../common/toasts";
 
 interface Props {
@@ -128,7 +128,6 @@ const CreateListingModal: React.FC<Props> = (props) =>{
             className="item-input-description"/>
             <button type="submit" className="create-listing-btn">List Item</button>
             </form>
-            <ToastContainer />
         </div>
     )
 }

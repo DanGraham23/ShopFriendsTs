@@ -1,0 +1,16 @@
+.profile-rating{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.rating-gray{
+    color: var(--primary-dark-gray);
+    font-size: 50px;
+}
+
+.rating-yellow{
+    color: var(--secondary-yellow);
+    font-size: 50px;
+}

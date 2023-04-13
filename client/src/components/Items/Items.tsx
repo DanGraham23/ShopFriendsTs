@@ -3,7 +3,7 @@ import './style.css';
 import axios from 'axios';
 import { getItemsRoute } from '../../utils/APIRoutes';
 import { Item } from '../../common/types';
-import NormalItem from '../Normal-Item/NormalItem';
+import NormalItem from '../NormalItem/NormalItem';
 
 interface Props {
     curFilter: string,

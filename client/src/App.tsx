@@ -10,6 +10,7 @@ import {useEffect } from 'react';
 import {isAuth, selectAuth} from './features/authSlice';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { fetchCartItems } from './features/cartSlice';
+import { ToastContainer } from 'react-toastify';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Main />}  />
           <Route path='*' element={<Navigate to='/' replace />}/>
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </div>
   )

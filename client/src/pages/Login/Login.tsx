@@ -1,7 +1,7 @@
 import "./style.css";
 import {useEffect, useState} from 'react';
 import {BsFillPersonFill, BsFillLockFill} from 'react-icons/bs';
-import {ToastContainer, toast} from 'react-toastify';
+import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -68,7 +68,6 @@ const Login : React.FC = () =>{
                 <button type="submit" className="form-btn">Login</button>
                 <a href="/register" className="form-footer">New member? Click here to register!</a>
             </form>
-            <ToastContainer />
         </div>
     )
 }

@@ -1,5 +1,4 @@
 import "./style.css";
-import {IoIosRemoveCircle} from 'react-icons/io' 
 import {Item} from '../../common/types';
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { removeFromCart } from "../../features/cartSlice";

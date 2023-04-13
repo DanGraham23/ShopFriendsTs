@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { selectAuth } from "../../features/authSlice";
 import { addToCart, selectCart } from "../../features/cartSlice";
 import { toastProps } from "../../common/toasts";
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 
 const NormalItem : React.FC<Item> = (props) =>{
     const dispatch = useAppDispatch();
@@ -45,7 +45,6 @@ const NormalItem : React.FC<Item> = (props) =>{
                 <AiFillPlusSquare className="add-to-cart"
                 onClick={handleClick}/>
             }
-            <ToastContainer />
         </div>
 
     )

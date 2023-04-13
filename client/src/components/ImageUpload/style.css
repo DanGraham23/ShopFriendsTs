@@ -1,0 +1,8 @@
+#profile-img-upload{
+    display: none;
+}
+
+.profile-picture-upload{
+    font-size: 40px;
+    cursor: pointer;
+}
