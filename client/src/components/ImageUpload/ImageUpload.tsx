@@ -16,12 +16,14 @@ const ImageUpload:React.FC<Props> = (props) => {
     async function handleChange(e : any){
         const file = e.target.files[0];
         props.setProfileImg(URL.createObjectURL(file));
+        const formData = new FormData();
+        formData.append('id',  props.id);
+        formData.append('profile_picture', file);
         if (props.isLoggedIn){
-            const id = props.id;
-            await axios.post(updatePfpRoute, {
-                id,
-                profile_picture:file.name
-            },{
+            await axios.post(updatePfpRoute, formData,{
+            headers: {
+                'Content-Type': 'multipart/form-data'
+                },
                 withCredentials:true,
             }).then((res:any)=> {
                 toast.success(res.data.msg, toastProps);

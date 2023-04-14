@@ -26,18 +26,9 @@ const Profile : React.FC = () => {
         }
     }
 
-    const loadImage = async () => {
-        try {
-          const { default: image } = await import(/* @vite-ignore */ `/pfps/${usersData.profile_picture}`);
-          setProfileImg(image);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-
       useEffect(() => {
         if (usersData){
-            loadImage();
+            setProfileImg(usersData.profile_picture);
         }
     }, [usersData])
 

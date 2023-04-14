@@ -13,7 +13,7 @@ const CartItem : React.FC<Item> = (props) =>{
         <div className="cart-item-container"> 
             <img src={`/items-images/${props.item_image}`} alt="cart-item" className="cart-item-image"/>
             <div className="cart-item-poster-info">
-                <img src={`/pfps/${props.profile_picture}`} alt="user" className="user-item-pfp"/>
+                <img src={props.profile_picture} alt="user" className="user-item-pfp"/>
                 <h4>{props.username}</h4>
                 <h4>${props.price}</h4>
             </div>

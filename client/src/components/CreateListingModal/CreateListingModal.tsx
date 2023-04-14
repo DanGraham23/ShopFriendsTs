@@ -36,18 +36,20 @@ const CreateListingModal: React.FC<Props> = (props) =>{
         if (itemName !== "" && itemPrice !== "" && Number(itemPrice) !== 0 && 
         !isNaN(Number(itemPrice)) && itemDescription !== "" && 
         itemImg !== "" && itemTag !== "" && isLoggedIn){
-            const item : Item = {
-                user_id: id,
-                description: itemDescription,
-                name : itemName,
-                price: Number(Number(itemPrice).toFixed(2)),
-                item_image: itemImg,
-                tag: itemTag
-            }
+            const formData = new FormData();
+            formData.append('user_id', id);
+            formData.append('description', itemDescription);
+            formData.append('name', itemName);
+            formData.append('price', Number(Number(itemPrice).toFixed(2)));
+            formData.append('item_image', itemImg);
+            formData.append('tag', itemTag);
             await axios.put(addItemRoute,
-                item,
-            {
-                withCredentials:true
+                formData,
+                {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                withCredentials:true,
             }).then((res:any) => {
                 toast.success("Item Created!", toastProps);
             }).catch((err) => {
@@ -63,7 +65,7 @@ const CreateListingModal: React.FC<Props> = (props) =>{
         //Check for image upload in form
         if (e.target.name === 'itemImg'){
             setImageUrl(URL.createObjectURL(e.target.files[0]));
-            setCreateListingInfo({...createListingInfo, [e.target.name]: e.target.files[0].name});
+            setCreateListingInfo({...createListingInfo, [e.target.name]: e.target.files[0]});
         }else{
             setCreateListingInfo({...createListingInfo, [e.target.name]: e.target.value});
         }
