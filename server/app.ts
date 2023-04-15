@@ -1,7 +1,7 @@
 import express from "express";
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const pg = require("pg");
+
 
 const userRoutes = require("./routes/userRoutes");
 const itemRoutes = require("./routes/itemRoutes");

@@ -1,6 +1,7 @@
 const knex2 = require('../db/knex');
 const bcrypt=  require("bcrypt");
 const s3_1 = require('../awsConfig');
+const jwt = require('jsonwebtoken');
 
 import crypto from 'crypto';
 import { Review } from "../model/reviewModel";
@@ -44,6 +45,12 @@ module.exports.register = async (req: Request, res: Response, next:NextFunction)
                 id:user.id,
                 username:user.username,
             }
+            const token = jwt.sign({username:user.username, id:user.id}, process.env.TOKEN_KEY, {
+                expiresIn:30000,
+            });
+            res.cookie("token", token, {
+                httpOnly: true,
+            });
             res.status(201).json({returnedUser});
             return trx('cart').insert(cart);
         }).then(trx.commit).catch(trx.rollback);
@@ -76,7 +83,16 @@ module.exports.login = async (req: Request, res: Response, next:NextFunction) =>
         if (!validPassword){
             return res.status(404).json({msg:'No user exists with those credentials'});
         }
-        const returnedUser = (({ id, username }) => ({ id, username }))(user);
+        const returnedUser = {
+            id:user.id,
+            username:user.username,
+        }
+        const token = jwt.sign({username:user.username, id:user.id}, process.env.TOKEN_KEY, {
+            expiresIn:30000,
+        });
+        res.cookie("token", token, {
+            httpOnly: true,
+        });
         return res.status(201).json({returnedUser});
     }catch(ex){
         next(ex);

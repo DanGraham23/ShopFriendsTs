@@ -12,7 +12,7 @@ const Navbar:React.FC = () =>{
 
 
     return (
-        <div>
+        <nav>
         <div className="nav-container">
             <a href="/" className="logo">ShopFriends</a>
             <ul className="nav-items">
@@ -34,7 +34,7 @@ const Navbar:React.FC = () =>{
         </div>
         
         {showCart && <Cart/>}
-        </div>
+        </nav>
         
         
     )

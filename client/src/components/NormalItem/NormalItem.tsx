@@ -23,6 +23,7 @@ const NormalItem : React.FC<Item> = (props) =>{
                 }
             }
         }
+        toast.success("Item added successfully!", toastProps);
     }
 
     return (

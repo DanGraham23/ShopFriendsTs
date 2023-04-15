@@ -18,6 +18,7 @@ const App: React.FC = () => {
   
   useEffect(() => {
     dispatch(isAuth());
+    console.log("this ran");
   }, [dispatch]);
 
   useEffect(() => {

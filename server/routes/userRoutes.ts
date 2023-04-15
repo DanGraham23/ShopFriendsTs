@@ -1,6 +1,6 @@
 const userRouter = require("express").Router();
 const {register, login, updatePfp, addReview, getUser} = require('../controllers/userControllers');
-
+const userCookieJwtAuth = require("../middleware/cookieJwtAuth");
 export {};
 
 const multer = require('multer');
@@ -12,9 +12,9 @@ userRouter.post("/register", register);
 userRouter.post("/login", login);
 
 userRouter.get("/getuser/:username", getUser);
-userRouter.post("/updatepfp", upload.single('profile_picture'), updatePfp);
+userRouter.post("/updatepfp", userCookieJwtAuth, upload.single('profile_picture'), updatePfp);
 
-userRouter.put("/addreview/:sender_user_id/:receiver_user_id/:rating", addReview);
+userRouter.put("/addreview/:sender_user_id/:receiver_user_id/:rating", userCookieJwtAuth, addReview);
 
 
 module.exports = userRouter;

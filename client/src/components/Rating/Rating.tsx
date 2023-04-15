@@ -14,7 +14,10 @@ interface Props {
 const Rating: React.FC<Props> = (props) => {
     async function handleClick(star: number){
         if (props){
-            await axios.put(`${addReviewRoute}/${props.senderUserId}/${props.receiverUserId}/${star}`).then((res:any)=> {
+            await axios.put(`${addReviewRoute}/${props.senderUserId}/${props.receiverUserId}/${star}`,
+            {
+                withCredentials:true
+            }).then((res:any)=> {
                 toast.success(res.data.msg, toastProps);
             }).catch((err)=> {
                 if (err.response.status){

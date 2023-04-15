@@ -1,5 +1,5 @@
 import "./style.css";
-import CartItem from "../Cart-Item/CartItem"
+import CartItem from "../CartItem/CartItem"
 import { useAppSelector } from "../../hooks";
 import { selectCart } from "../../features/cartSlice";
 
