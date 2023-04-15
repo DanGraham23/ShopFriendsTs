@@ -20,6 +20,7 @@ Backend: http://localhost:3001/
 
 Features:
 - Login/Register form
+- JWTs and Cookies for Authorization
 - Profile page to view users rating and profile picture
 - Profile page displays a user's items
 - Profile page to logout, update profile picture, or list an item
@@ -31,9 +32,12 @@ Features:
 - Sort by item categories when browsing items
 - Pagination
 
-In progress features and fixes:
-- Add handling for loading states
-- Add Authorization + JWTs
+Future plans:
+- Add handling and displays for loading states
+- Utilize Stripe API
+- Redesign item cards and profile pages to look more modern
+- Add additional tags and search functionalities
+- Have checkout feature that removes items from DB and saves transactions
 
 Database tables:
 ![ShopFriendsTs (1)](https://user-images.githubusercontent.com/59900510/230456682-391916a0-e249-46ba-8ee2-c16498addb8c.jpeg)
