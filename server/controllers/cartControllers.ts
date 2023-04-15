@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 const knex3 = require('../db/knex');
+const s3_2 = require('../awsConfig');
 
 /**
  * Adds an item to a user's cart.
@@ -99,6 +100,20 @@ module.exports.getCartItems = async (req:Request, res:Response, next:NextFunctio
         .join('users', 'users.id', 'items.user_id').catch((err) => {
             return res.status(404).json({msg: "no user found"});
         });
+        for (const item of items){
+            const profile_picture_url = s3_2.getSignedUrl('getObject', {
+                Bucket : process.env.BUCKET_NAME,
+                Key: item.profile_picture,
+                Expires: 3600,
+            });
+            const item_image_url = s3_2.getSignedUrl('getObject', {
+                Bucket : process.env.BUCKET_NAME,
+                Key: item.item_image,
+                Expires: 3600,
+            });
+            item.profile_picture = profile_picture_url;
+            item.item_image = item_image_url;
+        }
         return res.status(200).json({items});
     }catch(ex){
         next(ex);

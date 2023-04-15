@@ -1,12 +1,12 @@
 const knex2 = require('../db/knex');
 const bcrypt=  require("bcrypt");
-const s3 = require('../awsConfig');
+const s3_1 = require('../awsConfig');
 
+import crypto from 'crypto';
 import { Review } from "../model/reviewModel";
 import { User } from "../model/userModel";
 import { NextFunction, Request, Response } from "express";
 import {Cart} from '../model/cartModel';
-import { PutObjectCommand } from "@aws-sdk/client-s3";
 
 /**
  * Register a user in the database.
@@ -93,37 +93,44 @@ module.exports.login = async (req: Request, res: Response, next:NextFunction) =>
 module.exports.updatePfp =  async (req:any, res:Response, next:NextFunction) => {
     try{
         const {id} = req.body;
-        const profile_picture = req.file;
-        console.log(process.env.BUCKET_NAME);
-        const params = {
-            Bucket : process.env.BUCKET_NAME,
-            Key: profile_picture.originalName,
-            Body: profile_picture.buffer,
-            ContentType: profile_picture.mimetype,
+        const profile_picture_file = req.file;
+
+        //Set a random, unique image name in s3 bucket
+        const randomImageName = (btyes:number = 32) => {
+            return crypto.randomBytes(btyes).toString('hex');
         }
 
-        const command = new PutObjectCommand(params);
+        const profile_picture_name = randomImageName();
 
-        await s3.send(command);
-        return res.status(201).json({msg:'Profile picture updated!'});
-        //Check if the user exists with the id
-        // const userFound: User[] = await knex2('users').where({id});
-        // if (userFound.length == 0){
-        //     return res.status(404).json({msg:'Trying to update invalid user'});
-        // }
+        const params = {
+            Bucket : process.env.BUCKET_NAME,
+            Key: profile_picture_name,
+            Body: profile_picture_file.buffer,
+            ContentType: profile_picture_file.mimetype,
+        }
+        
+        //Send our put request to the s3 bucket
+        s3_1.putObject(params, (err, data)=> {
+            if (err){
+                console.log(err);
+                return res.status(404).json({msg:'Failed to upload PFP'});
+            }
+        });
 
-        // //Update the user's profile picture with the new one
-        // //Currently, images are stored as name.jpg,
-        // //And they are in the public folders on the frontend
-        // //Eventually I will host these images instead
-        // knex2('users').where({id: id}).update({
-        //     profile_picture: profile_picture2,
-        //     updated_at: new Date()
-        // }).then(() =>{
-        //     return res.status(201).json({msg:'Profile picture updated!'});
-        // }).catch((err:any) => {
-        //     return res.status(404).json({msg:'Trying to update invalid user'});
-        // });
+        // Check if the user exists with the id
+        const userFound: User[] = await knex2('users').where({id});
+        if (userFound.length == 0){
+            return res.status(404).json({msg:'Trying to update invalid user'});
+        }
+
+        knex2('users').where({id: id}).update({
+            profile_picture: profile_picture_name,
+            updated_at: new Date()
+        }).then(() =>{
+            return res.status(201).json({msg:'Profile picture updated!'});
+        }).catch((err:any) => {
+            return res.status(404).json({msg:'Trying to update invalid user'});
+        });
     }catch(ex){
         next(ex);
     }
@@ -142,25 +149,30 @@ module.exports.getUser = async (req: Request, res: Response, next:NextFunction) 
 
         //Check if the user exists with the given username
         const userFoundObj: User[] = await knex2('users').where({username});
-        if (userFoundObj.length == 0){
+        if (userFoundObj.length === 0){
             return res.status(404).json({msg:'No user exists with that username'});
         }
 
         //Get their pfp, username, id, and average rating
         const receiver_user_id = userFoundObj[0].id;
-        const userObj = await knex2('users').select('users.profile_picture', 'users.username','users.id', knex2.raw('AVG(review.rating) as avg_rating')).leftJoin('review', 'users.id', 'review.receiver_user_id').where('review.receiver_user_id', receiver_user_id).groupBy('users.id');
+        const userObj = await knex2('users').select(knex2.raw('AVG(review.rating) as avg_rating')).leftJoin('review', 'users.id', 'review.receiver_user_id').where('review.receiver_user_id', receiver_user_id).groupBy('users.id');
 
-        //If the user does NOT have a rating, return their rating as 0.00
-        if (userObj.length === 0){
-            const tempUserObj = await knex2('users').select('id', 'username', 'profile_picture').where({username});
-            const user = tempUserObj[0];
-            user.avg_rating = 0.00;
-            return res.status(200).json({user});
-        }else{
-            const user = userObj[0];
-            return res.status(200).json({user});
+        let avg_rating = 0.0;
+        if (userObj.length > 0){
+            avg_rating = userObj[0].avg_rating;
         }
-        
+
+        const userTemp = await knex2('users').select('id', 'username', 'profile_picture').where({username});
+        const user = userTemp[0];
+        user.avg_rating = avg_rating;
+
+        const url = s3_1.getSignedUrl('getObject', {
+            Bucket : process.env.BUCKET_NAME,
+            Key: user.profile_picture,
+            Expires: 3600,
+        });
+        user.profile_picture = url;
+        return res.status(200).json({user});        
     }catch(ex){
         next(ex);
     }

@@ -11,7 +11,7 @@ const CartItem : React.FC<Item> = (props) =>{
 
     return (
         <div className="cart-item-container"> 
-            <img src={`/items-images/${props.item_image}`} alt="cart-item" className="cart-item-image"/>
+            <img src={props.item_image} alt="cart-item" className="cart-item-image"/>
             <div className="cart-item-poster-info">
                 <img src={props.profile_picture} alt="user" className="user-item-pfp"/>
                 <h4>{props.username}</h4>

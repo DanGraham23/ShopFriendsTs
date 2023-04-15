@@ -10,7 +10,7 @@ const CheckoutItem : React.FC<Item> = (props) =>{
 
     return (
         <div className="checkout-item-container"> 
-            <img src={`/items-images/${props.item_image}`} alt="item-small" className="checkout-item-image"/>
+            <img src={props.item_image} alt="item-checkout" className="checkout-item-image"/>
             <div className="checkout-item-poster-info">
                 <img src={props.profile_picture} alt="user" className="user-item-pfp"/>
                 <h4>{props.username}</h4>

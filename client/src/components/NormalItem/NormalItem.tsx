@@ -28,7 +28,7 @@ const NormalItem : React.FC<Item> = (props) =>{
     return (
 
         <div className="normal-item-container"> 
-            <img src={`/items-images/${props.item_image}`} alt="normal-item" className="normal-item-image"/>
+            <img src={props.item_image} alt="normal-item" className="normal-item-image"/>
             <div className="normal-item-poster-info">
                 <a href={`/profile/${props.username}`} className="user-link">
                 <img src={props.profile_picture} alt="user" className="user-item-pfp"/>

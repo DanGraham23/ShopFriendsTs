@@ -9,7 +9,7 @@
 }
 
 .checkout-item-image{
-    height: 35%;
+    height: 45%;
 }
 
 .checkout-item-poster-info{
@@ -17,17 +17,17 @@
     display: flex;
     align-items: center;
     margin-left: 10px;
-    gap: 10px;
+    gap: 15px;
 }
 
 .checkout-item-subheading{
-    height: 10%;
-    font-size: 14px;
+    height: 5%;
+    font-size: 13px;
     margin-left: 10px;
 }
 
 .checkout-item-description{
-    height: 25%;
+    height: 20%;
     display: flex;
     font-size: 14px;
     margin-left: 10px;
