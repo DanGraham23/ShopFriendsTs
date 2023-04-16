@@ -1,6 +1,7 @@
 import {BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
 import Main from './pages/Main/Main';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
@@ -41,6 +42,7 @@ const App: React.FC = () => {
         </Routes>
         <ToastContainer />
       </BrowserRouter>
+      <Footer />
     </div>
   )
 }

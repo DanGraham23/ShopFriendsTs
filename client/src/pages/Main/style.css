@@ -1,6 +1,6 @@
 .main-container{
-    height: 600px;
     width: 100%;
+    min-height: calc(100vh - 150px);
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -21,15 +21,4 @@
     flex-grow: 1;
     object-fit: cover;
     margin: 2px;
-    animation: slide-right 3s;
-  }
-
-  
-@keyframes slide-right {
-    from {
-        margin-left: -1000px;
-    }
-    to{
-        margin-left: 0px;
-    }
   }

@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { setError, clearError } from "./errorSlice";
 import { registerRoute,loginRoute } from "../utils/APIRoutes";
-import Cookies from 'js-cookie';
 import axios from 'axios';
 
 import type { RootState } from '../store';
@@ -86,10 +85,6 @@ export const isAuth = () => (dispatch:any) => {
         return false;
     }
     if (localStorage.getItem("shopfriend-user")) {
-        if (!Cookies.get('token')){
-            localStorage.removeItem('shopfriend-user');
-            return false;
-        }
         const data : string | null = localStorage.getItem("shopfriend-user");
         if (data) dispatch(setUser(JSON.parse(data)));
     } else {

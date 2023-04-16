@@ -4,6 +4,7 @@
     align-items: center;
     font-size: 20px;
     border-bottom: 2px solid var(--primary-black);
+    height: 80px;
 }
 
 .nav-items{
