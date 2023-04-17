@@ -1,6 +1,7 @@
 import express from "express";
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const stripe = require('stripe')(process.env.STRIPE_KEY);
 
 
 const userRoutes = require("./routes/userRoutes");

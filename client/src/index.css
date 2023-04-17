@@ -46,6 +46,10 @@ h3{
   margin: 0px;
 }
 
+.pages-container{
+  min-height: calc(100vh - 242px);
+}
+
 .logo{
   font-family: 'Sedgwick Ave Display';
   font-size: 36px;

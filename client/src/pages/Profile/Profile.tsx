@@ -79,6 +79,7 @@ const Profile : React.FC = () => {
                 showCreateListingModal={showCreateListingModal} 
                 setShowCreateListingModal={setShowCreateListingModal}/>
             }
+            <hr className="profile-page-divider"></hr>
             {
                 usersData && 
                 <Items 

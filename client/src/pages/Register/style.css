@@ -4,7 +4,7 @@
     margin-top: 100px;
     display: flex;
     flex-direction: column;
-    height: 700px;
+    height: 680px;
     width: 500px;
     outline: 3px solid var(--primary-black);
 }

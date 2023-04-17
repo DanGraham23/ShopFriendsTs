@@ -14,7 +14,7 @@ interface Props {
 const Rating: React.FC<Props> = (props) => {
     async function handleClick(star: number){
         if (props){
-            await axios.put(`${addReviewRoute}/${props.senderUserId}/${props.receiverUserId}/${star}`,
+            await axios.put(`${addReviewRoute}/${props.senderUserId}/${props.receiverUserId}/${star}`, '',
             {
                 withCredentials:true
             }).then((res:any)=> {

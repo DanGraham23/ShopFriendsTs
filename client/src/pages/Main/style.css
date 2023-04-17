@@ -1,6 +1,6 @@
 .main-container{
     width: 100%;
-    min-height: calc(100vh - 150px);
+    min-height: calc(100vh - 142px);
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -12,7 +12,7 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	margin: 0 auto;
-  margin-top: 100px;
+  padding-top: 100px;
 	max-width: 900px;
 }
 

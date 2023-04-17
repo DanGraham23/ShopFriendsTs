@@ -41,11 +41,10 @@ const cartSlice = createSlice({
 
 export const addToCart = (item:Item, user_id:number) => async (dispatch:any) => {
     dispatch(setLoading(true));
-    await axios.put(`${addCartItemRoute}/${user_id}/${item.id}`,
+    await axios.put(`${addCartItemRoute}/${user_id}/${item.id}`, '',
     {
         withCredentials:true
-    }
-    ).then((res:any)=> {
+    }).then((res:any)=> {
         dispatch(setAddCartItem(item));
         dispatch(clearError());
     }).catch((err)=> {

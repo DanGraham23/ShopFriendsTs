@@ -1,5 +1,4 @@
 import {BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Main from './pages/Main/Main';
@@ -31,6 +30,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Navbar />
+      <div className='pages-container'>
       <BrowserRouter>
         <Routes>
           <Route path="/register" element={<Register />} />
@@ -38,10 +38,11 @@ const App: React.FC = () => {
           <Route path="/profile/:user" element={<Profile />}  />
           <Route path="/checkout" element={<Checkout />}  />
           <Route path="/" element={<Main />}  />
-          <Route path='*' element={<Navigate to='/' replace />}/>
+          <Route path='*' element={<Navigate to='/' replace />}/>  
         </Routes>
         <ToastContainer />
       </BrowserRouter>
+      </div>
       <Footer />
     </div>
   )

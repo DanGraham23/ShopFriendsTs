@@ -64,7 +64,7 @@ const Items : React.FC<Props> = (props) => {
             <div className="items-display">
                 {renderCurrentPageItems()}
             </div>
-            {props.curFilter !== "" &&<div className='pagination-btns'>
+            {props.curFilter !== ""  && totalPages > 1&&<div className='pagination-btns'>
                 <button onClick={handleBackwardClick} disabled={currentPage===1} className='pagination-btn'>Prev</button>
                 <button onClick={handleForwardClick} disabled={currentPage===totalPages} className='pagination-btn'>Next</button>
             </div>}

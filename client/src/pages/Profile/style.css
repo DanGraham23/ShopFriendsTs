@@ -16,6 +16,7 @@
     height: 300px;
     background-color: var(--primary-dark-gray);
     border-radius: 100%;
+    border: 2px solid black;
 }
 
 .profile-header{
@@ -49,3 +50,8 @@
     cursor: pointer;
 }
 
+.profile-page-divider{
+    width: 80%;
+    border: 1px solid black;
+    margin-top: 40px;
+}

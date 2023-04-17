@@ -12,7 +12,7 @@ const s3_2 = require('../awsConfig');
 module.exports.addItemToCart = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const {user_id, item_id} = req.params;
-
+        
         //Check if the user has a cart based on their user_id
         const userCartObj = await knex3('cart').where('cart.user_id', user_id);
         if (userCartObj.length === 0){
@@ -51,7 +51,6 @@ module.exports.addItemToCart = async (req:Request, res:Response, next:NextFuncti
 module.exports.removeItemFromCart = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const {user_id, item_id} = req.params;
-
         //Check if the user has a cart based on their user_id
         const userCartObj = await knex3('cart').where('cart.user_id', user_id);
         if (userCartObj.length === 0){
@@ -83,7 +82,6 @@ module.exports.removeItemFromCart = async (req:Request, res:Response, next:NextF
 module.exports.getCartItems = async (req:Request, res:Response, next:NextFunction) => {
     try{
         const id = req.params.id;
-
         //Check if the user has a cart based on their user_id
         const cartObj = await knex3('cart').where({user_id:id}).catch((err) => {
             return res.status(404).json({msg: "no user found"});
