@@ -7,7 +7,7 @@ import axios from "axios";
 import {getUserRoute} from "../../utils/APIRoutes";
 import 'react-toastify/dist/ReactToastify.css';
 import CreateListingModal from "../../components/CreateListingModal/CreateListingModal";
-import Items from "../../components/Items/Items";
+import ItemsDisplay from "../../components/ItemsDisplay/ItemsDisplay";
 import Rating from "../../components/Rating/Rating";
 import ImageUpload from "../../components/ImageUpload/ImageUpload";
 import Logout from "../../components/Logout/Logout";
@@ -88,7 +88,7 @@ const Profile : React.FC = () => {
             <hr className="profile-page-divider"></hr>
             {
                 usersData && 
-                <Items 
+                <ItemsDisplay 
                 curFilter={"profile"} 
                 curId={usersData.id}/>
             }

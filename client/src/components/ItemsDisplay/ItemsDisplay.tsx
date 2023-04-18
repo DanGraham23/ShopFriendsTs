@@ -10,7 +10,7 @@ interface Props {
     curId: number,
 }
 
-const Items : React.FC<Props> = (props) => {
+const ItemsDisplay : React.FC<Props> = (props) => {
     const [items,setItems] = useState<Item[]>([]);
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -73,4 +73,4 @@ const Items : React.FC<Props> = (props) => {
     )
 }
 
-export default Items;
+export default ItemsDisplay;

@@ -10,7 +10,7 @@ import img8 from '../../assets/images/home-img8.jpg'
 import Filters from "../../components/Filters/Filters";
 import {useState} from "react";
 
-import Items from "../../components/Items/Items";
+import ItemsDisplay from "../../components/ItemsDisplay/ItemsDisplay";
 import { useAppSelector } from "../../hooks";
 import { selectAuth } from "../../features/authSlice";
 
@@ -33,7 +33,7 @@ const Main : React.FC = () =>{
                 <img src={img7} alt="main-img7" className="grid-item"/>
                 <img src={img8} alt="main-img8" className="grid-item"/>
             </div>
-        </div> : <Items curFilter={curFilter} curId={id}/>}
+        </div> : <ItemsDisplay curFilter={curFilter} curId={id}/>}
         </div>
 
     )

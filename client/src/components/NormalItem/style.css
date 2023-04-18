@@ -1,6 +1,6 @@
 .normal-item-container{
     width: 350px;
-    height: 400px;
+    height: 500px;
     background-color: var(--primary-white);
     color: var(--primary-black);
     border: 1px solid var(--primary-light-gray);
@@ -50,15 +50,4 @@
     text-align: left;
     font-size: 14px;
     height: 13%;
-}
-
-.add-to-cart{
-    height: 15%;
-    font-size: 36px;
-    float:right;
-}
-
-.add-to-cart:hover{
-    color: var(--secondary-green);
-    cursor: pointer;
 }

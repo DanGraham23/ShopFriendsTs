@@ -1,0 +1,18 @@
+.delete-listing-btn{
+    width: 150px;
+    height: 40px;
+    outline: none;
+    border: none;
+    background-color: var(--primary-black);
+    color: var(--primary-white);
+    float:right;
+    margin-right: 5px;
+}
+
+.delete-listing-btn:hover{
+    border: none;
+    background-color: var(--primary-white);
+    color: var(--secondary-red);
+    border: 2px solid var(--secondary-red);
+    cursor: pointer;
+}

@@ -8,6 +8,7 @@ export const updatePfpRoute = `${host}/api/auth/updatepfp`;
 
 export const addItemRoute = `${host}/api/item/additem`;
 export const getItemsRoute = `${host}/api/item/getitems`;
+export const removeItemRoute = `${host}/api/item/removeitem`;
 
 export const getCartItemsRoute = `${host}/api/cart/getcartitems`;
 export const addCartItemRoute = `${host}/api/cart/addcartitem`;

@@ -1,0 +1,10 @@
+.add-to-cart{
+    height: 15%;
+    font-size: 36px;
+    float:right;
+}
+
+.add-to-cart:hover{
+    color: var(--secondary-green);
+    cursor: pointer;
+}

@@ -1,30 +1,12 @@
 import "./style.css";
-import {AiFillPlusSquare} from 'react-icons/ai' 
 import {Item} from '../../common/types';
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import {useAppSelector } from "../../hooks";
 import { selectAuth } from "../../features/authSlice";
-import { addToCart, selectCart } from "../../features/cartSlice";
-import { toastProps } from "../../common/toasts";
-import {toast } from "react-toastify";
+import DeleteListing from "../DeleteListing/DeleteListing";
+import AddCartItem from "../AddCartItem/AddCartItem";
 
 const NormalItem : React.FC<Item> = (props) =>{
-    const dispatch = useAppDispatch();
     const {isLoggedIn, id} = useAppSelector(selectAuth);
-    const {items} = useAppSelector(selectCart);
-
-    function handleClick(){
-        dispatch(addToCart(props, id));
-        if (items.length > 0){
-            var i = items.length;
-            while (i--){
-                if (items[i].id === props.id){
-                    toast.warn("Item arleady in cart!", toastProps);
-                    return;
-                }
-            }
-        }
-        toast.success("Item added successfully!", toastProps);
-    }
 
     return (
 
@@ -43,8 +25,14 @@ const NormalItem : React.FC<Item> = (props) =>{
             </div>
             <p className="normal-item-description">{props.description}</p>
             {  isLoggedIn && id !== props.user_id &&
-                <AiFillPlusSquare className="add-to-cart"
-                onClick={handleClick}/>
+                <AddCartItem 
+                item={props}
+                user_id={id}/>
+            }
+            {
+                isLoggedIn && id === props.user_id && props.id &&
+                <DeleteListing 
+                id={props.id}/>
             }
         </div>
 
