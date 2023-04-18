@@ -26,14 +26,17 @@ const Navbar:React.FC = () =>{
                     
                 }
                 <li className="nav-item" onClick={() => setShowCart(!showCart)} >
-                    {!showCart && isLoggedIn ? 
+                    {!showCart && isLoggedIn && 
                     <div>
                         {items.length < 10 ? 
                         <div className="item-cart-count">{items.length}</div> : 
                         <div className="item-cart-count">9+</div>}
                         <BsCart />
                     </div>
-                    : <AiOutlineClose />}
+                    }
+                    {
+                        showCart && isLoggedIn && <AiOutlineClose />
+                    }
                     </li>
                 
                 {isLoggedIn &&<Checkout />}

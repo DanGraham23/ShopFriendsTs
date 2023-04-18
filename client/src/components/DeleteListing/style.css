@@ -1,6 +1,7 @@
 .delete-listing-btn{
     width: 150px;
     height: 40px;
+    margin-top: 30px;
     outline: none;
     border: none;
     background-color: var(--primary-black);
