@@ -2,6 +2,8 @@
 
 ## Peer-to-Peer Marketplace
 
+## Demo, https://youtu.be/CtrylePSosM
+
 ---- Techs Used ----
 - Front end was built using React, TypeScript, and Redux
 - Back end was built using ExpressJS, NodeJS, PostgreSQL, TypeScript, Knex, Stripe, AWS
@@ -50,12 +52,6 @@ Techs:
 ---- Database Tables ----
 ![ShopFriendsTs (1)](https://user-images.githubusercontent.com/59900510/230456682-391916a0-e249-46ba-8ee2-c16498addb8c.jpeg)
 
----- Current Screenshots of ShopFriends (Will make demo video soon!) ----
-![shopfriends1](https://user-images.githubusercontent.com/59900510/231634708-c3fcdf40-89c8-4c76-b23c-368c6598cb37.png)
-![shopfriends2](https://user-images.githubusercontent.com/59900510/232174390-2b59ae8a-4301-4c41-9e7e-74a765064d5d.png)
-![shopfriends3](https://user-images.githubusercontent.com/59900510/231634726-40391bf6-1676-48cd-9a51-f86056ad917f.png)
-![shopfriends4](https://user-images.githubusercontent.com/59900510/232174397-ad95f40f-dfe7-48e3-a971-8e952156fda7.png)
-![shopfriends5](https://user-images.githubusercontent.com/59900510/231634749-d32729d6-55ac-47ea-ad3d-18458be5bba6.png)
 
 
 
