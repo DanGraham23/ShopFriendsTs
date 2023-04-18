@@ -86,7 +86,7 @@ const CreateListingModal: React.FC<Props> = (props) =>{
                 {
                     imageUrl !== "" ? 
                     <img src={imageUrl} alt="item" className="item-image-upload"/> :
-                    <div className="item-image-upload"> Upload Image Here</div>
+                    <div className="item-image-upload"></div>
                 }
             </label>
             <input type="file"  
@@ -97,13 +97,13 @@ const CreateListingModal: React.FC<Props> = (props) =>{
             name="itemImg"/>
             <div className="create-listing-subheading">
                 <input type="text" 
-                placeholder="Item Name"
+                placeholder="Name"
                 name="itemName"
                 value={createListingInfo.itemName}
                 onChange={handleChange}
                 className="item-input"/>
                 <input type="text" 
-                placeholder="Price"
+                placeholder="$ Price (USD)"
                 name="itemPrice"
                 value={createListingInfo.itemPrice}
                 onChange={handleChange}
@@ -122,8 +122,8 @@ const CreateListingModal: React.FC<Props> = (props) =>{
                     })}
                 </select>
             </div>
-            <input type="text" 
-            placeholder="Item Description"
+            <textarea 
+            placeholder="Add details about condition, how the garmet fits, additional measurements, shipping policies, retail price, link to retail page, etc"
             name="itemDescription"
             value={createListingInfo.itemDescription}
             onChange={handleChange}

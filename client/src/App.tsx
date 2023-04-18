@@ -5,12 +5,12 @@ import Main from './pages/Main/Main';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Profile from './pages/Profile/Profile';
-import Checkout from './pages/Checkout/Checkout'
 import {useEffect } from 'react';
 import {isAuth, selectAuth} from './features/authSlice';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { fetchCartItems } from './features/cartSlice';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import { toastProps } from './common/toasts';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -27,15 +27,14 @@ const App: React.FC = () => {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
 
     if (query.get("success")) {
-      console.log("Order placed! You will receive an email confirmation.");
+      toast.success("Order placed! You will receive an email confirmation.", toastProps);
     }
 
     if (query.get("canceled")) {
-      console.log("Order canceled -- continue to shop around and checkout when you're ready.");
+      toast.warn("Order canceled -- continue to shop around and checkout when you're ready.", toastProps);
     }
   }, []);
 
@@ -48,7 +47,6 @@ const App: React.FC = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />}  />
           <Route path="/profile/:user" element={<Profile />}  />
-          <Route path="/checkout" element={<Checkout />}  />
           <Route path="/" element={<Main />}  />
           <Route path='*' element={<Navigate to='/' replace />}/>  
         </Routes>

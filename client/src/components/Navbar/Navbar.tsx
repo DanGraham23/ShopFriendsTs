@@ -5,6 +5,7 @@ import {useState} from 'react';
 import { selectAuth } from "../../features/authSlice";
 import {AiOutlineClose} from 'react-icons/ai';
 import { useAppSelector } from "../../hooks";
+import Checkout from "../Checkout/Checkout";
 
 const Navbar:React.FC = () =>{
     const [showCart, setShowCart] = useState(false);
@@ -28,7 +29,7 @@ const Navbar:React.FC = () =>{
                     : <AiOutlineClose />}
                     </li>
                 
-                {isLoggedIn && <a href="/checkout"><button className="checkout-btn">Check Out</button></a>}
+                {isLoggedIn &&<Checkout />}
                 
             </ul>
         </div>

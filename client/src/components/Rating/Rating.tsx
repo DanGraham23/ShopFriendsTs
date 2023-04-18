@@ -47,6 +47,7 @@ const Rating: React.FC<Props> = (props) => {
     return (
         <div className="profile-rating">
             {handleUserRatingDisplay(props.avgRating)}
+            <p className='rating-avg'>({Number(props.avgRating).toFixed(2)})</p>
         </div>   
     )
 }

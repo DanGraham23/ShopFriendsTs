@@ -3,6 +3,12 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    margin-left: 20px;
+}
+
+.rating-avg{
+    margin: 0;
+    align-self: flex-end;
 }
 
 .rating-gray{

@@ -22,20 +22,3 @@
 .nav-item{
     cursor: pointer;
 }
-
-.checkout-btn{
-    height: 40px;
-    width: 100px;
-    color: var(--primary-black);
-    background-color: var(--primary-white);
-    border: 2px solid var(--primary-black);
-    outline: none;
-    font-weight: 700;
-    font-size: 16px;
-  }
-
-  .checkout-btn:hover{
-    background-color: var(--primary-black);
-    color: var(--primary-white);
-    cursor: pointer;
-  }

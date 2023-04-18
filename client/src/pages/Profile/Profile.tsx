@@ -11,6 +11,7 @@ import Items from "../../components/Items/Items";
 import Rating from "../../components/Rating/Rating";
 import ImageUpload from "../../components/ImageUpload/ImageUpload";
 import Logout from "../../components/Logout/Logout";
+import defaultImg from '../../assets/images/default.jpg';
 
 const Profile : React.FC = () => {
     const [profileImg, setProfileImg] = useState("");
@@ -30,55 +31,60 @@ const Profile : React.FC = () => {
         if (usersData){
             setProfileImg(usersData.profile_picture);
         }
-    }, [usersData])
+    }, [usersData]);
 
     useEffect(() => {
         fetchUser();
     }, [isLoggedIn]);
 
     return (
-        <div className="profile-main">
-            <div className="profile-container">
-            {
-                profileImg ? 
-                <img src={profileImg} alt="profile" className="profile-pic" />
-                : <img src='/pfps/default.jpg' alt="profile" className="profile-pic" /> 
-            }
-            </div>
-            
-            <div className="profile-header">
-                <h1>{user}</h1>
-                {   isLoggedIn && usersData && usersData.username === username && 
-                    <ImageUpload 
-                    setProfileImg={setProfileImg}
-                    isLoggedIn={isLoggedIn}
-                    id={id}
-                    />
+        <div className="profile-container">
+            <div className="profile-user-info">
+                <div className="profile-img-container">
+                {
+                    profileImg ? 
+                    <img src={profileImg} alt="profile" className="profile-pic" />
+                    : <img src={defaultImg} alt="profile" className="profile-pic" /> 
                 }
-            </div>
-            {
-                usersData && 
-                <Rating 
-                avgRating={usersData.avg_rating}
-                receiverUserId={usersData.id}
-                senderUserId={id} />       
-            }
-            {
-                isLoggedIn && usersData && usersData.username === username && 
-                <div className="btn-container">
-                   <Logout />
-                   <button 
-                   onClick={() => setShowCreateListingModal(!showCreateListingModal)} 
-                   className="create-listing-modal-btn">Create Listing</button>
                 </div>
+                <div>
+                    <div className="profile-header">
+                        {   isLoggedIn && usersData && usersData.username === username && 
+                            <ImageUpload 
+                            setProfileImg={setProfileImg}
+                            isLoggedIn={isLoggedIn}
+                            id={id}
+                            />
+                        }
+                        <h1>{user}</h1>
+                    </div>
+                    {
+                        usersData && 
+                        <Rating 
+                        avgRating={usersData.avg_rating}
+                        receiverUserId={usersData.id}
+                        senderUserId={id} />       
+                    }
+                    <div>
+                        {
+                            isLoggedIn && usersData && usersData.username === username && 
+                            <div className="btn-container">
+                            <Logout />
+                            <button 
+                            onClick={() => setShowCreateListingModal(!showCreateListingModal)} 
+                            className="create-listing-modal-btn">Create Listing</button>
+                            </div>
                 
-            }
-            {
-                showCreateListingModal && 
-                <CreateListingModal 
-                showCreateListingModal={showCreateListingModal} 
-                setShowCreateListingModal={setShowCreateListingModal}/>
-            }
+                        }
+                        {
+                            showCreateListingModal && 
+                            <CreateListingModal 
+                            showCreateListingModal={showCreateListingModal} 
+                            setShowCreateListingModal={setShowCreateListingModal}/>
+                        }
+                    </div>
+                </div>
+            </div>
             <hr className="profile-page-divider"></hr>
             {
                 usersData && 

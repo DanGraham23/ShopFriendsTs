@@ -168,7 +168,7 @@ module.exports.getUser = async (req: Request, res: Response, next:NextFunction) 
         if (userFoundObj.length === 0){
             return res.status(404).json({msg:'No user exists with that username'});
         }
-
+        
         //Get their pfp, username, id, and average rating
         const receiver_user_id = userFoundObj[0].id;
         const userObj = await knex2('users').select(knex2.raw('AVG(review.rating) as avg_rating')).leftJoin('review', 'users.id', 'review.receiver_user_id').where('review.receiver_user_id', receiver_user_id).groupBy('users.id');
