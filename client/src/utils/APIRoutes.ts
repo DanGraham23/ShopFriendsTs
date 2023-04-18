@@ -12,3 +12,5 @@ export const getItemsRoute = `${host}/api/item/getitems`;
 export const getCartItemsRoute = `${host}/api/cart/getcartitems`;
 export const addCartItemRoute = `${host}/api/cart/addcartitem`;
 export const removeCartItemRoute = `${host}/api/cart/removecartitem`;
+
+export const checkoutRoute = `${host}/api/checkout/create-checkout-session`;

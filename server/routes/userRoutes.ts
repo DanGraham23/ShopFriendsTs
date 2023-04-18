@@ -12,8 +12,8 @@ userRouter.post("/register", register);
 userRouter.post("/login", login);
 
 userRouter.get("/getuser/:username", getUser);
-userRouter.post("/updatepfp", userCookieJwtAuth, upload.single('profile_picture'), updatePfp);
 
+userRouter.put("/updatepfp", userCookieJwtAuth, upload.single('profile_picture'), updatePfp);
 userRouter.put("/addreview/:sender_user_id/:receiver_user_id/:rating", userCookieJwtAuth, addReview);
 
 

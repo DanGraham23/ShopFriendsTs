@@ -20,7 +20,7 @@ const ImageUpload:React.FC<Props> = (props) => {
         formData.append('id',  props.id);
         formData.append('profile_picture', file);
         if (props.isLoggedIn){
-            await axios.post(updatePfpRoute, formData,{
+            await axios.put(updatePfpRoute, formData,{
             headers: {
                 'Content-Type': 'multipart/form-data'
                 },
