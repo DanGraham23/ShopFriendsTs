@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { axiosPrivate } from '../../utils/axios';
 import {toast } from 'react-toastify';
 import { toastProps } from '../../common/toasts';
 import { updatePfpRoute } from '../../utils/APIRoutes';
@@ -20,11 +20,10 @@ const ImageUpload:React.FC<Props> = (props) => {
         formData.append('id',  props.id);
         formData.append('profile_picture', file);
         if (props.isLoggedIn){
-            await axios.put(updatePfpRoute, formData,{
+            await axiosPrivate.put(updatePfpRoute, formData,{
             headers: {
                 'Content-Type': 'multipart/form-data'
-                },
-                withCredentials:true,
+                }
             }).then((res:any)=> {
                 toast.success(res.data.msg, toastProps);
             }).catch((err) => {

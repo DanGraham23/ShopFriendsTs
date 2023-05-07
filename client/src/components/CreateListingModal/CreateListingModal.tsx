@@ -1,11 +1,10 @@
 import './style.css'
 import {useState} from 'react';
 import {AiOutlineClose} from 'react-icons/ai';
-import axios from 'axios';
+import { axiosPrivate } from '../../utils/axios';
 import { selectAuth } from "../../features/authSlice";
 import { addItemRoute } from '../../utils/APIRoutes';
 import {useAppSelector} from "../../hooks";
-import { Item } from '../../common/types';
 import {toast} from 'react-toastify';
 import { toastProps } from "../../common/toasts";
 
@@ -43,13 +42,12 @@ const CreateListingModal: React.FC<Props> = (props) =>{
             formData.append('price', Number(Number(itemPrice).toFixed(2)));
             formData.append('item_image', itemImg);
             formData.append('tag', itemTag);
-            await axios.put(addItemRoute,
+            await axiosPrivate.put(addItemRoute,
                 formData,
                 {
                 headers: {
                     'Content-Type': 'multipart/form-data'
-                },
-                withCredentials:true,
+                }
             }).then((res:any) => {
                 toast.success("Item Created!", toastProps);
             }).catch((err) => {

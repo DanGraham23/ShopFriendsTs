@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
 import { Item } from "../common/types";
 import {addCartItemRoute, getCartItemsRoute, removeCartItemRoute } from "../utils/APIRoutes";
-import axios from 'axios';
+import { axiosPrivate } from "../utils/axios";
 import type { RootState } from '../store';
 import { clearError, setError } from "./errorSlice";
 
@@ -41,10 +41,7 @@ const cartSlice = createSlice({
 
 export const addToCart = (item:Item, user_id:number) => async (dispatch:any) => {
     dispatch(setLoading(true));
-    await axios.put(`${addCartItemRoute}/${user_id}/${item.id}`, '',
-    {
-        withCredentials:true
-    }).then((res:any)=> {
+    await axiosPrivate.put(`${addCartItemRoute}/${user_id}/${item.id}`).then((res:any)=> {
         dispatch(setAddCartItem(item));
         dispatch(clearError());
     }).catch((err)=> {
@@ -57,10 +54,7 @@ export const addToCart = (item:Item, user_id:number) => async (dispatch:any) => 
 
 export const removeFromCart = (item_id:number, user_id:number) => async (dispatch:any) => {
     dispatch(setLoading(true));
-    await axios.delete(`${removeCartItemRoute}/${user_id}/${item_id}`,
-    {
-        withCredentials:true
-    }).then((res:any) => {
+    await axiosPrivate.delete(`${removeCartItemRoute}/${user_id}/${item_id}`).then((res:any) => {
         dispatch(setRemoveCartItem({item_id}));
         dispatch(clearError());
     }).catch((err)=> {
@@ -74,10 +68,7 @@ export const removeFromCart = (item_id:number, user_id:number) => async (dispatc
 export const fetchCartItems = (user_id: number) => async (dispatch:any) => {
     dispatch(setLoading(true));
     dispatch(setCartOwner({user_id}));
-    await axios.get(`${getCartItemsRoute}/${user_id}`,
-    {
-        withCredentials:true
-    }).then((res:any) => {
+    await axiosPrivate.get(`${getCartItemsRoute}/${user_id}`).then((res:any) => {
         dispatch(setCartItems(res.data.items));
     }).catch((err) => {
         if (err.response.status){

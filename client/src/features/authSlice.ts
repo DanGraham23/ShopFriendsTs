@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { setError, clearError } from "./errorSlice";
 import { registerRoute,loginRoute } from "../utils/APIRoutes";
-import axios from 'axios';
+import axios from "../utils/axios";
 
 import type { RootState } from '../store';
 

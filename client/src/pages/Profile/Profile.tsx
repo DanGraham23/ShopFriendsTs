@@ -3,7 +3,7 @@ import {useState,useEffect} from 'react';
 import {useParams } from "react-router-dom";
 import { selectAuth} from "../../features/authSlice";
 import {useAppSelector} from "../../hooks";
-import axios from "axios";
+import axios from "../../utils/axios";
 import {getUserRoute} from "../../utils/APIRoutes";
 import 'react-toastify/dist/ReactToastify.css';
 import CreateListingModal from "../../components/CreateListingModal/CreateListingModal";

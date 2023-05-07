@@ -1,17 +1,16 @@
-export const host = "http://localhost:3001";
 
-export const registerRoute = `${host}/api/auth/register`;
-export const loginRoute = `${host}/api/auth/login`;
-export const getUserRoute = `${host}/api/auth/getuser`;
-export const addReviewRoute = `${host}/api/auth/addreview`;
-export const updatePfpRoute = `${host}/api/auth/updatepfp`;
+export const registerRoute = `/api/auth/register`;
+export const loginRoute = `/api/auth/login`;
+export const getUserRoute = `/api/auth/getuser`;
+export const addReviewRoute = `/api/auth/addreview`;
+export const updatePfpRoute = `/api/auth/updatepfp`;
 
-export const addItemRoute = `${host}/api/item/additem`;
-export const getItemsRoute = `${host}/api/item/getitems`;
-export const removeItemRoute = `${host}/api/item/removeitem`;
+export const addItemRoute = `/api/item/additem`;
+export const getItemsRoute = `/api/item/getitems`;
+export const removeItemRoute = `/api/item/removeitem`;
 
-export const getCartItemsRoute = `${host}/api/cart/getcartitems`;
-export const addCartItemRoute = `${host}/api/cart/addcartitem`;
-export const removeCartItemRoute = `${host}/api/cart/removecartitem`;
+export const getCartItemsRoute = `/api/cart/getcartitems`;
+export const addCartItemRoute = `/api/cart/addcartitem`;
+export const removeCartItemRoute = `/api/cart/removecartitem`;
 
-export const checkoutRoute = `${host}/api/checkout/create-checkout-session`;
+export const checkoutRoute = `/api/checkout/create-checkout-session`;

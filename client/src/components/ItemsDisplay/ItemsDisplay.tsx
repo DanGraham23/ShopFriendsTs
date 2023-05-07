@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './style.css';
-import axios from 'axios';
+import axios from '../../utils/axios';
 import { getItemsRoute } from '../../utils/APIRoutes';
 import { Item } from '../../common/types';
 import NormalItem from '../NormalItem/NormalItem';
