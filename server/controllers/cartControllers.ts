@@ -9,10 +9,12 @@ const s3_2 = require('../awsConfig');
  * @param {NextFunction} next - The next middleware function.
  * @returns {Object} A JSON response indicating success or failure.
  */
-module.exports.addItemToCart = async (req:Request, res:Response, next:NextFunction) => {
+module.exports.addItemToCart = async (req:any, res:Response, next:NextFunction) => {
     try{
         const {user_id, item_id} = req.params;
-        
+        if (req.user.id != user_id){
+            return res.status(403).json({msg: "Cannot perform that operation"});
+        }
         //Check if the user has a cart based on their user_id
         const userCartObj = await knex3('cart').where('cart.user_id', user_id);
         if (userCartObj.length === 0){
@@ -48,9 +50,12 @@ module.exports.addItemToCart = async (req:Request, res:Response, next:NextFuncti
  * @param {NextFunction} next - The next middleware function.
  * @returns {Object} A JSON response indicating success or failure.
  */
-module.exports.removeItemFromCart = async (req:Request, res:Response, next:NextFunction) => {
+module.exports.removeItemFromCart = async (req:any, res:Response, next:NextFunction) => {
     try{
         const {user_id, item_id} = req.params;
+        if (req.user.id != user_id){
+            return res.status(403).json({msg: "Cannot perform that operation"});
+        }
         //Check if the user has a cart based on their user_id
         const userCartObj = await knex3('cart').where('cart.user_id', user_id);
         if (userCartObj.length === 0){
@@ -79,9 +84,14 @@ module.exports.removeItemFromCart = async (req:Request, res:Response, next:NextF
  * @param {NextFunction} next - The next middleware function.
  * @returns {Object} A JSON response containing the user's cart items.
  */
-module.exports.getCartItems = async (req:Request, res:Response, next:NextFunction) => {
+module.exports.getCartItems = async (req:any, res:Response, next:NextFunction) => {
     try{
         const id = req.params.id;
+
+        if (req.user.id != id){
+            return res.status(403).json({msg: "Cannot perform that operation"});
+        }
+
         //Check if the user has a cart based on their user_id
         const cartObj = await knex3('cart').where({user_id:id}).catch((err) => {
             return res.status(404).json({msg: "no user found"});

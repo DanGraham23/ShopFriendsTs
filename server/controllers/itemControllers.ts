@@ -67,7 +67,9 @@ module.exports.addItem = async (req:any, res:Response, next:NextFunction) => {
     try{
         const {user_id, name, description, price, tag} = req.body;
         const item_image = req.file;
-
+        if (req.user.id != user_id){
+            return res.status(403).json({msg: "Cannot perform that operation"});
+        }
 
         // //Set a random, unique image name in s3 bucket
         const randomImageName = (btyes:number = 32) => {
@@ -116,10 +118,12 @@ module.exports.addItem = async (req:any, res:Response, next:NextFunction) => {
  * @param {NextFunction} next - The next middleware function.
  * @returns {Object} A JSON response indicating success or failure.
  */
-module.exports.removeItem = async (req:Request, res:Response, next :NextFunction) => {
+module.exports.removeItem = async (req:any, res:Response, next :NextFunction) => {
     try{
         const {id} = req.params;
-
+        if (req.user.id != id){
+            return res.status(403).json({msg: "Cannot perform that operation"});
+        }
         //Check if the id is a valid item_id, and remove it
         const itemFound = await knex1('items').where({id});
         if (itemFound.length === 0){

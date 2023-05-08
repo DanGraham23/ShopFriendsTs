@@ -111,6 +111,10 @@ module.exports.updatePfp =  async (req:any, res:Response, next:NextFunction) => 
         const {id} = req.body;
         const profile_picture_file = req.file;
 
+        if (req.user.id != id){
+            return res.status(403).json({msg: "Cannot perform that operation"});
+        }
+
         //Set a random, unique image name in s3 bucket
         const randomImageName = (btyes:number = 32) => {
             return crypto.randomBytes(btyes).toString('hex');
@@ -201,12 +205,14 @@ module.exports.getUser = async (req: Request, res: Response, next:NextFunction) 
  * @param {NextFunction} next - The next middleware function.
  * @returns {Object} A JSON response indicating success or failure.
  */
-module.exports.addReview = async (req: Request, res: Response, next:NextFunction) => {
+module.exports.addReview = async (req: any, res: Response, next:NextFunction) => {
     try{
         const receiver_user_id : number = Number(req.params.receiver_user_id);
         const sender_user_id : number = Number(req.params.sender_user_id);
         const rating : number =  Number(req.params.rating);
-
+        if (req.user.id != sender_user_id){
+            return res.status(403).json({msg: "Cannot perform that operation"});
+        }
         //Users cannot rate themselves
         if (receiver_user_id === sender_user_id){
             return res.status(403).json({msg:'Cannot update own rating'});
