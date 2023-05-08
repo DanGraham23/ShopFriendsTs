@@ -1,18 +1,15 @@
 import "./style.css";
 import {useAppSelector } from "../../hooks";
 import { selectCart } from "../../features/cartSlice";
-import axios from "axios";
+import {axiosPrivate} from "../../utils/axios";
 import { checkoutRoute } from "../../utils/APIRoutes";
 
 const Checkout : React.FC =() =>{
     const {items} = useAppSelector(selectCart);
 
-
     async function handleClick(){
         if (items.length > 0){
-            const res = await axios.post(checkoutRoute, items, {
-                withCredentials:true
-            });
+            const res = await axiosPrivate.post(checkoutRoute, items);
             window.location.replace(res.data.url);
         }
     }

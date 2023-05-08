@@ -60,3 +60,30 @@
     border: 1px solid black;
     margin-top: 40px;
 }
+
+@media screen and (max-width:768px){
+
+    .profile-header{
+        gap: 20px;
+    }
+
+    .profile-pic{
+        width: 200px;
+        height: 200px;
+    }
+
+    .profile-header{
+        font-size: 14px;
+    }
+
+    .btn-container{
+        gap: 20px;
+    }
+}
+@media screen and (max-width:580px){
+
+    .profile-pic{
+        width: 150px;
+        height: 150px;
+    }
+}

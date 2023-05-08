@@ -27,7 +27,8 @@ const NormalItem : React.FC<Item> = (props) =>{
             {  isLoggedIn && id !== props.user_id &&
                 <AddCartItem 
                 item={props}
-                user_id={id}/>
+                user_id={id}
+                />
             }
             {
                 isLoggedIn && id === props.user_id && props.id &&

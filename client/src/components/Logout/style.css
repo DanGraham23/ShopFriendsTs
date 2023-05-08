@@ -13,3 +13,11 @@
     border: 2px solid var(--primary-black);
     cursor: pointer;
 }
+
+@media screen and (max-width:580px){
+
+    .logout-btn{
+        width: 60px;
+        font-size: 14px;
+    }
+}

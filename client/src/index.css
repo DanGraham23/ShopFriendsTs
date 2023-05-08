@@ -47,7 +47,7 @@ h3{
 }
 
 .pages-container{
-  min-height: calc(100vh - 242px);
+  min-height: calc(100vh - 302px);
 }
 
 .logo{
@@ -114,4 +114,29 @@ h3{
 
 .scroll-style::-webkit-scrollbar-thumb:hover {
   background: var(--primary-dark-black);
+}
+
+@media screen and (max-width:768px){
+  .logo{
+    font-size: 24px;
+    margin-left: 25px;
+  }
+}
+
+@media screen and (max-width:580px){
+  .logo{
+    font-size: 26px;
+  }
+
+  .input-row{
+    width: 70%;
+  }
+
+  .form-footer{
+      font-size: 12px;
+  }
+  
+  .form-btn{
+      width: 70%;
+  }
 }

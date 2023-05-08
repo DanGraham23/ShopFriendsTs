@@ -1,6 +1,6 @@
 .normal-item-container{
     width: 350px;
-    height: 500px;
+    height: 440px;
     background-color: var(--primary-white);
     color: var(--primary-black);
     border: 1px solid var(--primary-light-gray);
@@ -17,6 +17,7 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
+    height: 100%;
 }
 
 .normal-item-image{
@@ -35,7 +36,7 @@
 }
 
 .normal-item-subheading{
-    margin-top: 20px;
+    margin-top: 15px;
     display: flex;
     align-items: center;
     gap: 20px;
@@ -45,9 +46,14 @@
 }
 
 .normal-item-description{
-    margin-top: 20px;
+    margin-top: 15px;
     margin-left: 10px;
     text-align: left;
     font-size: 14px;
-    height: 13%;
+    height: 15%;
+    margin-bottom: 0px;
 }
+
+@media screen and (max-width:580px){
+
+  }

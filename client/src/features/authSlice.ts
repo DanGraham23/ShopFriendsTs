@@ -42,11 +42,7 @@ const authSlice = createSlice({
 
 export const register = (user:{username:string, password:string, email:string}) => async (dispatch:any) => {
     dispatch(setLoading(true));
-    await axios.post(registerRoute,
-        user,
-    {
-        withCredentials:true
-    }).then((res)=>{
+    await axios.post(registerRoute,user).then((res)=>{
         if (typeof window !== "undefined") {
             localStorage.setItem("shopfriend-user", JSON.stringify(res.data.returnedUser));
             dispatch(setUser(res.data.returnedUser));
@@ -62,11 +58,7 @@ export const register = (user:{username:string, password:string, email:string}) 
 
 export const login = (user:{username:string, password:string}) => async (dispatch:any) => {
     dispatch(setLoading(true));
-    await axios.post(loginRoute,
-        user,
-    {
-        withCredentials:true
-    }).then((res)=>{
+    await axios.post(loginRoute,user).then((res)=>{
         if (typeof window !== "undefined") {
             localStorage.setItem("shopfriend-user", JSON.stringify(res.data.returnedUser));
             dispatch(setUser(res.data.returnedUser));

@@ -8,12 +8,9 @@ const Footer:React.FC = () => {
                 <li>ABOUT</li>
                 <li>HELP & FAQ</li>
                 <li>TERMS</li>
-                <li>PRIVACY</li>
-                <li>TRUST</li>
                 <li>ACCESSIBILITY</li>
                 <li>CONTACT</li>
                 <li>JOBS</li>
-                <li>IOS APP</li>
             </ul>
             <ul className='footer-socials'>
                 <li><AiOutlineInstagram /></li>

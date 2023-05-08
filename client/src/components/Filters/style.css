@@ -34,3 +34,9 @@
     background-color: var(--primary-black);
     color: var(--primary-white);
 }
+
+@media screen and (max-width:580px){
+    .filters-nav{
+        font-size: 12px;
+    }
+  }

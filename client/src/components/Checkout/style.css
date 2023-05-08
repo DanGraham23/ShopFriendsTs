@@ -14,3 +14,11 @@
     color: var(--primary-white);
     cursor: pointer;
   }
+
+  @media screen and (max-width:768px){
+    .checkout-btn{
+      width: 80px;
+      font-size: 12px;
+    }
+
+  }
