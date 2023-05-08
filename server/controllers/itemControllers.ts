@@ -1,8 +1,10 @@
+const knex1 = require('../db/knex');
+const s3_3 = require('../awsConfig');
+const {validateAddItem} = require('../validator');
+
 import { Request, Response, NextFunction } from "express";
 import { Item } from "../model/itemModel";
 import crypto from 'crypto';
-const knex1 = require('../db/knex');
-const s3_3 = require('../awsConfig');
 
 /**
  * Gets items from the database.
@@ -65,8 +67,18 @@ module.exports.getItems = async (req:Request, res:Response, next:NextFunction) =
  */
 module.exports.addItem = async (req:any, res:Response, next:NextFunction) => {
     try{
+        const {error, value} = validateAddItem(req.body);
+        if (error){
+            return res.status(400).json({msg:error.details[0].message});
+        }
+
         const {user_id, name, description, price, tag} = req.body;
         const item_image = req.file;
+
+        if (item_image === null){
+            return res.status(403).json({msg: "Item must have an image"});
+        }
+
         if (req.user.id != user_id){
             return res.status(403).json({msg: "Cannot perform that operation"});
         }
@@ -121,14 +133,16 @@ module.exports.addItem = async (req:any, res:Response, next:NextFunction) => {
 module.exports.removeItem = async (req:any, res:Response, next :NextFunction) => {
     try{
         const {id} = req.params;
-        if (req.user.id != id){
-            return res.status(403).json({msg: "Cannot perform that operation"});
-        }
-        //Check if the id is a valid item_id, and remove it
+
         const itemFound = await knex1('items').where({id});
         if (itemFound.length === 0){
             return res.status(404).json({msg:"No item found"});
         }
+
+        if (req.user.id != itemFound[0].user_id){
+            return res.status(403).json({msg: "Cannot perform that operation"});
+        }
+
         await knex1('items').where({id}).del();
         return res.status(200).json({msg:"Item successfully deleted!"});
     }catch(ex){

@@ -2,11 +2,13 @@ const knex2 = require('../db/knex');
 const bcrypt=  require("bcrypt");
 const s3_1 = require('../awsConfig');
 const jwt = require('jsonwebtoken');
+const {validateLogin, validateRegister} = require('../validator');
 
 import crypto from 'crypto';
+import { NextFunction, Request, Response } from "express";
+
 import { Review } from "../model/reviewModel";
 import { User } from "../model/userModel";
-import { NextFunction, Request, Response } from "express";
 import {Cart} from '../model/cartModel';
 
 /**
@@ -18,7 +20,14 @@ import {Cart} from '../model/cartModel';
  */
 module.exports.register = async (req: Request, res: Response, next:NextFunction) => {
     try{
+        const {error, value} = validateRegister(req.body);
+        if (error){
+            return res.status(400).json({msg:error.details[0].message});
+        }
+
         const {username, password, email} = req.body;
+
+
         const hashedPassword = await bcrypt.hash(password, 10);
         const user: User = {
             username: username,
@@ -69,6 +78,11 @@ module.exports.register = async (req: Request, res: Response, next:NextFunction)
  */
 module.exports.login = async (req: Request, res: Response, next:NextFunction) => {
     try{
+        const {error, value} = validateLogin(req.body);
+        if (error){
+            return res.status(400).json({msg:error.details[0].message});
+        }
+
         const {username, password} = req.body;
 
         //Check if the user exists
@@ -207,6 +221,7 @@ module.exports.getUser = async (req: Request, res: Response, next:NextFunction) 
  */
 module.exports.addReview = async (req: any, res: Response, next:NextFunction) => {
     try{
+
         const receiver_user_id : number = Number(req.params.receiver_user_id);
         const sender_user_id : number = Number(req.params.sender_user_id);
         const rating : number =  Number(req.params.rating);

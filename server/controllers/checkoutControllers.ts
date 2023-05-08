@@ -1,7 +1,8 @@
+const stripe = require('stripe')(process.env.STRIPE_KEY);
+const {validateCheckout} = require('../validator');
+
 import { NextFunction, Request, Response } from "express";
 import { Item } from "../model/itemModel";
-
-const stripe = require('stripe')(process.env.STRIPE_KEY);
 
 /**
  * Register a user in the database.
@@ -12,8 +13,14 @@ const stripe = require('stripe')(process.env.STRIPE_KEY);
  */
 module.exports.checkoutItems = async (req:Request, res:Response, next:NextFunction) => {
     try{
-      const items:Item[]  = req.body;
+      const {error, value} = validateCheckout(req.body);
 
+      if (error){
+          return res.status(400).json({msg:error.details[0].message});
+      }
+
+      const items:Item[]  = req.body;
+    
       const lineItems = await Promise.all(
         items.map(async (item) => {
           const { id, name, price, item_image,description } = item;
