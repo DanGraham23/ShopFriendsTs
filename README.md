@@ -20,38 +20,14 @@ Backend: http://localhost:3001/
 - npm i from server directory
 - knex migrate:latest or npx knex migrate:latest (must have a postgresql database setup and connected) This is important to setup the database tables
 - npm run start
-
- Make a .env file with the following:
- 
- AWS
- - BUCKET_NAME =
- - BUCKET_REGION =
- - ACCESS_KEY=
- - SECRET_ACCESS_KEY=
-
- Ports
- - SERVER_PORT=3001
- - CLIENT_PORT=5173
-
- DB
- - DB_PORT=5432
- - DB_HOST="localhost"
- - DB_USER="postgres"
- - DB_PASS="1234"
- - DB_DB="ShopFriendsTs"
-
- Jwt secret
- - TOKEN_KEY=
- 
- Stripe Test Key
- - STRIPE_KEY=
-
+- setup .env file with configs and keys
 
 ---- Features ----
 
 Auth:
 - Login/Register form
-- JWTs and Cookies for Authorization
+- JWTs and Cookies for Authorization of sensitive endpoints
+- Bcrypt for password hashing
 - Redux stores user id, username, and logged in status
 
 Profiles:
@@ -67,6 +43,7 @@ Items:
 Techs:
 - Images hosted with AWS S3
 - Checkout page is integrated with Stripe API
+- Request data validation with Joi
 
 ---- Future Plans ----
 - Proper displays for loading states
