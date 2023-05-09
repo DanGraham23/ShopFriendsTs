@@ -69,10 +69,6 @@ module.exports.addItem = async (req, res, next) => {
             return res.status(403).json({msg: "Item must have an image"});
         }
 
-        if (req.user.id != user_id){
-            return res.status(403).json({msg: "Cannot perform that operation"});
-        }
-
         const item_image_name = randomImageName();
 
         const imageUploaded = uploadImage(item_image_name, item_image);
@@ -118,9 +114,9 @@ module.exports.removeItem = async (req, res, next) => {
             return res.status(403).json({msg: "Cannot perform that operation"});
         }
 
-        deleteImage(itemFound.item_image);
-
         await knex('items').where({id}).del();
+        deleteImage(itemFound.item_image);
+        
         return res.status(200).json({msg:"Item successfully deleted!"});
     }catch(ex){
         next(ex);

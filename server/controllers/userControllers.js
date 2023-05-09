@@ -133,13 +133,13 @@ module.exports.updatePfp =  async (req, res, next) => {
 
         const imageUploaded = uploadImage(profile_picture_name, profile_picture_file);
         if (!imageUploaded) return res.status(400).json({msg: "Failed to upload image"});
-        deleteImage(userFound.profile_picture);
 
 
         knex('users').where({id: id}).update({
             profile_picture: profile_picture_name,
             updated_at: new Date()
         }).then(() =>{
+            deleteImage(userFound.profile_picture);
             return res.status(201).json({msg:'Profile picture updated!'});
         }).catch((err) => {
             return res.status(404).json({msg:'Trying to update invalid user'});

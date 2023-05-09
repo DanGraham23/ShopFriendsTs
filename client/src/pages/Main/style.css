@@ -18,44 +18,40 @@
 
   .grid-item{
     height: 200px;
+    min-width: 200px;
     flex-grow: 1;
     object-fit: cover;
     margin: 2px;
   }
 
   @media screen and (max-width:768px){
-    .image-collage {
-    
-    }
     .grid-item{
-      height: 175px;
+      height: 190px;
     }
   }
 
 
   @media screen and (max-width:580px){
-    .image-collage {
-    
-    }
     .grid-item{
-      height: 150px;
+      height: 158px;
     }
   }
 
   @media screen and (max-width:480px){
-    .image-collage {
-    
-    }
     .grid-item{
-      height: 125px;
+      height: 145px;
+      min-width: 125px;
     }
   }
 
-  @media screen and (max-width:480px){
-    .image-collage {
-    
-    }
+  @media screen and (max-width:435px){
     .grid-item{
-      height: 100px;
+      height: 130px;
+    }
+  }
+
+  @media screen and (max-width:350px){
+    .grid-item{
+      height: 120px;
     }
   }
