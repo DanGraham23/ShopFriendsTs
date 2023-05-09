@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { setError, clearError } from "./errorSlice";
 import { registerRoute,loginRoute } from "../utils/APIRoutes";
-import axios from "../utils/axios";
+import {axiosPrivate} from "../utils/axios";
 
 import type { RootState } from '../store';
 
@@ -42,7 +42,7 @@ const authSlice = createSlice({
 
 export const register = (user:{username:string, password:string, email:string}) => async (dispatch:any) => {
     dispatch(setLoading(true));
-    await axios.post(registerRoute,user).then((res)=>{
+    await axiosPrivate.post(registerRoute,user).then((res)=>{
         if (typeof window !== "undefined") {
             localStorage.setItem("shopfriend-user", JSON.stringify(res.data.returnedUser));
             dispatch(setUser(res.data.returnedUser));
@@ -58,7 +58,7 @@ export const register = (user:{username:string, password:string, email:string}) 
 
 export const login = (user:{username:string, password:string}) => async (dispatch:any) => {
     dispatch(setLoading(true));
-    await axios.post(loginRoute,user).then((res)=>{
+    await axiosPrivate.post(loginRoute,user).then((res)=>{
         if (typeof window !== "undefined") {
             localStorage.setItem("shopfriend-user", JSON.stringify(res.data.returnedUser));
             dispatch(setUser(res.data.returnedUser));

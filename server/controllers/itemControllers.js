@@ -1,4 +1,4 @@
-const knex1 = require('../db/knex');
+const knex = require('../db/knex');
 
 const {uploadImage, getImageUrl} = require("../common/aws");
 const {validateAddItem} = require('../common/validator');
@@ -16,7 +16,7 @@ module.exports.getItems = async (req, res, next) => {
         const {user_id, tag} = req.params;
         
         if (tag !== "profile"){
-            const items = await knex1.select('items.*', 'users.username', 'users.profile_picture').from('items').leftJoin('users', 'items.user_id', 'users.id').whereNot('items.user_id', user_id).andWhere('items.tag', tag);
+            const items = await knex.select('items.*', 'users.username', 'users.profile_picture').from('items').leftJoin('users', 'items.user_id', 'users.id').whereNot('items.user_id', user_id).andWhere('items.tag', tag);
             
             for (const item of items){
                 if (item.profile_picture!= null){
@@ -28,7 +28,7 @@ module.exports.getItems = async (req, res, next) => {
             }
             return res.status(200).json({items});
         }else{
-            const items = await knex1.select('items.*', 'users.username', 'users.profile_picture').from('items').leftJoin('users', 'items.user_id', 'users.id').where('items.user_id', user_id);
+            const items = await knex.select('items.*', 'users.username', 'users.profile_picture').from('items').leftJoin('users', 'items.user_id', 'users.id').where('items.user_id', user_id);
             for (const item of items){
                 if (item.profile_picture!= null){
                     const profile_picture_url = getImageUrl(item.profile_picture);
@@ -61,6 +61,10 @@ module.exports.addItem = async (req, res, next) => {
         const {user_id, name, description, price, tag} = req.body;
         const item_image = req.file;
 
+        if (req.user.id != user_id){
+            return res.status(403).json({msg: "Cannot perform that operation"});
+        }
+
         if (item_image === null){
             return res.status(403).json({msg: "Item must have an image"});
         }
@@ -85,7 +89,7 @@ module.exports.addItem = async (req, res, next) => {
         }
 
         //Insert the newItem of type Item
-        await knex1('items').insert(newItem).catch((err)=>{
+        await knex('items').insert(newItem).catch((err)=>{
             return res.status(404).json({msg:"Cannot create this item!"});
         });
         return res.status(200).json({msg:"Item successfully created!"});
@@ -105,7 +109,7 @@ module.exports.removeItem = async (req, res, next) => {
     try{
         const {id} = req.params;
 
-        const itemFound = await knex1('items').where({id});
+        const itemFound = await knex('items').where({id});
         if (itemFound.length === 0){
             return res.status(404).json({msg:"No item found"});
         }
@@ -114,7 +118,7 @@ module.exports.removeItem = async (req, res, next) => {
             return res.status(403).json({msg: "Cannot perform that operation"});
         }
 
-        await knex1('items').where({id}).del();
+        await knex('items').where({id}).del();
         return res.status(200).json({msg:"Item successfully deleted!"});
     }catch(ex){
         next(ex);

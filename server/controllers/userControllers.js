@@ -1,4 +1,4 @@
-const knex2 = require('../db/knex');
+const knex = require('../db/knex');
 const bcrypt=  require("bcrypt");
 const jwt = require('jsonwebtoken');
 
@@ -32,13 +32,13 @@ module.exports.register = async (req, res, next) => {
         }
 
         //Check if the user already exists with the username or email
-        const userFound = await knex2('users').where({ username}).orWhere({ email});
+        const userFound = await knex('users').where({ username}).orWhere({ email});
         if (userFound.length > 0){
             return res.status(400).json({msg:'Account creation failed! Username or Email already exists'});
         }
 
         //Add the user, and create a cart for them in a transaction
-        const trx = await knex2.transaction();
+        const trx = await knex.transaction();
         trx('users')
         .insert(user, '*')
         .then(function([user]) {
@@ -81,7 +81,7 @@ module.exports.login = async (req, res, next) => {
         const {username, password} = req.body;
 
         //Check if the user exists
-        const userFound = await knex2('users').where({username});
+        const userFound = await knex('users').where({username});
         if (userFound.length == 0){
             return res.status(404).json({msg:'No user exists with those credentials'});
         }
@@ -125,7 +125,7 @@ module.exports.updatePfp =  async (req, res, next) => {
         }
 
         // Check if the user exists with the id
-        const userFound = await knex2('users').where({id});
+        const userFound = await knex('users').where({id});
         if (userFound.length == 0){
             return res.status(404).json({msg:'Trying to update invalid user'});
         }
@@ -136,7 +136,7 @@ module.exports.updatePfp =  async (req, res, next) => {
 
         if (!imageUploaded) return res.status(400).json({msg: "Failed to upload image"});
 
-        knex2('users').where({id: id}).update({
+        knex('users').where({id: id}).update({
             profile_picture: profile_picture_name,
             updated_at: new Date()
         }).then(() =>{
@@ -161,21 +161,21 @@ module.exports.getUser = async (req, res, next) => {
         const username = req.params.username;
 
         //Check if the user exists with the given username
-        const userFoundObj = await knex2('users').where({username});
+        const userFoundObj = await knex('users').where({username});
         if (userFoundObj.length === 0){
             return res.status(404).json({msg:'No user exists with that username'});
         }
         
         //Get their pfp, username, id, and average rating
         const receiver_user_id = userFoundObj[0].id;
-        const userObj = await knex2('users').select(knex2.raw('AVG(review.rating) as avg_rating')).leftJoin('review', 'users.id', 'review.receiver_user_id').where('review.receiver_user_id', receiver_user_id).groupBy('users.id');
+        const userObj = await knex('users').select(knex.raw('AVG(review.rating) as avg_rating')).leftJoin('review', 'users.id', 'review.receiver_user_id').where('review.receiver_user_id', receiver_user_id).groupBy('users.id');
 
         let avg_rating = 0.0;
         if (userObj.length > 0){
             avg_rating = userObj[0].avg_rating;
         }
 
-        const userTemp = await knex2('users').select('id', 'username', 'profile_picture').where({username});
+        const userTemp = await knex('users').select('id', 'username', 'profile_picture').where({username});
         const user = userTemp[0];
         user.avg_rating = avg_rating;
 
@@ -210,12 +210,12 @@ module.exports.addReview = async (req, res, next) => {
         }
 
         //Locate the current review
-        const reviewFound = await knex2('review').select('*').whereRaw('receiver_user_id = ? AND sender_user_id = ?', [receiver_user_id, sender_user_id]);
+        const reviewFound = await knex('review').select('*').whereRaw('receiver_user_id = ? AND sender_user_id = ?', [receiver_user_id, sender_user_id]);
 
         //If there is a review, update the rating
         //Otherwise, add a new review
         if (reviewFound.length > 0){
-            await knex2('review').whereRaw('receiver_user_id = ? AND sender_user_id = ?', [receiver_user_id, sender_user_id]).update({
+            await knex('review').whereRaw('receiver_user_id = ? AND sender_user_id = ?', [receiver_user_id, sender_user_id]).update({
                 rating: rating
             }).catch((err) => {
                 return res.status(404).json({msg:'Cannot rate unknown user'});
@@ -227,7 +227,7 @@ module.exports.addReview = async (req, res, next) => {
                 sender_user_id,
                 rating
             }
-            await knex2('review').insert(newReview).catch((err) => {
+            await knex('review').insert(newReview).catch((err) => {
                 return res.status(404).json({msg:'Cannot rate unknown user'});
             });
             return res.status(200).json({msg:'Review added!'});

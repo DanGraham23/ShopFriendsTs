@@ -10,6 +10,7 @@ const Cart: React.FC = () =>{
     return (
         <div className="cart-container scroll-style">
             {
+                items &&
                 items.map((item) => {
                     return (
                         <CartItem 

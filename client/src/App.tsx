@@ -36,6 +36,8 @@ const App: React.FC = () => {
     if (query.get("canceled")) {
       toast.warn("Order canceled -- continue to shop around and checkout when you're ready.", toastProps);
     }
+    const url = window.location.pathname + window.location.hash;
+    window.history.pushState({}, document.title, url);
   }, []);
 
   return (
