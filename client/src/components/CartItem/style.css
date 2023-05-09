@@ -45,3 +45,24 @@
     color: var(--secondary-red);
     cursor: pointer;
 }
+
+@media screen and (max-width:768px){
+    .cart-item-container{
+        height: 275px;
+    }
+    
+    .cart-item-poster-info{
+        font-size: 13px;
+        height: 12%;
+    }
+    
+    .cart-item-subheading{
+        gap: 20px;
+        font-size: 12px;
+    }
+    
+    .cart-item-description{
+        font-size: 11px;
+    }
+    
+}

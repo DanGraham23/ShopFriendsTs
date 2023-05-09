@@ -23,7 +23,7 @@ const CartItem : React.FC<Item> = (props) =>{
             </div>
             <p className="cart-item-description">{props.description}</p>
             {props.id && <IoIosRemoveCircle className="remove-from-cart" 
-            onClick={() => dispatch(removeFromCart(props.id, id))}/>}
+            onClick={() => dispatch(removeFromCart(props.id!, id))}/>}
         </div>
 
     )

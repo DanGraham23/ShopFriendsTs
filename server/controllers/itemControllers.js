@@ -1,6 +1,6 @@
 const knex = require('../db/knex');
 
-const {uploadImage, getImageUrl} = require("../common/aws");
+const {uploadImage, getImageUrl, deleteImage} = require("../common/aws");
 const {validateAddItem} = require('../common/validator');
 const {randomImageName} = require('../common/crypto');
 
@@ -117,6 +117,8 @@ module.exports.removeItem = async (req, res, next) => {
         if (req.user.id != itemFound[0].user_id){
             return res.status(403).json({msg: "Cannot perform that operation"});
         }
+
+        deleteImage(itemFound[0].item_image);
 
         await knex('items').where({id}).del();
         return res.status(200).json({msg:"Item successfully deleted!"});

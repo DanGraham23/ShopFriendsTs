@@ -3,7 +3,7 @@ const bcrypt=  require("bcrypt");
 const jwt = require('jsonwebtoken');
 
 const {validateLogin, validateRegister} = require('../common/validator');
-const {uploadImage, getImageUrl} = require("../common/aws");
+const {uploadImage, getImageUrl, deleteImage} = require("../common/aws");
 const {randomImageName} = require('../common/crypto');
 
 /**
@@ -133,8 +133,9 @@ module.exports.updatePfp =  async (req, res, next) => {
         const profile_picture_name = randomImageName();
 
         const imageUploaded = uploadImage(profile_picture_name, profile_picture_file);
-
         if (!imageUploaded) return res.status(400).json({msg: "Failed to upload image"});
+        deleteImage(userFound[0].profile_picture);
+
 
         knex('users').where({id: id}).update({
             profile_picture: profile_picture_name,

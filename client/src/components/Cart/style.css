@@ -16,5 +16,14 @@
 @media screen and (max-width:768px){
     .cart-container{
         right: 100px;
+        width: 250px;
+        height: 450px;
+    }
+  }
+
+  @media screen and (max-width:580px){
+    .cart-container{
+        right: 80px;
+        width: 200px;
     }
   }

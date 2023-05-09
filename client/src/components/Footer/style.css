@@ -81,12 +81,12 @@
 
 @media screen and (max-width: 480px){
     .footer-pages{
-        font-size: 12px;
-        gap: 10px;
+        font-size: 10px;
+        gap: 8px;
     }
     
     .footer-socials{
-        font-size: 14px;
+        font-size: 10px;
         gap: 10px;
     }
     
