@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
 import { Item } from "../common/types";
-import {addCartItemRoute, getCartItemsRoute, removeCartItemRoute } from "../utils/APIRoutes";
+import {addCartItemRoute, getCartItemsRoute, removeCartItemRoute } from "../utils/apiRoutes";
 import { axiosPrivate } from "../utils/axios";
 import type { RootState } from '../store';
 import { clearError, setError } from "./errorSlice";

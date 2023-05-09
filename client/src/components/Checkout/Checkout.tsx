@@ -2,7 +2,7 @@ import "./style.css";
 import {useAppSelector } from "../../hooks";
 import { selectCart } from "../../features/cartSlice";
 import {axiosPrivate} from "../../utils/axios";
-import { checkoutRoute } from "../../utils/APIRoutes";
+import { checkoutRoute } from "../../utils/apiRoutes";
 
 const Checkout : React.FC =() =>{
     const {items} = useAppSelector(selectCart);

@@ -16,14 +16,13 @@ module.exports.addItemToCart = async (req, res, next) => {
             return res.status(403).json({msg: "Cannot perform that operation"});
         }
         //Check if the user has a cart based on their user_id
-        const userCartObj = await knex('cart').where('cart.user_id', user_id);
-        if (userCartObj.length === 0){
+        const userCart = await knex('cart').where('cart.user_id', user_id).first();
+        if (!userCart){
             return res.status(404).json({msg:"Cannot find a cart for the specified user!"});
         }
 
         //Check if the item is already in the cart
-        const cart_id = userCartObj[0].id;
-        const cartItemFound = await knex('cart_item').whereRaw('cart_id = ? AND item_id = ?', [cart_id, item_id]).catch((err)=> {
+        const cartItemFound = await knex('cart_item').whereRaw('cart_id = ? AND item_id = ?', [userCart.id, item_id]).catch((err)=> {
             return res.status(404).json({msg:"Unable to find item"});
         });
         if (cartItemFound.length > 0){
@@ -32,7 +31,7 @@ module.exports.addItemToCart = async (req, res, next) => {
 
         //Insert the item with the correct cart_id, item_id
         await knex('cart_item').insert({
-            cart_id,
+            cart_id:userCart.id,
             item_id
         }).catch((err)=> {
             return res.status(404).json({msg:"Unable to add item to cart"});
@@ -57,19 +56,18 @@ module.exports.removeItemFromCart = async (req, res, next) => {
             return res.status(403).json({msg: "Cannot perform that operation"});
         }
         //Check if the user has a cart based on their user_id
-        const userCartObj = await knex('cart').where('cart.user_id', user_id);
-        if (userCartObj.length === 0){
+        const userCart = await knex('cart').where('cart.user_id', user_id).first();
+        if (!userCart){
             return res.status(404).json({msg:"Cannot remove item, try again or refresh!"});
         }
 
         //Check if the current item is already in the cart
-        const cart_id = userCartObj[0].id;
-        const itemFound = await knex('cart_item').whereRaw('cart_id = ? AND item_id = ?', [cart_id, item_id]);
-        if (itemFound.length === 0){
+        const itemFound = await knex('cart_item').whereRaw('cart_id = ? AND item_id = ?', [userCart.id, item_id]).first();
+        if (!itemFound){
             return res.status(404).json({msg:"Cannot remove item, try again or refresh!"});
         }else{
             //If item is in cart, remove the correct cart_id and item_id
-            await knex('cart_item').whereRaw('cart_id = ? AND item_id = ?', [cart_id, item_id]).del();
+            await knex('cart_item').whereRaw('cart_id = ? AND item_id = ?', [userCart.id, item_id]).del();
             return res.status(200).json({msg:"Item removed from cart!"});
         }
     }catch(ex){
@@ -93,17 +91,16 @@ module.exports.getCartItems = async (req, res, next) => {
         }
 
         //Check if the user has a cart based on their user_id
-        const cartObj = await knex('cart').where({user_id:id}).catch((err) => {
+        const userCart = await knex('cart').where({user_id:id}).first().catch((err) => {
             return res.status(404).json({msg: "no user found"});
         });
-        if (cartObj.length === 0){
-            return res.status(404).json({msg: "no user found"});
+        if (!userCart){
+            return res.status(404).json({msg: "no user cart found"});
         }
 
         //Get a list of the items with the corresponding user_id (from id param) and cart_id (from cart found in DB)
         //with the username and user profile picture for displaying on frontend
-        const cart = cartObj[0];
-        const items = await knex.select('items.*','users.profile_picture', 'users.username').from('cart_item').where('cart_item.cart_id', cart.id)
+        const items = await knex.select('items.*','users.profile_picture', 'users.username').from('cart_item').where('cart_item.cart_id', userCart.id)
         .join('items', 'items.id', 'cart_item.item_id')
         .join('users', 'users.id', 'items.user_id').catch((err) => {
             return res.status(404).json({msg: "no user found"});

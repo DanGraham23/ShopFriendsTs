@@ -109,16 +109,16 @@ module.exports.removeItem = async (req, res, next) => {
     try{
         const {id} = req.params;
 
-        const itemFound = await knex('items').where({id});
-        if (itemFound.length === 0){
+        const itemFound = await knex('items').where({id}).first();
+        if (!itemFound){
             return res.status(404).json({msg:"No item found"});
         }
 
-        if (req.user.id != itemFound[0].user_id){
+        if (req.user.id != itemFound.user_id){
             return res.status(403).json({msg: "Cannot perform that operation"});
         }
 
-        deleteImage(itemFound[0].item_image);
+        deleteImage(itemFound.item_image);
 
         await knex('items').where({id}).del();
         return res.status(200).json({msg:"Item successfully deleted!"});

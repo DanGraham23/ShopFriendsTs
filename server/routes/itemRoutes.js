@@ -8,10 +8,10 @@ const multer = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({storage:storage});
 
-router.get("/getitems/:user_id/:tag", getItems);
+router.get("/:user_id/:tag", getItems);
 
-router.put("/additem",cookieJwtAuth,  upload.single('item_image'), addItem);
+router.put("/",cookieJwtAuth,  upload.single('item_image'), addItem);
 
-router.delete("/removeitem/:id",cookieJwtAuth, removeItem);
+router.delete("/:id",cookieJwtAuth, removeItem);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 import { axiosPrivate } from '../../utils/axios';
-import { removeItemRoute } from '../../utils/APIRoutes';
+import { removeItemRoute } from '../../utils/apiRoutes';
 import './style.css';
 import { toastProps } from '../../common/toasts';
 import { toast } from 'react-toastify';

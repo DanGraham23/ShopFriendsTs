@@ -4,10 +4,10 @@ const {addItemToCart, removeItemFromCart, getCartItems} = require('../controller
 
 const cookieJwtAuth = require("../middleware/cookieJwtAuth");
 
-router.put('/addcartitem/:user_id/:item_id',cookieJwtAuth, addItemToCart);
+router.put('/:user_id/:item_id',cookieJwtAuth, addItemToCart);
 
-router.delete('/removecartitem/:user_id/:item_id', cookieJwtAuth, removeItemFromCart);
+router.delete('/:user_id/:item_id', cookieJwtAuth, removeItemFromCart);
 
-router.get('/getcartitems/:id', cookieJwtAuth, getCartItems);
+router.get('/:id', cookieJwtAuth, getCartItems);
 
 module.exports = router;

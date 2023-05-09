@@ -2,7 +2,7 @@ import { axiosPrivate } from '../../utils/axios';
 import {BsStar, BsStarHalf,BsStarFill} from 'react-icons/bs';
 import {toast } from 'react-toastify';
 import { toastProps } from '../../common/toasts';
-import { addReviewRoute } from '../../utils/APIRoutes';
+import { addReviewRoute } from '../../utils/apiRoutes';
 import './style.css';
 
 interface Props {

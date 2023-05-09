@@ -1,7 +1,7 @@
 import { axiosPrivate } from '../../utils/axios';
 import {toast } from 'react-toastify';
 import { toastProps } from '../../common/toasts';
-import { updatePfpRoute } from '../../utils/APIRoutes';
+import { updatePfpRoute } from '../../utils/apiRoutes';
 import './style.css';
 import {AiFillCamera} from 'react-icons/ai';
 

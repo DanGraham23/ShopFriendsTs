@@ -4,6 +4,6 @@ const cookieJwtAuth = require("../middleware/cookieJwtAuth");
 
 const {checkoutItems} = require('../controllers/checkoutControllers');
 
-router.post('/create-checkout-session',cookieJwtAuth, checkoutItems);
+router.post('/',cookieJwtAuth, checkoutItems);
 
 module.exports = router;

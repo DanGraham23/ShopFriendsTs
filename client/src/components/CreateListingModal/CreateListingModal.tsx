@@ -3,7 +3,7 @@ import {useState} from 'react';
 import {AiOutlineClose} from 'react-icons/ai';
 import { axiosPrivate } from '../../utils/axios';
 import { selectAuth } from "../../features/authSlice";
-import { addItemRoute } from '../../utils/APIRoutes';
+import { addItemRoute } from '../../utils/apiRoutes';
 import {useAppSelector} from "../../hooks";
 import {toast} from 'react-toastify';
 import { toastProps } from "../../common/toasts";
