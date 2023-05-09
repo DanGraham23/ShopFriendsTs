@@ -34,3 +34,10 @@
     cursor: pointer;
     border: 2px solid var(--primary-black);
 }
+
+@media screen and (max-width:768px){
+    .items-display{
+        gap: 20px;
+
+    }
+}

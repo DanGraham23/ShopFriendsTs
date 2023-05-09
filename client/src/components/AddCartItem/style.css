@@ -1,5 +1,5 @@
 .add-to-cart{
-    height: 25%;
+    height: 15%;
     font-size: 36px;
     float:right;
 }
@@ -7,4 +7,18 @@
 .add-to-cart:hover{
     color: var(--secondary-green);
     cursor: pointer;
+}
+
+@media screen and (max-width:768px){
+    .add-to-cart{
+        font-size: 28px;
+    }
+}
+
+@media screen and (max-width:430px){
+
+
+    .add-to-cart{
+        font-size: 20px;
+    }
 }

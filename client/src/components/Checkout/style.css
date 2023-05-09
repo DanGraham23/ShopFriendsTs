@@ -22,3 +22,11 @@
     }
 
   }
+
+  @media screen and (max-width:580px){
+    .checkout-btn{
+      width: 70px;
+      font-size: 10px;
+    }
+
+  }

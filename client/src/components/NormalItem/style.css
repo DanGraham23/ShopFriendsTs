@@ -1,5 +1,5 @@
 .normal-item-container{
-    width: 350px;
+    width: 325px;
     height: 440px;
     background-color: var(--primary-white);
     color: var(--primary-black);
@@ -50,10 +50,79 @@
     margin-left: 10px;
     text-align: left;
     font-size: 14px;
-    height: 15%;
+    height: 20%;
     margin-bottom: 0px;
 }
 
-@media screen and (max-width:580px){
+@media screen and (max-width:768px){
+    .normal-item-container{
+        width: 250px;
+        height: 325px;
+    }
+    
+    .user-item-pfp{
+        width: 25px;
+        height: 25px;
+        border-radius: 100%;
+    }
+    
+    .normal-item-poster-info{
+        gap: 15px;
+        font-size: 10px;
+        margin-top: 0px;
+    }
+    
+    .normal-item-subheading{
+        margin-top: 10px;
+        gap: 10px;
+        font-size: 10px;
+    }
+    
+    .normal-item-description{
+        margin-top: 5px;
+        font-size: 10px;
+        height: 25%;
+    }
+  
+}
 
-  }
+@media screen and (max-width:580px){
+    .normal-item-container{
+        width: 200px;
+        height: 250px;
+    }
+
+    
+    .normal-item-description{
+        margin-top: 5px;
+        font-size: 10px;
+        height: 22%;
+    }
+  
+}
+
+@media screen and (max-width:430px){
+    .normal-item-container{
+        width: 150px;
+        height: 200px;
+    }
+
+    .normal-item-description{
+        font-size: 8px;
+        height: 20%;
+    }
+
+    .normal-item-poster-info{
+        font-size: 9px;
+    }
+    
+    .normal-item-subheading{
+        font-size: 9px;
+    }
+
+    .user-item-pfp{
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+    }
+}
