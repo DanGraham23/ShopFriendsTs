@@ -1,7 +1,5 @@
-import { Knex } from "knex";
 
-
-export async function up(knex: Knex): Promise<void> {
+export async function up(knex) {
     return knex.schema.alterTable('cart_item', function(table) {
         table.dropForeign('user_id');
         table.dropColumn('user_id');
@@ -10,7 +8,7 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 
-export async function down(knex: Knex): Promise<void> {
+export async function down(knex) {
     return knex.schema.alterTable('cart_item', function(table){
         table.dropForeign('cart_id');
         table.dropColumn('cart_id');

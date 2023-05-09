@@ -1,7 +1,5 @@
 const knex3 = require('../db/knex');
-const s3_2 = require('../awsConfig');
-
-import { NextFunction, Request, Response } from "express";
+const {getImageUrl} = require("../common/aws");
 
 /**
  * Adds an item to a user's cart.
@@ -10,7 +8,7 @@ import { NextFunction, Request, Response } from "express";
  * @param {NextFunction} next - The next middleware function.
  * @returns {Object} A JSON response indicating success or failure.
  */
-module.exports.addItemToCart = async (req:any, res:Response, next:NextFunction) => {
+module.exports.addItemToCart = async (req, res, next) => {
     try{
         const {user_id, item_id} = req.params;
         if (req.user.id != user_id){
@@ -51,7 +49,7 @@ module.exports.addItemToCart = async (req:any, res:Response, next:NextFunction) 
  * @param {NextFunction} next - The next middleware function.
  * @returns {Object} A JSON response indicating success or failure.
  */
-module.exports.removeItemFromCart = async (req:any, res:Response, next:NextFunction) => {
+module.exports.removeItemFromCart = async (req, res, next) => {
     try{
         const {user_id, item_id} = req.params;
         if (req.user.id != user_id){
@@ -85,7 +83,7 @@ module.exports.removeItemFromCart = async (req:any, res:Response, next:NextFunct
  * @param {NextFunction} next - The next middleware function.
  * @returns {Object} A JSON response containing the user's cart items.
  */
-module.exports.getCartItems = async (req:any, res:Response, next:NextFunction) => {
+module.exports.getCartItems = async (req, res, next) => {
     try{
         const id = req.params.id;
 
@@ -110,16 +108,8 @@ module.exports.getCartItems = async (req:any, res:Response, next:NextFunction) =
             return res.status(404).json({msg: "no user found"});
         });
         for (const item of items){
-            const profile_picture_url = s3_2.getSignedUrl('getObject', {
-                Bucket : process.env.BUCKET_NAME,
-                Key: item.profile_picture,
-                Expires: 3600,
-            });
-            const item_image_url = s3_2.getSignedUrl('getObject', {
-                Bucket : process.env.BUCKET_NAME,
-                Key: item.item_image,
-                Expires: 3600,
-            });
+            const profile_picture_url = getImageUrl(item.profile_picture);
+            const item_image_url = getImageUrl(item.item_image)
             item.profile_picture = profile_picture_url;
             item.item_image = item_image_url;
         }

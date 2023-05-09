@@ -1,3 +1,3 @@
 const environment = 'development'
-const config = require('../knexfile')[environment];
+const config = require('../config/knexfile')[environment];
 module.exports = require('knex')(config);

@@ -1,15 +1,10 @@
 const knex2 = require('../db/knex');
 const bcrypt=  require("bcrypt");
-const s3_1 = require('../awsConfig');
 const jwt = require('jsonwebtoken');
-const {validateLogin, validateRegister} = require('../validator');
 
-import crypto from 'crypto';
-import { NextFunction, Request, Response } from "express";
-
-import { Review } from "../model/reviewModel";
-import { User } from "../model/userModel";
-import {Cart} from '../model/cartModel';
+const {validateLogin, validateRegister} = require('../common/validator');
+const {uploadImage, getImageUrl} = require("../common/aws");
+const {randomImageName} = require('../common/crypto');
 
 /**
  * Register a user in the database.
@@ -18,7 +13,7 @@ import {Cart} from '../model/cartModel';
  * @param {NextFunction} next - The next middleware function.
  * @returns {Object} A JSON response with the user details.
  */
-module.exports.register = async (req: Request, res: Response, next:NextFunction) => {
+module.exports.register = async (req, res, next) => {
     try{
         const {error, value} = validateRegister(req.body);
         if (error){
@@ -29,7 +24,7 @@ module.exports.register = async (req: Request, res: Response, next:NextFunction)
 
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user: User = {
+        const user = {
             username: username,
             password: hashedPassword,
             email: email,
@@ -37,7 +32,7 @@ module.exports.register = async (req: Request, res: Response, next:NextFunction)
         }
 
         //Check if the user already exists with the username or email
-        const userFound: User[] = await knex2('users').where({ username}).orWhere({ email});
+        const userFound = await knex2('users').where({ username}).orWhere({ email});
         if (userFound.length > 0){
             return res.status(400).json({msg:'Account creation failed! Username or Email already exists'});
         }
@@ -47,7 +42,7 @@ module.exports.register = async (req: Request, res: Response, next:NextFunction)
         trx('users')
         .insert(user, '*')
         .then(function([user]) {
-            const cart : Cart = {
+            const cart = {
                 user_id:user.id,
             }
             const returnedUser = {
@@ -76,7 +71,7 @@ module.exports.register = async (req: Request, res: Response, next:NextFunction)
  * @param {NextFunction} next - The next middleware function.
  * @returns {Object} A JSON response with the user details.
  */
-module.exports.login = async (req: Request, res: Response, next:NextFunction) => {
+module.exports.login = async (req, res, next) => {
     try{
         const {error, value} = validateLogin(req.body);
         if (error){
@@ -86,7 +81,7 @@ module.exports.login = async (req: Request, res: Response, next:NextFunction) =>
         const {username, password} = req.body;
 
         //Check if the user exists
-        const userFound: User[] = await knex2('users').where({username});
+        const userFound = await knex2('users').where({username});
         if (userFound.length == 0){
             return res.status(404).json({msg:'No user exists with those credentials'});
         }
@@ -120,7 +115,7 @@ module.exports.login = async (req: Request, res: Response, next:NextFunction) =>
  * @param {NextFunction} next - The next middleware function.
  * @returns {Object} A JSON response indicating success or failure.
  */
-module.exports.updatePfp =  async (req:any, res:Response, next:NextFunction) => {
+module.exports.updatePfp =  async (req, res, next) => {
     try{
         const {id} = req.body;
         const profile_picture_file = req.file;
@@ -129,40 +124,24 @@ module.exports.updatePfp =  async (req:any, res:Response, next:NextFunction) => 
             return res.status(403).json({msg: "Cannot perform that operation"});
         }
 
-        //Set a random, unique image name in s3 bucket
-        const randomImageName = (btyes:number = 32) => {
-            return crypto.randomBytes(btyes).toString('hex');
+        // Check if the user exists with the id
+        const userFound = await knex2('users').where({id});
+        if (userFound.length == 0){
+            return res.status(404).json({msg:'Trying to update invalid user'});
         }
 
         const profile_picture_name = randomImageName();
 
-        const params = {
-            Bucket : process.env.BUCKET_NAME,
-            Key: profile_picture_name,
-            Body: profile_picture_file.buffer,
-            ContentType: profile_picture_file.mimetype,
-        }
-        
-        //Send our put request to the s3 bucket
-        s3_1.putObject(params, (err, data)=> {
-            if (err){
-                console.log(err);
-                return res.status(404).json({msg:'Failed to upload PFP'});
-            }
-        });
+        const imageUploaded = uploadImage(profile_picture_name, profile_picture_file);
 
-        // Check if the user exists with the id
-        const userFound: User[] = await knex2('users').where({id});
-        if (userFound.length == 0){
-            return res.status(404).json({msg:'Trying to update invalid user'});
-        }
+        if (!imageUploaded) return res.status(400).json({msg: "Failed to upload image"});
 
         knex2('users').where({id: id}).update({
             profile_picture: profile_picture_name,
             updated_at: new Date()
         }).then(() =>{
             return res.status(201).json({msg:'Profile picture updated!'});
-        }).catch((err:any) => {
+        }).catch((err) => {
             return res.status(404).json({msg:'Trying to update invalid user'});
         });
     }catch(ex){
@@ -177,12 +156,12 @@ module.exports.updatePfp =  async (req:any, res:Response, next:NextFunction) => 
  * @param {NextFunction} next - The next middleware function.
  * @returns {Object} A JSON response with the user's details.
  */
-module.exports.getUser = async (req: Request, res: Response, next:NextFunction) => {
+module.exports.getUser = async (req, res, next) => {
     try{
         const username = req.params.username;
 
         //Check if the user exists with the given username
-        const userFoundObj: User[] = await knex2('users').where({username});
+        const userFoundObj = await knex2('users').where({username});
         if (userFoundObj.length === 0){
             return res.status(404).json({msg:'No user exists with that username'});
         }
@@ -200,11 +179,8 @@ module.exports.getUser = async (req: Request, res: Response, next:NextFunction) 
         const user = userTemp[0];
         user.avg_rating = avg_rating;
 
-        const url = s3_1.getSignedUrl('getObject', {
-            Bucket : process.env.BUCKET_NAME,
-            Key: user.profile_picture,
-            Expires: 3600,
-        });
+        const url = getImageUrl(user.profile_picture);
+
         user.profile_picture = url;
         return res.status(200).json({user});        
     }catch(ex){
@@ -219,12 +195,12 @@ module.exports.getUser = async (req: Request, res: Response, next:NextFunction) 
  * @param {NextFunction} next - The next middleware function.
  * @returns {Object} A JSON response indicating success or failure.
  */
-module.exports.addReview = async (req: any, res: Response, next:NextFunction) => {
+module.exports.addReview = async (req, res, next) => {
     try{
 
-        const receiver_user_id : number = Number(req.params.receiver_user_id);
-        const sender_user_id : number = Number(req.params.sender_user_id);
-        const rating : number =  Number(req.params.rating);
+        const receiver_user_id = Number(req.params.receiver_user_id);
+        const sender_user_id = Number(req.params.sender_user_id);
+        const rating =  Number(req.params.rating);
         if (req.user.id != sender_user_id){
             return res.status(403).json({msg: "Cannot perform that operation"});
         }
@@ -234,7 +210,7 @@ module.exports.addReview = async (req: any, res: Response, next:NextFunction) =>
         }
 
         //Locate the current review
-        const reviewFound: Review[] = await knex2('review').select('*').whereRaw('receiver_user_id = ? AND sender_user_id = ?', [receiver_user_id, sender_user_id]);
+        const reviewFound = await knex2('review').select('*').whereRaw('receiver_user_id = ? AND sender_user_id = ?', [receiver_user_id, sender_user_id]);
 
         //If there is a review, update the rating
         //Otherwise, add a new review
@@ -246,7 +222,7 @@ module.exports.addReview = async (req: any, res: Response, next:NextFunction) =>
             });
             return res.status(200).json({msg:'Review added!'});
         }else{
-            const newReview : Review = {
+            const newReview = {
                 receiver_user_id,
                 sender_user_id,
                 rating
