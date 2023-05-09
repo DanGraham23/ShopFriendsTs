@@ -12,7 +12,7 @@ const DeleteListing: React.FC<Props> = (props) => {
     
     async function handleClick(){
         await axiosPrivate.delete(`${removeItemRoute}/${props.id}`).then((res) => {
-            toast.success("The listing has been deleted!", toastProps);
+            toast.success(res.data.msg, toastProps);
         }).catch((err) => {
             toast.warn("Failed to delete the specified listing!", toastProps);
         });

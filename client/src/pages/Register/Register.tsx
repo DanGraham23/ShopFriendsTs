@@ -10,12 +10,14 @@ import {register, selectAuth} from "../../features/authSlice";
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import { validateRegisterInput } from "../../common/formValidation";
 import registerImg from '../../assets/images/register-img.jpg';
+import { clearError, selectError } from "../../features/errorSlice";
 
 const Register: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const {isLoggedIn} = useAppSelector(selectAuth);
-
+    const {message} = useAppSelector(selectError);
+    
     const [userFormInfo, setUserFormInfo] = useState({
         username: "",
         email: "",
@@ -29,6 +31,13 @@ const Register: React.FC = () => {
         }
     }, [isLoggedIn]);
 
+    useEffect(() => {
+        if (message !== ""){
+            toast.warn(message, toastProps);
+            dispatch(clearError());
+        }
+    }, [message]);
+
     function handleSubmit(e: React.FormEvent){
         e.preventDefault();
         if (validateRegisterInput(userFormInfo.username,userFormInfo.email,userFormInfo.password,userFormInfo.confirmPassword)){
@@ -39,7 +48,7 @@ const Register: React.FC = () => {
             }
             dispatch(register(values));
         }else{
-            toast.warn("Passwords needs to be atleast 8 characters, and must match", toastProps);
+            toast.warn("Invalid register attempt, check your credentials", toastProps);
         }
     }
     
@@ -58,6 +67,7 @@ const Register: React.FC = () => {
                     <input type="text" 
                     placeholder="Username"
                     name="username"
+                    minLength={3}
                     value={userFormInfo.username}
                     onChange={handleChange}
                     className="form-input"/>
@@ -67,6 +77,7 @@ const Register: React.FC = () => {
                     <input type="text" 
                     placeholder="Email"
                     name="email"
+                    minLength={4}
                     value={userFormInfo.email}
                     onChange={handleChange}
                     className="form-input"/>
@@ -76,6 +87,7 @@ const Register: React.FC = () => {
                     <input type="password" 
                     placeholder="Password"
                     name="password"
+                    minLength={8}
                     value={userFormInfo.password}
                     onChange={handleChange}
                     className="form-input"/>
@@ -85,6 +97,7 @@ const Register: React.FC = () => {
                     <input type="password" 
                     placeholder="Confirm Password"
                     name="confirmPassword"
+                    minLength={8}
                     value={userFormInfo.confirmPassword}
                     onChange={handleChange}
                     className="form-input"/>

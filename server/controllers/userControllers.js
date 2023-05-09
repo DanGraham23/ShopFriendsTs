@@ -178,6 +178,10 @@ module.exports.getUser = async (req, res, next) => {
         const userInfo = await knex('users').select('id', 'username', 'profile_picture').where({username}).first();
         userInfo.avg_rating = avg_rating;
 
+        if (userInfo.profile_picture == "default.jpg"){
+            return res.status(200).json({user:userInfo});   
+        }
+
         const url = getImageUrl(userInfo.profile_picture);
 
         userInfo.profile_picture = url;

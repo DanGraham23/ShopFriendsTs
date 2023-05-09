@@ -1,6 +1,6 @@
 
 export const validateLoginInput = (username:string, password:string): boolean =>{
-    if (username.length < 4){
+    if (username.length < 3){
         return false;
     }else if (password.length < 8){
         return false;
@@ -10,7 +10,7 @@ export const validateLoginInput = (username:string, password:string): boolean =>
 
 
 export const validateRegisterInput = (username:string, email:string, password:string, confirmPassword:string) : boolean => {
-    if (username.length < 4){
+    if (username.length < 3){
         return false;
     }else if (email.length < 8){
         return false;

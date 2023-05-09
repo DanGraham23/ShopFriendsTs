@@ -45,7 +45,7 @@ export const addToCart = (item:Item, user_id:number) => async (dispatch:any) => 
         dispatch(setAddCartItem(item));
         dispatch(clearError());
     }).catch((err)=> {
-        if (err.response.status){
+        if (err?.response?.data?.msg){
             dispatch(setError(err.response.status + " " + err.response.data.msg));
         }
     });

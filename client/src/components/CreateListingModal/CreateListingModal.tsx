@@ -49,9 +49,14 @@ const CreateListingModal: React.FC<Props> = (props) =>{
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((res:any) => {
-                toast.success("Item Created!", toastProps);
+                toast.success(res.data.msg, toastProps);
             }).catch((err) => {
-                toast.warn("Failed to create item, please enter form carefully!", toastProps);
+                if (err?.response?.data?.msg){
+                    toast.warn(err.response.data.msg, toastProps);
+                }else{
+                    toast.warn("Something went wrong trying to create listing", toastProps);
+                }
+                
             });
         }else{
             toast.warn("Failed to create item, please enter form carefully!", toastProps);

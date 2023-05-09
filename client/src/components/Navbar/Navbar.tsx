@@ -21,7 +21,7 @@ const Navbar:React.FC = () =>{
                 
                 {
                     isLoggedIn ?
-                    <a href={`profile/${username}`}><li className="nav-item">MyAccount</li></a>:
+                    <a href={`/profile/${username}`}><li className="nav-item">MyAccount</li></a>:
                     <a href="/login"><li className="nav-item">Login</li></a>
                     
                 }

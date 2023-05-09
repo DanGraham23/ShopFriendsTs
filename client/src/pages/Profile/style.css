@@ -87,4 +87,18 @@
         width: 150px;
         height: 150px;
     }
+
+    .create-listing-modal-btn{
+        width: 90px;
+        height: 30px;
+        font-size: 11px;
+    }
+
+    .profile-header{
+        font-size: 11px;
+        gap: 10px;
+    }
+    .btn-container{
+        gap: 10px;
+    }
 }

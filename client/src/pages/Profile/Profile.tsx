@@ -4,7 +4,7 @@ import {useParams } from "react-router-dom";
 import { selectAuth} from "../../features/authSlice";
 import {useAppSelector} from "../../hooks";
 import axios from "../../utils/axios";
-import {getUserRoute} from "../../utils/APIRoutes";
+import {getUserRoute} from "../../utils/apiRoutes";
 import 'react-toastify/dist/ReactToastify.css';
 import CreateListingModal from "../../components/CreateListingModal/CreateListingModal";
 import ItemsDisplay from "../../components/ItemsDisplay/ItemsDisplay";
@@ -12,6 +12,8 @@ import Rating from "../../components/Rating/Rating";
 import ImageUpload from "../../components/ImageUpload/ImageUpload";
 import Logout from "../../components/Logout/Logout";
 import defaultImg from '../../assets/images/default.jpg';
+import { toastProps } from "../../common/toasts";
+import { toast } from "react-toastify";
 
 const Profile : React.FC = () => {
     const [profileImg, setProfileImg] = useState("");
@@ -19,11 +21,17 @@ const Profile : React.FC = () => {
     const {user} = useParams();
     const [usersData, setUsersData] = useState<any>(null);
     const [showCreateListingModal, setShowCreateListingModal] = useState(false);
-    
+
     async function fetchUser(){
         if (user){
-            const res = await axios.get(`${getUserRoute}/${user}`);
-            setUsersData(res.data.user);
+            await axios.get(`${getUserRoute}/${user}`).then((res) => {
+                setUsersData(res.data.user);
+            }).catch((err) => {
+                if (err.response?.data?.msg){
+                    toast.warn(err.response.data.msg, toastProps);
+                }
+            });
+            
         }
     }
 
@@ -35,14 +43,14 @@ const Profile : React.FC = () => {
 
     useEffect(() => {
         fetchUser();
-    }, [isLoggedIn]);
+    }, []);
 
     return (
         <div className="profile-container">
             <div className="profile-user-info">
                 <div className="profile-img-container">
                 {
-                    profileImg ? 
+                    profileImg && profileImg != "default.jpg" ? 
                     <img src={profileImg} alt="profile" className="profile-pic" />
                     : <img src={defaultImg} alt="profile" className="profile-pic" /> 
                 }

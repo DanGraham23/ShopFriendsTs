@@ -9,11 +9,13 @@ import { login, selectAuth } from "../../features/authSlice";
 import { toastProps } from "../../common/toasts";
 import { validateLoginInput } from "../../common/formValidation";
 import loginImg from '../../assets/images/login-img.jpg';
+import { clearError, selectError } from "../../features/errorSlice";
 
 const Login : React.FC = () =>{
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const {isLoggedIn} = useAppSelector(selectAuth);
+    const {message} = useAppSelector(selectError);
 
     const [userFormInfo, setUserFormInfo] = useState({
         username: "",
@@ -26,6 +28,13 @@ const Login : React.FC = () =>{
         }
     }, [isLoggedIn]);
 
+    useEffect(() => {
+        if (message !== ""){
+            toast.warn(message, toastProps);
+            dispatch(clearError());
+        }
+    }, [message]);
+
     async function handleSubmit(e: React.FormEvent){
         e.preventDefault();
         if (validateLoginInput(userFormInfo.username, userFormInfo.password)){
@@ -35,7 +44,7 @@ const Login : React.FC = () =>{
             }
             dispatch(login(values));
         }else{
-            toast.warn("Username or password is too short", toastProps);
+            toast.warn("Invalid login attempt, check your credentials", toastProps);
         }
     }
     
@@ -52,6 +61,7 @@ const Login : React.FC = () =>{
                     <input type="text" 
                     placeholder="Username"
                     name="username"
+                    minLength={3}
                     value={userFormInfo.username}
                     onChange={handleChange}
                     className="form-input"/>
@@ -61,6 +71,7 @@ const Login : React.FC = () =>{
                     <input type="password" 
                     placeholder="Password"
                     name="password"
+                    minLength={8}
                     value={userFormInfo.password}
                     onChange={handleChange}
                     className="form-input"/>

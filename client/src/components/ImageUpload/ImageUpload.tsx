@@ -27,8 +27,10 @@ const ImageUpload:React.FC<Props> = (props) => {
             }).then((res:any)=> {
                 toast.success(res.data.msg, toastProps);
             }).catch((err) => {
-                if (err.response.status){
+                if (err?.response?.data?.msg){
                     toast.warn(err.response.data.msg, toastProps);
+                }else{
+                    toast.warn("Something went wrong when trying to upload image", toastProps);
                 }
             });
         }

@@ -4,6 +4,8 @@ import axios from '../../utils/axios';
 import { getItemsRoute } from '../../utils/apiRoutes';
 import { Item } from '../../common/types';
 import NormalItem from '../NormalItem/NormalItem';
+import { toastProps } from '../../common/toasts';
+import { toast } from 'react-toastify';
 
 interface Props {
     curFilter: string,
@@ -18,8 +20,12 @@ const ItemsDisplay : React.FC<Props> = (props) => {
     const totalPages = Math.ceil(items.length / itemsPerPage);
 
     async function fetchItems(){
-        const res = await axios.get(`${getItemsRoute}/${props.curId}/${props.curFilter}`);
-        setItems(res.data.items);
+        await axios.get(`${getItemsRoute}/${props.curId}/${props.curFilter}`).then((res) => {
+            setItems(res.data.items);
+        }).catch((err) =>{
+            toast.warn("Something went wrong trying to fetch items", toastProps);
+        });
+        
     }
 
     useEffect(() => {
