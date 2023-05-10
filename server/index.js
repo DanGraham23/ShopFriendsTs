@@ -11,7 +11,7 @@ const checkoutRoutes = require("./routes/checkoutRoutes");
 const app = express();
 require("dotenv").config();
 
-app.use(cors({origin:'http://localhost:5173', credentials:true}));
+app.use(cors({origin:process.env.FRONTEND_HOST, credentials:true}));
 app.use(cookieParser());
 app.use(express.json());
 

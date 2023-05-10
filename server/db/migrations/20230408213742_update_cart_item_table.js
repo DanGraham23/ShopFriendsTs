@@ -1,5 +1,5 @@
 
-export async function up(knex) {
+exports.up = function up(knex) {
     return knex.schema.alterTable('cart_item', function(table) {
         table.dropForeign('user_id');
         table.dropColumn('user_id');
@@ -8,7 +8,7 @@ export async function up(knex) {
 }
 
 
-export async function down(knex) {
+exports.down = function down(knex) {
     return knex.schema.alterTable('cart_item', function(table){
         table.dropForeign('cart_id');
         table.dropColumn('cart_id');

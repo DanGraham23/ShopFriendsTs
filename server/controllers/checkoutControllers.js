@@ -43,8 +43,8 @@ module.exports.checkoutItems = async (req, res, next) => {
         const session = await stripe.checkout.sessions.create({
           line_items: lineItems,
           mode: 'payment',
-          success_url: `http://localhost:${process.env.CLIENT_PORT}/?success=true`,
-          cancel_url: `http://localhost:${process.env.CLIENT_PORT}/?canceled=true`,
+          success_url: `${process.env.FRONTEND_HOST}/?success=true`,
+          cancel_url: `${process.env.FRONTEND_HOST}/?canceled=true`,
         });
         return res.json({url:session.url});
     }catch(ex){
