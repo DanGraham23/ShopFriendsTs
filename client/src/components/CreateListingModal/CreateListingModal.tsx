@@ -36,10 +36,10 @@ const CreateListingModal: React.FC<Props> = (props) =>{
         !isNaN(Number(itemPrice)) && itemDescription !== "" && 
         itemImg !== "" && itemTag !== "" && isLoggedIn){
             const formData = new FormData();
-            formData.append('user_id', id);
+            formData.append('user_id', String(id));
             formData.append('description', itemDescription);
             formData.append('name', itemName);
-            formData.append('price', Number(Number(itemPrice).toFixed(2)));
+            formData.append('price', String(Number(Number(itemPrice).toFixed(2))));
             formData.append('item_image', itemImg);
             formData.append('tag', itemTag);
             await axiosPrivate.put(addItemRoute,

@@ -17,7 +17,7 @@ const ImageUpload:React.FC<Props> = (props) => {
         const file = e.target.files[0];
         props.setProfileImg(URL.createObjectURL(file));
         const formData = new FormData();
-        formData.append('id',  props.id);
+        formData.append('id',  String(props.id));
         formData.append('profile_picture', file);
         if (props.isLoggedIn){
             await axiosPrivate.put(updatePfpRoute, formData,{
